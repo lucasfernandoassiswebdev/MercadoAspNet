@@ -4,7 +4,9 @@ using System.ComponentModel.DataAnnotations;
 namespace Mercado.Dominio
 {
     public class Estoque
-    {
+    {  
+        public int Id { get; set; }
+
         [Required(ErrorMessage = "Selecione 1 produto")]
         [DisplayName("Produto: ")]
         public int IdProduto { get; set; }

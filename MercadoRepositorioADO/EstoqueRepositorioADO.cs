@@ -14,7 +14,7 @@ namespace Mercado.RepositorioADO
         {
             var strQuery = "";
             strQuery += " INSERT INTO DBEstoque(IdProduto,Quantidade) " + 
-                         $" VALUES('{estoque.IdProduto}','{estoque.Quantidade}')";
+                          $" VALUES('{estoque.IdProduto}','{estoque.Quantidade}')";
 
             using (contexto = new Contexto())
             {
@@ -26,8 +26,9 @@ namespace Mercado.RepositorioADO
         {
             var strQuery = "";
             strQuery += " UPDATE DBEstoque SET " +
-                         $" Quantidade = '{estoque.Quantidade}' " +
-                         $" WHERE IdProduto = {estoque.IdProduto}";
+                          $" IdProduto = " + estoque.IdProduto +
+                          $" Quantidade = " + estoque.Quantidade +
+                          $" WHERE Id = " + estoque.Id;
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -36,7 +37,7 @@ namespace Mercado.RepositorioADO
 
         public void Salvar(Estoque estoque)
         {
-          if(estoque.IdProduto > 0)
+          if(estoque.Id > 0)
           {
             Alterar(estoque);
           }
