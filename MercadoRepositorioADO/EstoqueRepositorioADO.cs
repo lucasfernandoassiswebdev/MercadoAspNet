@@ -13,8 +13,8 @@ namespace Mercado.RepositorioADO
         private void Insert(Estoque estoque)
         {
             var strQuery = "";
-            strQuery += " INSERT INTO DBEstoque(IdProduto,Quantidade)";
-            strQuery += $" VALUES('{estoque.IdProduto}','{estoque.Quantidade}')";
+            strQuery += " INSERT INTO DBEstoque(IdProduto,Quantidade) " + 
+                         $" VALUES('{estoque.IdProduto}','{estoque.Quantidade}')";
 
             using (contexto = new Contexto())
             {

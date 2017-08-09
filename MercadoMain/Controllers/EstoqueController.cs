@@ -19,6 +19,7 @@ namespace ProjetoMercado.Controllers
         public ActionResult Index()
         {
             var listaDoEstoque = appEstoque.ListarTodos();
+            ViewBag.Produtos = appProdutos.ListarTodos();
             return View(listaDoEstoque);
         }
 
@@ -81,7 +82,7 @@ namespace ProjetoMercado.Controllers
 
             if (estoque == null)
                 return HttpNotFound();
-
+            ViewBag.Produto = appProdutos.ListarPorId(id);
             return View(estoque);
         }
 
@@ -91,6 +92,7 @@ namespace ProjetoMercado.Controllers
         {
             var estoque = appEstoque.ListarPorId(id);
             appEstoque.Excluir(estoque);
+            ViewBag.Produto = appProdutos.ListarPorId(id);
             return RedirectToAction("Index");
         }
     }

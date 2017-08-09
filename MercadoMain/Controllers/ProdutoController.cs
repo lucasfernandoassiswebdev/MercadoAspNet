@@ -91,7 +91,8 @@ namespace ProjetoMercado.Controllers
 
             if (produto == null)
                 return HttpNotFound();
-
+            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante.ToString());
+            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor.ToString());
             return View(produto);
         }
 
