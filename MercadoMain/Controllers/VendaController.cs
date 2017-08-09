@@ -22,8 +22,6 @@ namespace ProjetoMercado.Controllers
         public ActionResult Index()
         {
             var listaDeVendas = appVendas.ListarTodos();
-            ViewBag.Produto = appProdutos.ListarTodos();
-            ViewBag.Funcionario = appUsuarios.ListarTodos();
             return View(listaDeVendas);
         }
 

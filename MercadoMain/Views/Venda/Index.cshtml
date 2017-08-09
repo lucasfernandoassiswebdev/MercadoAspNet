@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Lista de vendas</h2>
 
 <p>
     @Html.ActionLink("Cadastrar nova venda", "Cadastrar")
@@ -29,21 +29,21 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.IdVenda)
+           @item.IdVenda
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdProduto)
+           @item.Produto.Nome
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Quantidade)
+           @item.Quantidade
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.IdFuncionario)
+           @item.Funcionario.Nome
         </td>
         <td>
-            @Html.ActionLink("Editar", "Editar", new { @*id = Model.Id*@ }) |
-            @Html.ActionLink("Detalhes", "Detalhes", new { /* id=item.PrimaryKey */ }) |
-            @Html.ActionLink("Deletar", "Deletar", new { /* id=item.PrimaryKey */ })
+            @Html.ActionLink("Editar", "Editar", new { id = item.IdVenda }) |
+            @Html.ActionLink("Detalhes", "Detalhes", new { id = item.IdVenda }) |
+            @Html.ActionLink("Deletar", "Deletar", new { id = item.IdVenda })
         </td>
     </tr>
 }
