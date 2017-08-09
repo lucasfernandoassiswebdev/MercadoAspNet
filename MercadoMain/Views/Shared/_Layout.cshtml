@@ -1,0 +1,53 @@
+﻿<!DOCTYPE html>
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title - Meu Aplicativo ASP.NET</title>
+    @Styles.Render("~/Content/css")
+    @Scripts.Render("~/bundles/modernizr")
+    <style>
+        ul {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: #333;
+        }
+
+        li {
+            float: left;
+        }
+
+        li a {
+            display: block;
+            color: white;
+            text-align: center;
+            padding: 14px 16px;
+            text-decoration: none;
+        }
+
+        li a:hover {
+            background-color: #111;
+        }
+    </style>
+</head>
+<body>
+    <ul>
+        <li>@Html.ActionLink("Inicio","../Home")</li>
+        <li>@Html.ActionLink("Fabricantes", "../Fabricante")</li>
+        <li>@Html.ActionLink("Distribuidores","../Distribuidor")</li>
+        <li>@Html.ActionLink("Produtos", "../Produto")</li>
+        <li>@Html.ActionLink("Estoque","../Estoque")</li>
+        <li>@Html.ActionLink("Usuários","../Usuario")</li>
+        <li>@Html.ActionLink("Controle das Vendas", "")</li>
+        <li>@Html.ActionLink("Vendas", "")</li>
+    </ul>
+
+    @RenderBody()
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
+    @RenderSection("scripts", required: false)
+</body>
+</html>

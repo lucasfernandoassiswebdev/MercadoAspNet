@@ -1,0 +1,34 @@
+﻿@model Mercado.Dominio.Estoque
+
+@{
+    ViewBag.Title = "Detalhes";
+}
+
+<h2>Detalhes do estoque</h2>
+
+<div>
+    <h4>Estoque</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.IdProduto)
+        </dt>
+
+        <dd>
+            @ViewBag.Produto.Nome
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Quantidade)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Quantidade)
+        </dd>
+
+    </dl>
+</div>
+<p>
+    @Html.ActionLink("Editar", "Editar", new { /* id = Model.PrimaryKey */ }) |
+    @Html.ActionLink("Voltar a lista", "Index")
+</p>

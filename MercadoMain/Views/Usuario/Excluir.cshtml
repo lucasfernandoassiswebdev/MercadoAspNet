@@ -1,0 +1,40 @@
+﻿@model Mercado.Dominio.Usuario
+
+@{
+    ViewBag.Title = "Excluir";
+}
+
+<h2>Excluir</h2>
+
+<h3>Deseja mesmo remover este funcionário da lista?</h3>
+<div>
+    <h4>Usuario</h4>
+    <hr />
+    <dl class="dl-horizontal">
+        <dt>
+            @Html.DisplayNameFor(model => model.Nome)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nome)
+        </dd>
+
+        <dt>
+            @Html.DisplayNameFor(model => model.Nivel)
+        </dt>
+
+        <dd>
+            @Html.DisplayFor(model => model.Nivel)
+        </dd>
+
+    </dl>
+
+    @using (Html.BeginForm()) {
+        @Html.AntiForgeryToken()
+
+        <div class="form-actions no-color">
+            <input type="submit" value="Excluir" class="btn btn-default" /> |
+            @Html.ActionLink("Voltar a lista", "Index")
+        </div>
+    }
+</div>
