@@ -13,10 +13,8 @@ namespace Mercado.RepositorioADO
         private void Insert(Distribuidor distribuidor)
         {
             var strQuery = "";
-            strQuery += " INSERT INTO DBDistribuidores(Nome)";
-            strQuery += string.Format(" VALUES('{0}')",
-                distribuidor.Nome
-            );
+            strQuery += " INSERT INTO DBDistribuidores(Nome)" +
+                          $" VALUES('{distribuidor.Nome}') ";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -26,9 +24,9 @@ namespace Mercado.RepositorioADO
         private void Alterar(Distribuidor distribuidor)
         {
             var strQuery = "";
-            strQuery += "UPDATE DBDistribuidores SET ";
-            strQuery += string.Format(" Nome = '{0}'", distribuidor.Nome);
-            strQuery += string.Format(" WHERE Id = {0}", distribuidor.Id);
+            strQuery += "UPDATE DBDistribuidores SET " +
+                         $" Nome = '{distribuidor.Nome}'" +
+                         $" WHERE Id = {distribuidor.Id}";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -37,7 +35,6 @@ namespace Mercado.RepositorioADO
 
         public void Salvar(Distribuidor distribuidor)
         {
-            //se passar o id ele vai alterar, se não passar ele vai inserir um novo aluno
             if (distribuidor.Id > 0)
                 Alterar(distribuidor);
             else
@@ -48,7 +45,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format("DELETE FROM DBDistribuidores WHERE Id = '{0}'", distribuidor.Id);
+                var strQuery = $"DELETE FROM DBDistribuidores WHERE Id = '{distribuidor.Id}'";
                 contexto.ExecutaComando(strQuery);
             }
         }
@@ -67,7 +64,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format(" SELECT * FROM DBDistribuidores WHERE Id = {0}", id);
+                var strQuery = $" SELECT * FROM DBDistribuidores WHERE Id = {id}";
                 var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
                 return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
             }
@@ -80,8 +77,8 @@ namespace Mercado.RepositorioADO
             {
                 var temObjeto = new Distribuidor()
                 {
-                    Id = int.Parse(reader["Id"].ToString()),
-                    Nome = reader["Nome"].ToString(),
+                    Id = reader.ReadAsInt("Id"),
+                    Nome = reader.ReadAsString("Nome")
                 };
                 distribuidores.Add(temObjeto);
             }

@@ -18,8 +18,8 @@
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         
         <div style="margin-left:17%">
-            <label for="batata">Produto: </label>
-            <div id="batata" name="IdProduto" value="@ViewBag.Produto.Id">@ViewBag.Produto.Nome</div>
+            <label for="nome">Produto: </label>
+            <div id="nome" name="IdProduto" value="@Model.Produto.Id">@ViewBag.Produto.Nome</div>
         </div>
         
         <div class="form-group">

@@ -13,11 +13,8 @@ namespace Mercado.RepositorioADO
         private void Insert(Usuario usuario)
         {
             var strQuery = "";
-            strQuery += " INSERT INTO DBUsuarios(Nome,Nivel)";
-            strQuery += string.Format(" VALUES('{0}','{1}')",
-                usuario.Nome,
-                usuario.Nivel
-            );
+            strQuery += " INSERT INTO DBUsuarios(Nome,Nivel)" +
+                       $" VALUES('{usuario.Nome}','{usuario.Nivel}')";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -27,10 +24,10 @@ namespace Mercado.RepositorioADO
         private void Alterar(Usuario usuario)
         {
             var strQuery = "";
-            strQuery += "UPDATE DBUsuarios SET ";
-            strQuery += string.Format(" Nome = '{0}', ", usuario.Nome);
-            strQuery += string.Format(" Nivel = '{0}' ", usuario.Nivel);
-            strQuery += string.Format(" WHERE Id = '{0}' ", usuario.Id);
+            strQuery += "UPDATE DBUsuarios SET " + 
+                        $" Nome = '{usuario.Nome}', " +
+                        $" Nivel = '{usuario.Nivel}' " +
+                        $" WHERE Id = '{usuario.Id}' ";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -49,7 +46,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format("DELETE FROM DBUsuarios WHERE Id = '{0}'", usuario.Id);
+                var strQuery = $"DELETE FROM DBUsuarios WHERE Id = '{usuario.Id}'";
                 contexto.ExecutaComando(strQuery);
             }
         }
@@ -68,7 +65,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format(" SELECT * FROM DBUsuarios WHERE Id = {0}", id);
+                var strQuery = $" SELECT * FROM DBUsuarios WHERE Id = {id}";
                 var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
                 return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
             }
@@ -81,9 +78,9 @@ namespace Mercado.RepositorioADO
             {
                 var temObjeto = new Usuario()
                 {
-                    Id = int.Parse(reader["Id"].ToString()),
-                    Nome = reader["Nome"].ToString(),
-                    Nivel = reader["Nivel"].ToString()
+                    Id = reader.ReadAsInt("Id"),
+                    Nome = reader.ReadAsString("Nome"),
+                    Nivel = reader.ReadAsString("Nivel")
                 };
                 usuario.Add(temObjeto);
             }

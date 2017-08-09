@@ -51,7 +51,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format("DELETE FROM DBEstoque WHERE IdProduto = '{0}'", estoque.IdProduto);
+                var strQuery = $"DELETE FROM DBEstoque WHERE IdProduto = '{estoque.IdProduto}'";
                 contexto.ExecutaComando(strQuery);
             }
         }
@@ -94,7 +94,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format(" SELECT * FROM DBEstoque WHERE IdProduto = {0}", id);
+                var strQuery = $" SELECT * FROM DBEstoque WHERE IdProduto = {id}";
                 var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
                 return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
             }

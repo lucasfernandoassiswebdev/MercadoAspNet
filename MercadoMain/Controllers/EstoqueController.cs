@@ -48,7 +48,7 @@ namespace ProjetoMercado.Controllers
             var estoque = appEstoque.ListarPorId(id);
             if (estoque == null)
                 return HttpNotFound();
-            ViewBag.Produto = appProdutos.ListarPorId(id);
+            ViewBag.Produto = appEstoque.ListarPorId(id);
             return View(estoque);
         }
 
@@ -62,7 +62,7 @@ namespace ProjetoMercado.Controllers
                 appFabricante.Salvar(estoque);
                 return RedirectToAction("Index");
             }
-            ViewBag.Produto = appProdutos.ListarPorId(estoque.IdProduto.ToString());
+            ViewBag.Produto = appEstoque.ListarPorId(estoque.IdProduto.ToString()) ;
             return View(estoque);
         }
 

@@ -13,8 +13,8 @@ namespace Mercado.RepositorioADO
         private void Insert(Produto produto)
         {
             var strQuery = "";
-            strQuery += " INSERT INTO DBProdutos(Nome,Valor,Fabricante,Distribuidor)";
-            strQuery +=   $" VALUES('{produto.Nome}','{produto.Valor}','{produto.IdFabricante}','{produto.IdDistribuidor}')";
+            strQuery += " INSERT INTO DBProdutos(Nome,Valor,Fabricante,Distribuidor)" + 
+                       $" VALUES('{produto.Nome}','{produto.Valor}','{produto.IdFabricante}','{produto.IdDistribuidor}')";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -99,7 +99,8 @@ namespace Mercado.RepositorioADO
                             Nome = reader.ReadAsString("Nome"),
                             IdFabricante = reader.ReadAsInt("Fabricante"),
                             IdDistribuidor = reader.ReadAsInt("Distribuidor"),
-                            Valor = reader.ReadAsDecimal("Valor")                        };
+                            Valor = reader.ReadAsDecimal("Valor")
+                        };
 
                 return null;
             }

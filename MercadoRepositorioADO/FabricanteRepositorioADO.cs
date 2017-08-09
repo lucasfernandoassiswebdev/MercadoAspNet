@@ -13,10 +13,8 @@ namespace Mercado.RepositorioADO
         private void Insert(Fabricante fabricante)
         {
             var strQuery = "";
-            strQuery += " INSERT INTO DBFabricantes(Nome)";
-            strQuery += string.Format(" VALUES('{0}')",
-                fabricante.Nome
-                );
+            strQuery += " INSERT INTO DBFabricantes(Nome)" +
+                          $" VALUES('{fabricante.Nome}')";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -26,9 +24,9 @@ namespace Mercado.RepositorioADO
         private void Alterar(Fabricante fabricante)
         {
             var strQuery = "";
-            strQuery += "UPDATE DBFabricantes SET ";
-            strQuery += string.Format(" Nome = '{0}'", fabricante.Nome);
-            strQuery += string.Format(" WHERE Id = {0}",fabricante.Id);
+            strQuery += "UPDATE DBFabricantes SET " + 
+                         $" Nome = '{fabricante.Nome}'" + 
+                         $" WHERE Id = {fabricante.Id}";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -37,7 +35,6 @@ namespace Mercado.RepositorioADO
 
         public void Salvar(Fabricante fabricante)
         {
-            //se passar o id ele vai alterar, se não passar ele vai inserir um novo aluno
             if (fabricante.Id > 0)
                 Alterar(fabricante);
             else
@@ -48,7 +45,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format("DELETE FROM DBFabricantes WHERE Id = '{0}'", fabricante.Id);
+                var strQuery = $"DELETE FROM DBFabricantes WHERE Id = '{fabricante.Id}'";
                 contexto.ExecutaComando(strQuery);
             }
         }
@@ -67,7 +64,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = string.Format(" SELECT * FROM DBFabricantes WHERE Id = {0}", id);
+                var strQuery = $" SELECT * FROM DBFabricantes WHERE Id = {id}";
                 var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
                 return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
             }
@@ -80,8 +77,8 @@ namespace Mercado.RepositorioADO
             {
                 var temObjeto = new Fabricante()
                 {
-                    Id = int.Parse(reader["Id"].ToString()),
-                    Nome = reader["Nome"].ToString(),
+                    Id = reader.ReadAsInt("Id"),
+                    Nome = reader.ReadAsString("Nome")
                 };
                 fabricantes.Add(temObjeto);
             }

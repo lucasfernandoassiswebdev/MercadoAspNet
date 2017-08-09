@@ -11,8 +11,8 @@ namespace Mercado.RepositorioADO
         private void Insert(Venda venda)
         {
             var strQuery = "";
-            strQuery += " INSERT INTO DBVendas(IdProduto,Quantidade,Funcionario)";
-            strQuery += $" VALUES('{venda.IdProduto}','{venda.Quantidade}','{venda.Funcionario}'";
+            strQuery += " INSERT INTO DBVendas(IdProduto,Quantidade,Funcionario)" + 
+                       $" VALUES('{venda.IdProduto}','{venda.Quantidade}','{venda.Funcionario}'";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -23,7 +23,6 @@ namespace Mercado.RepositorioADO
         {
             var strQuery = "";
             strQuery += "UPDATE DBVendas SET ";
-            //String Interpolation = $
             strQuery += $" IdProduto = '{venda.IdProduto}', " +
                         $" Quantidade = '{venda.Quantidade}', " +
                         $" Funcionario = '{venda.Funcionario}', ";
@@ -35,7 +34,6 @@ namespace Mercado.RepositorioADO
 
         public void Salvar(Venda venda)
         {
-            //se passar o id ele vai alterar, se não passar ele vai inserir um novo aluno
             if (venda.IdVenda > 0)
                 Alterar(venda);
             else
