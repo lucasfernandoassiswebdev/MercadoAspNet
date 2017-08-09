@@ -10,6 +10,6 @@ namespace Mercado.Dominio.Contrato
 
         IEnumerable<T> ListarTodos();
 
-        T ListarPorId(string Id);
+        T ListarPorId(int Id);
     }
 }

@@ -60,7 +60,7 @@ namespace Mercado.RepositorioADO
             }
         }
 
-        public Fabricante ListarPorId(string id)
+        public Fabricante ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {

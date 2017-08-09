@@ -32,7 +32,7 @@ namespace Mercado.Aplicacao.VendasApp
             return repositorio.ListarTodos();
         }
 
-        public Venda ListarPorId(string id)
+        public Venda ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
         }

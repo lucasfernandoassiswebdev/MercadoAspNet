@@ -29,7 +29,7 @@ namespace Mercado.Aplicacao.EstoqueApp
             return repositorio.ListarTodos();
         }
 
-        public Estoque ListarPorId(string id)
+        public Estoque ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
         }

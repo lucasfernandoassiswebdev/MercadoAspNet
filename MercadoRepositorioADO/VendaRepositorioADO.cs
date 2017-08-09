@@ -72,7 +72,7 @@ namespace Mercado.RepositorioADO
             }
         }
 
-        public Venda ListarPorId(string id)
+        public Venda ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {

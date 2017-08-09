@@ -32,7 +32,7 @@ namespace Mercado.Aplicacao.UsuarioApp
             return repositorio.ListarTodos();
         }
 
-        public Usuario ListarPorId(string id)
+        public Usuario ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
         }

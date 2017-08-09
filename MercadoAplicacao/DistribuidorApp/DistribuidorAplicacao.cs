@@ -32,7 +32,7 @@ namespace Mercado.Aplicacao.DistribuidorApp
             return repositorio.ListarTodos();
         }
 
-        public Distribuidor ListarPorId(string id)
+        public Distribuidor ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
         }

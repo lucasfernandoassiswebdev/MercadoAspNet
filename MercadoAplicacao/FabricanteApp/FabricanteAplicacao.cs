@@ -28,7 +28,7 @@ namespace Mercado.Aplicacao.FabricanteApp
             return repositorio.ListarTodos();
         }
 
-        public Fabricante ListarPorId(string id)
+        public Fabricante ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
         }

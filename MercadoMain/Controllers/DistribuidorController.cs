@@ -37,7 +37,7 @@ namespace ProjetoMercado.Controllers
             return View(distribuidor);
         }
 
-        public ActionResult Editar(string id)
+        public ActionResult Editar(int id)
         {
             var distribuidor = appDistribuidor.ListarPorId(id);
 
@@ -60,7 +60,7 @@ namespace ProjetoMercado.Controllers
             return View(distribuidor);
         }
 
-        public ActionResult Detalhes(string id)
+        public ActionResult Detalhes(int id)
         {
             var distribuidor = appDistribuidor.ListarPorId(id);
 
@@ -70,7 +70,7 @@ namespace ProjetoMercado.Controllers
             return View(distribuidor);
         }
 
-        public ActionResult Excluir(string id)
+        public ActionResult Excluir(int id)
         {
             var distribuidor = appDistribuidor.ListarPorId(id);
 
@@ -82,7 +82,7 @@ namespace ProjetoMercado.Controllers
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(string id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
+        public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
             var distribuidor = appDistribuidor.ListarPorId(id);
             appDistribuidor.Excluir(distribuidor);

@@ -49,7 +49,7 @@ namespace ProjetoMercado.Controllers
             return View(produto);
         }
 
-        public ActionResult Editar(string id)
+        public ActionResult Editar(int id)
         {
             var produto = appProduto.ListarPorId(id);
             ViewBag.Fabricantes = appFabricante.ListarTodos();
@@ -75,30 +75,30 @@ namespace ProjetoMercado.Controllers
             return View(produto);
         }
 
-        public ActionResult Detalhes(string id)
+        public ActionResult Detalhes(int id)
         {
             var produto = appProduto.ListarPorId(id);
             if (produto == null)
                 return HttpNotFound();
-            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante.ToString());
-            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor.ToString());
+            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
+            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
         }
 
-        public ActionResult Excluir(string id)
+        public ActionResult Excluir(int id)
         {
             var produto = appProduto.ListarPorId(id);
 
             if (produto == null)
                 return HttpNotFound();
-            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante.ToString());
-            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor.ToString());
+            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
+            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
         }
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(string id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
+        public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
             var produto = appProduto.ListarPorId(id);
             appProduto.Excluir(produto);

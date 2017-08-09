@@ -27,7 +27,7 @@ namespace Mercado.RepositorioADO
             var strQuery = "";
             strQuery += " UPDATE DBEstoque SET " +
                           $" IdProduto = " + estoque.IdProduto +
-                          $" Quantidade = " + estoque.Quantidade +
+                          $", Quantidade = " + estoque.Quantidade +
                           $" WHERE Id = " + estoque.Id;
             using (contexto = new Contexto())
             {
@@ -90,7 +90,7 @@ namespace Mercado.RepositorioADO
             }
         }
 
-        public Estoque ListarPorId(string id)
+        public Estoque ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {
@@ -107,6 +107,7 @@ namespace Mercado.RepositorioADO
             {
                 var temObjeto = new Estoque()
                 {
+                    Id = reader.ReadAsInt("Id"),
                     IdProduto = reader.ReadAsInt("IdProduto"),
                     Quantidade = reader.ReadAsDecimal("Quantidade")
                 };

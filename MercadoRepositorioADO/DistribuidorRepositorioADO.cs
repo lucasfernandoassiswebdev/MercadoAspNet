@@ -60,7 +60,7 @@ namespace Mercado.RepositorioADO
             }
         }
 
-        public Distribuidor ListarPorId(string id)
+        public Distribuidor ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {

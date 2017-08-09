@@ -28,7 +28,7 @@ namespace Mercado.Aplicacao.ProdutoApp
             return repositorio.ListarTodos();
         }
 
-        public Produto ListarPorId(string id)
+        public Produto ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
         }

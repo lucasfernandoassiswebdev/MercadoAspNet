@@ -61,7 +61,7 @@ namespace Mercado.RepositorioADO
             }
         }
 
-        public Usuario ListarPorId(string id)
+        public Usuario ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {

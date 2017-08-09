@@ -85,7 +85,7 @@ namespace Mercado.RepositorioADO
             }
         }
 
-        public Produto ListarPorId(string id)
+        public Produto ListarPorId(int id)
         {
             using (contexto = new Contexto())
             {
@@ -115,9 +115,9 @@ namespace Mercado.RepositorioADO
             return r.IsDBNull(ordinal) ? (int?)null : r.GetInt32(ordinal);
         }
 
-        public static int ReadAsInt(this SqlDataReader r, string numero)
+        public static int ReadAsInt(this SqlDataReader r, string name)
         {
-            return r.GetInt32(r.GetOrdinal(numero));
+            return r.GetInt32(r.GetOrdinal(name));
         }
 
         public static string ReadAsString(this SqlDataReader r, string name)
