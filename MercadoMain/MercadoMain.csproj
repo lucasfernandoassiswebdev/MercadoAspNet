@@ -213,6 +213,10 @@
     <Content Include="Views\Usuario\Editar.cshtml" />
     <Content Include="Views\Usuario\Detalhes.cshtml" />
     <Content Include="Views\Usuario\Excluir.cshtml" />
+    <Content Include="Views\Venda\Detalhes.cshtml" />
+    <Content Include="Views\Venda\Excluir.cshtml" />
+    <Content Include="Views\Venda\Cadastrar.cshtml" />
+    <Content Include="Views\Venda\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

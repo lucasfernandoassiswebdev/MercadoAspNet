@@ -12,7 +12,7 @@ namespace Mercado.RepositorioADO
         {
             var strQuery = "";
             strQuery += " INSERT INTO DBVendas(IdProduto,Quantidade,Funcionario)" + 
-                       $" VALUES('{venda.IdProduto}','{venda.Quantidade}','{venda.Funcionario}'";
+                       $" VALUES({venda.IdProduto},{venda.Quantidade},{venda.IdFuncionario})";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -55,7 +55,7 @@ namespace Mercado.RepositorioADO
             {
                 var strQuery = " select v.IdVenda, p.Nome as 'Produto', v.Quantidade, u.Nome as 'Funcionario' from DBVendas v " +
                                " inner join DBUsuarios u on u.Id = v.Funcionario" +
-                               " inner join DBUsuarios u on u.Id = v.Funcionario";
+                               " inner join DBProdutos p on p.Id = v.IdVenda";
                 //byte, short, int, long, ubyte, ushort, uint, ulong
                 var vendas = new List<Venda>();
                 using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
@@ -65,7 +65,7 @@ namespace Mercado.RepositorioADO
                             IdVenda = reader.ReadAsInt("IdVenda"),
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             Quantidade = reader.ReadAsDecimal("Quantidade"),
-                            Funcionario = reader.ReadAsInt("Funcionario")
+                            IdFuncionario = reader.ReadAsInt("Funcionario")
                         });
 
                 return vendas;
@@ -85,7 +85,7 @@ namespace Mercado.RepositorioADO
                             IdVenda = reader.ReadAsInt("IdVenda"),
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             Quantidade = reader.ReadAsDecimal("Quantidade"),
-                            Funcionario = reader.ReadAsInt("Funcionario"),
+                            IdFuncionario = reader.ReadAsInt("Funcionario"),
                         };
 
                 return null;

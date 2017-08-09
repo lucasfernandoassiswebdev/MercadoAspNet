@@ -18,6 +18,9 @@ namespace Mercado.Dominio
 
         [Required(ErrorMessage = "Selecione o funcionário")]
         [DisplayName("Funcionário: ")]
-        public Int32 Funcionario { get; set; }
+        public int IdFuncionario { get; set; }
+
+        public Produto Produto { get; set; }
+        public Usuario Funcionario { get; set; } 
     }
 }

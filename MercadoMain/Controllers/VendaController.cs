@@ -1,4 +1,6 @@
-﻿using Mercado.Aplicacao.VendasApp;
+﻿using Mercado.Aplicacao.ProdutoApp;
+using Mercado.Aplicacao.UsuarioApp;
+using Mercado.Aplicacao.VendasApp;
 using Mercado.Dominio;
 using System.Web.Mvc;
 
@@ -7,20 +9,28 @@ namespace ProjetoMercado.Controllers
     public class VendaController : Controller
     {
         private VendasAplicacao appVendas;
+        private ProdutoAplicacao appProdutos;
+        private UsuarioAplicacao appUsuarios;
 
         public VendaController()
         {
             appVendas = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
+            appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
+            appUsuarios = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
         }
 
         public ActionResult Index()
         {
             var listaDeVendas = appVendas.ListarTodos();
+            ViewBag.Produto = appProdutos.ListarTodos();
+            ViewBag.Funcionario = appUsuarios.ListarTodos();
             return View(listaDeVendas);
         }
 
         public ActionResult Cadastrar()
         {
+            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Funcionario = appUsuarios.ListarTodos();
             return View();
         }
 
@@ -34,6 +44,8 @@ namespace ProjetoMercado.Controllers
                 appProduto.Salvar(venda);
                 return RedirectToAction("Index");
             }
+            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Funcionario = appUsuarios.ListarTodos();
             return View(venda);
         }
 
