@@ -30,7 +30,7 @@ namespace Mercado.RepositorioADO
             strQuery += " UPDATE DBEstoque SET " +
                           $" IdProduto = " + estoque.IdProduto +
                           $", Quantidade = " + estoque.Quantidade +
-                          $" WHERE Id = " + estoque.Id;
+                          $" WHERE IdProduto = " + estoque.IdProduto;
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -39,7 +39,7 @@ namespace Mercado.RepositorioADO
 
         public void Salvar(Estoque estoque)
         {
-          if(estoque.Id > 0)
+          if(estoque.IdProduto > 0)
           {
             Alterar(estoque);
           }

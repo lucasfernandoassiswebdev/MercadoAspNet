@@ -47,6 +47,9 @@ namespace ProjetoMercado.Controllers
                 - SimpleInjector
              */
             var quantidade = appEstoque.BuscaQuantidadeProduto(venda.IdProduto);
+
+            decimal? novoEstoque = quantidade - venda.Quantidade;
+
             if (quantidade == null)
                 ModelState.AddModelError("VENDA", "Não foi encontrado estoque para o produto informado!");
             else if (quantidade < venda.Quantidade)
@@ -55,9 +58,16 @@ namespace ProjetoMercado.Controllers
             if (ModelState.IsValid)
             {
                 appVendas.Salvar(venda);
+                var estoque = new Estoque
+                {
+                    IdProduto = venda.IdProduto,
+                    Quantidade = (decimal)novoEstoque
+                };
+
+                appEstoque.Salvar(estoque);
+
                 return RedirectToAction("Index");
             }
-
             ViewBag.Produtos = appProdutos.ListarTodos();
             ViewBag.Funcionario = appUsuarios.ListarTodos();
             return View(venda);
