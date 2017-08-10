@@ -217,6 +217,7 @@
     <Content Include="Views\Venda\Excluir.cshtml" />
     <Content Include="Views\Venda\Cadastrar.cshtml" />
     <Content Include="Views\Venda\Index.cshtml" />
+    <Content Include="Views\Venda\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

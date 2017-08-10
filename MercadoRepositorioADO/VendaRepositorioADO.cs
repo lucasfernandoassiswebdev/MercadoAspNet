@@ -24,8 +24,9 @@ namespace Mercado.RepositorioADO
             var strQuery = "";
             strQuery += "UPDATE DBVendas SET ";
             strQuery += $" IdProduto = '{venda.IdProduto}', " +
-                        $" Quantidade = '{venda.Quantidade}', " +
-                        $" Funcionario = '{venda.Funcionario}', ";
+                        $"  Quantidade = '{venda.Quantidade}', " +
+                        $"  Funcionario = '{venda.Funcionario}', " +
+                        $" WHERE IdVenda = {venda.IdVenda}";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
@@ -44,7 +45,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $"DELETE FROM DBProdutos WHERE IdVenda = '{venda.IdVenda}'";
+                var strQuery = $" DELETE FROM DBVendas WHERE IdVenda = {venda.IdVenda}";
                 contexto.ExecutaComando(strQuery);
             }
         }
