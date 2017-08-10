@@ -23,10 +23,10 @@ namespace Mercado.RepositorioADO
         {
             var strQuery = "";
             strQuery += "UPDATE DBVendas SET ";
-            strQuery += $" IdProduto = '{venda.IdProduto}', " +
-                        $"  Quantidade = '{venda.Quantidade}', " +
-                        $"  Funcionario = '{venda.Funcionario}', " +
-                        $" WHERE IdVenda = {venda.IdVenda}";
+            strQuery += $" IdProduto = {venda.IdProduto}, " +
+                        $" Quantidade = {venda.Quantidade}, " +
+                        $" Funcionario = {venda.IdFuncionario} " +
+                        $" WHERE IdVenda = {venda.IdVenda} ";
             using (contexto = new Contexto())
             {
                 contexto.ExecutaComando(strQuery);
