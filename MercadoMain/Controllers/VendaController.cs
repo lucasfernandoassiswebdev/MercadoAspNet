@@ -1,4 +1,5 @@
-﻿using Mercado.Aplicacao.ProdutoApp;
+﻿using Mercado.Aplicacao.EstoqueApp;
+using Mercado.Aplicacao.ProdutoApp;
 using Mercado.Aplicacao.UsuarioApp;
 using Mercado.Aplicacao.VendasApp;
 using Mercado.Dominio;
@@ -11,12 +12,14 @@ namespace ProjetoMercado.Controllers
         private VendasAplicacao appVendas;
         private ProdutoAplicacao appProdutos;
         private UsuarioAplicacao appUsuarios;
+        private EstoqueAplicacao appEstoque;
 
         public VendaController()
         {
             appVendas = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
             appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
             appUsuarios = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
+            appEstoque = EstoqueAplicacaoConstrutor.EstoqueAplicacaoADO();
         }
 
         public ActionResult Index()
@@ -42,8 +45,11 @@ namespace ProjetoMercado.Controllers
                 appProduto.Salvar(venda);
                 return RedirectToAction("Index");
             }
+
+            ViewBag.Estoque = appEstoque.RetornaQuantidade();
             ViewBag.Produtos = appProdutos.ListarTodos();
             ViewBag.Funcionario = appUsuarios.ListarTodos();
+
             return View(venda);
         }
 

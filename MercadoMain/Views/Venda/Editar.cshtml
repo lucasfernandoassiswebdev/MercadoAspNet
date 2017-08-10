@@ -22,7 +22,7 @@
         <select name="IdProduto" id="PRODUTOS">
             @foreach (var produto in ViewBag.Produtos)
             {
-                <option value="@produto.Id">@produto.Nome</option>
+                <option value="@produto.Id" @(Model.IdProduto == produto.Id ? "selected" : string.Empty)>@produto.Nome</option>
             }
         </select>
 
@@ -38,7 +38,9 @@
         <select name="IdFuncionario" id="FUNCIONARIOS">
             @foreach (var funcionario in ViewBag.Funcionarios)
             {
-                <option value="@funcionario.Id">@funcionario.Nome</option>
+                <option value="@funcionario.Id" @(Model.IdFuncionario == funcionario.Id ? "selected" : string.Empty)>
+                    @funcionario.Nome
+                </option>
             }
         </select>
 

@@ -90,6 +90,16 @@ namespace Mercado.RepositorioADO
             }
         }
 
+        public Estoque RetornaQuantidade(int id)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = $" SELECT Quantidade from DBEstoque WHERE Id = {id}";
+                var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
+            }
+        }
+
         public Estoque ListarPorId(int id)
         {
             using (contexto = new Contexto())
