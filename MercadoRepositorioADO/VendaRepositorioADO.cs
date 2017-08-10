@@ -53,19 +53,27 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = " select v.IdVenda, p.Nome as 'Produto', v.Quantidade, u.Nome as 'Funcionario' from DBVendas v " +
-                               " inner join DBUsuarios u on u.Id = v.Funcionario" +
-                               " inner join DBProdutos p on p.Id = v.IdVenda";
+                var strQuery = " select v.IdVenda, p.Id as 'IdProduto', p.Nome as 'Produto', v.Quantidade, v.Funcionario, u.Nome as 'FuncionarioNome' from DBVendas v " +
+                               " inner join DBProdutos p on p.Id  = v.IdProduto" +
+                               " inner join DBUsuarios u on u.Id = v.Funcionario";
                 //byte, short, int, long, ubyte, ushort, uint, ulong
                 var vendas = new List<Venda>();
                 using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
                     while (reader.Read())
-                        vendas.Add( new Venda()
+                        vendas.Add(new Venda()
                         {
                             IdVenda = reader.ReadAsInt("IdVenda"),
                             IdProduto = reader.ReadAsInt("IdProduto"),
+                            IdFuncionario = reader.ReadAsInt("Funcionario"),
+                            Produto = new Produto
+                            {
+                                Nome = reader.ReadAsString("Produto")
+                            },
                             Quantidade = reader.ReadAsDecimal("Quantidade"),
-                            IdFuncionario = reader.ReadAsInt("Funcionario")
+                            Funcionario = new Usuario
+                            {
+                                Nome = reader.ReadAsString("FuncionarioNome")
+                            }
                         });
 
                 return vendas;
@@ -76,7 +84,9 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $" SELECT * DBVendas WHERE IdVenda = {id}";
+                var strQuery = " SELECT v.IdVenda, v.IdProduto, p.Nome, v.Quantidade, v.Funcionario FROM DBVendas v  " +
+                               " inner join DBProdutos p on p.Id = v.IdProduto " +
+                              $" WHERE IdVenda = {id}";
 
                 using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
                     if (reader.Read())
@@ -86,6 +96,10 @@ namespace Mercado.RepositorioADO
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             Quantidade = reader.ReadAsDecimal("Quantidade"),
                             IdFuncionario = reader.ReadAsInt("Funcionario"),
+                            Produto = new Produto
+                            {
+                                Nome = reader.ReadAsString("Nome")
+                            }
                         };
 
                 return null;

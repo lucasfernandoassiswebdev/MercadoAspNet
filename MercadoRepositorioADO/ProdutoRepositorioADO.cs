@@ -60,8 +60,8 @@ namespace Mercado.RepositorioADO
             using (contexto = new Contexto())
             {
                 var strQuery = " select p.Id, p.Nome, p.Valor, f.Nome as 'nFabricante', d.Nome as 'nDistribuidor' from DBProdutos p " +
-                                "inner join DBFabricantes f on f.Id = p.Fabricante " +
-                                "inner join DBDistribuidores d on d.Id = p.Distribuidor";
+                               " inner join DBFabricantes f on f.Id = p.Fabricante " +
+                               " inner join DBDistribuidores d on d.Id = p.Distribuidor";
                 //byte, short, int, long, ubyte, ushort, uint, ulong
                 var produtos = new List<Produto>();
                 using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
@@ -89,8 +89,11 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $" SELECT * FROM DBProdutos WHERE Id = {id}";
-
+                var strQuery = $" select p.Id, p.Nome, p.Valor, p.Fabricante, p.Distribuidor, p.Valor, " +
+                               "  f.Nome as 'NomeFabricante', d.Nome  as 'NomeDistribuidor' from DBProdutos p " +
+                               "  inner join DBFabricantes f on f.Id = p.Fabricante " +
+                               "  inner join DBDistribuidores d on d.Id = p.Distribuidor " +
+                               $" where p.Id = {id}";
                 using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
                     if (reader.Read())
                         return new Produto
@@ -99,7 +102,15 @@ namespace Mercado.RepositorioADO
                             Nome = reader.ReadAsString("Nome"),
                             IdFabricante = reader.ReadAsInt("Fabricante"),
                             IdDistribuidor = reader.ReadAsInt("Distribuidor"),
-                            Valor = reader.ReadAsDecimal("Valor")
+                            Valor = reader.ReadAsDecimal("Valor"),
+                            Fabricante = new Fabricante
+                            {
+                                Nome = reader.ReadAsString("NomeFabricante")
+                            },
+                            Distribuidor = new Distribuidor
+                            {
+                                Nome = reader.ReadAsString("NomeDistribuidor")
+                            }
                         };
 
                 return null;

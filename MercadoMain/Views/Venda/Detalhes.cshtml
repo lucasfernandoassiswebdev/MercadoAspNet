@@ -1,4 +1,6 @@
-﻿@model Mercado.Dominio.Venda
+﻿@using Mercado.Dominio;
+
+@model Venda
 
 @{
     ViewBag.Title = "Detalhes";
@@ -19,11 +21,11 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.IdProduto)
+            Produto
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.IdProduto)
+            @Model.Produto.Nome
         </dd>
 
         <dt>
@@ -39,12 +41,12 @@
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.Funcionario)
+           @ViewBag.Funcionario.Nome
         </dd>
 
     </dl>
 </div>
 <p>
     @Html.ActionLink("Editar", "Editar", new { id = Model.IdVenda }) |
-    @Html.ActionLink("Back to List", "Index")
+    @Html.ActionLink("Voltar a lista", "Index")
 </p>

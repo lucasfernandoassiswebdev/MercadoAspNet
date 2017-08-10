@@ -76,7 +76,7 @@ namespace ProjetoMercado.Controllers
 
             if (venda == null)
                 return HttpNotFound();
-
+            ViewBag.Funcionario = appUsuarios.ListarPorId(id);
             return View(venda);
         }
 
