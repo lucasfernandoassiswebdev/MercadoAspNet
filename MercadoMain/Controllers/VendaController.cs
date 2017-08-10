@@ -80,7 +80,7 @@ namespace ProjetoMercado.Controllers
             if (venda == null)
                 return HttpNotFound();
             ViewBag.Produtos = appProdutos.ListarTodos();
-            ViewBag.Funcionarios = appUsuarios.ListarPorId(id);
+            ViewBag.Funcionario = appUsuarios.ListarPorId(venda.IdFuncionario);
             return View(venda);
         }
 
@@ -90,7 +90,6 @@ namespace ProjetoMercado.Controllers
 
             if (venda == null)
                 return HttpNotFound();
-            ViewBag.Funcionarios = appUsuarios.ListarPorId(id);
             return View(venda);
         }
 
@@ -100,7 +99,6 @@ namespace ProjetoMercado.Controllers
         {
             var venda = appVendas.ListarPorId(id);
             appVendas.Excluir(venda);
-            ViewBag.Funcionariso = appUsuarios.ListarPorId(id); 
             return RedirectToAction("Index");
         }
     }
