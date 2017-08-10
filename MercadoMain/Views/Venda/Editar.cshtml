@@ -25,6 +25,7 @@
                 <option value="@produto.Id" @(Model.IdProduto == produto.Id ? "selected" : string.Empty)>@produto.Nome</option>
             }
         </select>
+        <br /><br />
 
         <div class="form-group">
             @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
@@ -33,7 +34,6 @@
                 @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
             </div>
         </div>
-
         <label for="FUNCIONARIOS" style="margin-left:4%">Selecione um funcionário: </label>
         <select name="IdFuncionario" id="FUNCIONARIOS">
             @foreach (var funcionario in ViewBag.Funcionarios)
@@ -43,8 +43,8 @@
                 </option>
             }
         </select>
-
-        <div class="form-group">
+        
+<div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Salvar" class="btn btn-default" />
             </div>

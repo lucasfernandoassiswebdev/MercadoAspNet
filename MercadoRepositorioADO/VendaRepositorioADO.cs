@@ -1,6 +1,7 @@
 ﻿using Mercado.Dominio;
 using Mercado.Dominio.Contrato;
 using System.Collections.Generic;
+using System;
 
 namespace Mercado.RepositorioADO
 {
@@ -107,6 +108,4 @@ namespace Mercado.RepositorioADO
             }
         }
     }
-
-    
 }

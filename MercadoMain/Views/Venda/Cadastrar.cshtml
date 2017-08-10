@@ -16,6 +16,7 @@
         <h4>Venda</h4>
         <hr />
         @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+
         <label for="PRODUTO" style="margin-left:5.8%">Selecione um produto: </label>
         <select name="IdProduto" id="PRODUTO">
             @foreach(var produto in ViewBag.Produtos)
@@ -42,7 +43,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Registrar venda" class="btn btn-default" @(Model.Quantidade <= "estoque" ? "readonly" : string.Empty)/>
+                <input type="submit" value="Registrar venda" class="btn btn-default" @*@(Model.Quantidade <= ViewBag.Estoque ? "readonly" : string.Empty)*@/>
             </div>
         </div>
     </div>
