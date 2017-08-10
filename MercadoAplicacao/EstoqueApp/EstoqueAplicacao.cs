@@ -2,14 +2,15 @@
 using System.Collections.Generic;
 using Mercado.Dominio;
 using Mercado.Dominio.Contrato;
+using MercadoDominio.Contrato;
 
 namespace Mercado.Aplicacao.EstoqueApp
 {
     public class EstoqueAplicacao
     {
-        public readonly IRepositorio<Estoque> repositorio;
+        public readonly IEstoqueRepositorio repositorio;
 
-        public EstoqueAplicacao(IRepositorio<Estoque> repo)
+        public EstoqueAplicacao(IEstoqueRepositorio repo)
         {
             repositorio = repo;
         }
@@ -32,6 +33,11 @@ namespace Mercado.Aplicacao.EstoqueApp
         public Estoque ListarPorId(int id)
         {
             return repositorio.ListarPorId(id);
+        }
+
+        public decimal? BuscaQuantidadeProduto(int idProduto)
+        {
+            return repositorio.BuscaQuantidadeProduto(idProduto);
         }
     }
 }

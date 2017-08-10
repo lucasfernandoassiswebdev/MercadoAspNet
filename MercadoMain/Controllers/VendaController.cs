@@ -39,16 +39,27 @@ namespace ProjetoMercado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Venda venda)
         {
+            //Chamar o repositório passando o Id do Produto para buscar sua quantidade no estoque
+            /*
+                Injeção de Dependência
+                Dependency Injection
+
+                - SimpleInjector
+             */
+            var quantidade = appEstoque.BuscaQuantidadeProduto(venda.IdProduto);
+            if (quantidade == null)
+                ModelState.AddModelError("VENDA", "Não foi encontrado estoque para o produto informado!");
+            else if (quantidade < venda.Quantidade)
+                ModelState.AddModelError("VENDA", "Quantidade excedeu o estoque!");
+
             if (ModelState.IsValid)
             {
-                var appProduto = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
-                appProduto.Salvar(venda);
+                appVendas.Salvar(venda);
                 return RedirectToAction("Index");
             }
 
             ViewBag.Produtos = appProdutos.ListarTodos();
             ViewBag.Funcionario = appUsuarios.ListarTodos();
-
             return View(venda);
         }
 
@@ -69,7 +80,7 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appUsuario = VendasAplicacaoConstrutor.VendaoAplicacaoADO() ;
+                var appUsuario = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
                 appUsuario.Salvar(venda);
                 return RedirectToAction("Index");
             }

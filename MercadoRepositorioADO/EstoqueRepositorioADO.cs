@@ -3,10 +3,12 @@ using System.Linq;
 using Mercado.Dominio;
 using System.Collections.Generic;
 using System.Data.SqlClient;
+using MercadoDominio.Contrato;
+using System;
 
 namespace Mercado.RepositorioADO
 {
-    public class EstoqueRepositorioADO : IRepositorio<Estoque>
+    public class EstoqueRepositorioADO : IEstoqueRepositorio
     {
         private Contexto contexto;
 
@@ -116,6 +118,22 @@ namespace Mercado.RepositorioADO
 
             reader.Close();
             return estoques;
+        }
+
+        public decimal? BuscaQuantidadeProduto(int idProduto)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = "SELECT e.Quantidade FROM DBEstoque e " +
+                               "INNER JOIN DBProdutos p on p.Id = e.IdProduto " +
+                               $"WHERE IdProduto = {idProduto}";
+
+                using (var r = contexto.ExecutaComandoComRetorno(strQuery))
+                    if (r.Read())
+                        return r.ReadAsDecimal("Quantidade");
+
+                return null;
+            }
         }
     }
 }
