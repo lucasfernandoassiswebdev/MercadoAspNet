@@ -47,7 +47,7 @@ namespace ProjetoMercado.Controllers
                 - SimpleInjector
              */
             var quantidade = appEstoque.BuscaQuantidadeProduto(venda.IdProduto);
-
+            var IdEstoque = appEstoque.RetornaIdEstoque(venda.IdProduto);
             decimal? novoEstoque = quantidade - venda.Quantidade;
 
             if (quantidade == null)
@@ -60,6 +60,7 @@ namespace ProjetoMercado.Controllers
                 appVendas.Salvar(venda);
                 var estoque = new Estoque
                 {
+                    Id = IdEstoque,
                     IdProduto = venda.IdProduto,
                     Quantidade = (decimal)novoEstoque
                 };

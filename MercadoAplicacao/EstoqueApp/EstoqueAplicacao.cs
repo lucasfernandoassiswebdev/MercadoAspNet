@@ -39,5 +39,10 @@ namespace Mercado.Aplicacao.EstoqueApp
         {
             return repositorio.BuscaQuantidadeProduto(idProduto);
         }
+
+        public int RetornaIdEstoque(int IdProduto)
+        {
+            return repositorio.RetornaIdEstoque(IdProduto);
+        }
     }
 }

@@ -39,7 +39,7 @@ namespace Mercado.RepositorioADO
 
         public void Salvar(Estoque estoque)
         {
-          if(estoque.IdProduto > 0)
+          if(estoque.Id > 0)
           {
             Alterar(estoque);
           }
@@ -124,7 +124,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = "SELECT e.Quantidade FROM DBEstoque e " +
+                var strQuery = "SELECT e.Id, e.Quantidade FROM DBEstoque e " +
                                "INNER JOIN DBProdutos p on p.Id = e.IdProduto " +
                                $"WHERE IdProduto = {idProduto}";
 
@@ -133,6 +133,22 @@ namespace Mercado.RepositorioADO
                         return r.ReadAsDecimal("Quantidade");
 
                 return null;
+            }
+        }
+
+        public int RetornaIdEstoque(int IdProduto)
+        {
+            using (contexto = new Contexto())
+            {
+                var strQuery = "SELECT e.Id FROM DBEstoque e " +
+                               "INNER JOIN DBProdutos p on p.Id = e.IdProduto " +
+                               $"WHERE IdProduto = {IdProduto}";
+
+                using (var r = contexto.ExecutaComandoComRetorno(strQuery))
+                    if (r.Read())
+                        return r.ReadAsInt("Id");
+
+                return 0;
             }
         }
     }
