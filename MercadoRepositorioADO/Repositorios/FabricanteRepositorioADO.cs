@@ -12,24 +12,22 @@ namespace Mercado.RepositorioADO
 
         private void Insert(Fabricante fabricante)
         {
-            var strQuery = "";
-            strQuery += " INSERT INTO DBFabricantes(Nome)" +
-                          $" VALUES('{fabricante.Nome}')";
-            using (contexto = new Contexto())
+           using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("InsereFabricante");
+                cmd.Parameters.AddWithValue("@Nome", fabricante.Nome);
+                cmd.ExecuteNonQuery();
             }
         }
 
         private void Alterar(Fabricante fabricante)
         {
-            var strQuery = "";
-            strQuery += "UPDATE DBFabricantes SET " + 
-                         $" Nome = '{fabricante.Nome}'" + 
-                         $" WHERE Id = {fabricante.Id}";
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("AlteraFabricante");
+                cmd.Parameters.AddWithValue("@Nome", fabricante.Nome);
+                cmd.Parameters.AddWithValue("@Id", fabricante.Id);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -45,8 +43,9 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $"DELETE FROM DBFabricantes WHERE Id = '{fabricante.Id}'";
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("ExcluiFabricante");
+                cmd.Parameters.AddWithValue("@Id", fabricante.Id);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -54,9 +53,21 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = " SELECT * FROM DBFabricantes";
-                var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
-                return TransformaReaderEmListaDeObjeto(retornoDataReader);
+                var retornoDataReader = contexto.ExecutaComandoComRetorno("ListaFabricantes");
+
+                var fabricantes = new List<Fabricante>();
+                while (retornoDataReader.Read())
+                {
+                    var temObjeto = new Fabricante()
+                    {
+                        Id = retornoDataReader.ReadAsInt("Id"),
+                        Nome = retornoDataReader.ReadAsString("Nome")
+                    };
+                    fabricantes.Add(temObjeto);
+                }
+
+                retornoDataReader.Close();
+                return fabricantes;
             }
         }
 
@@ -64,8 +75,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $" SELECT * FROM DBFabricantes WHERE Id = {id}";
-                var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
+                var retornoDataReader = contexto.ExecutaComandoComRetorno("ListaFabricantePorId");
                 return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
             }
         }
