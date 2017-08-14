@@ -15,21 +15,22 @@ namespace Mercado.RepositorioADO
             minhaConexao.Open();
         }
 
-        public void ExecutaComando(string strQuery)
+        public SqlCommand ExecutaComando(string procedureName)
         {
-            var cmdComando = new SqlCommand
+            return new SqlCommand
             {
-                CommandText = strQuery,
-                CommandType = CommandType.Text,
+                CommandText = procedureName,
+                CommandType = CommandType.StoredProcedure,
                 Connection = minhaConexao
             };
-            cmdComando.ExecuteNonQuery();
         }
 
-        public SqlDataReader ExecutaComandoComRetorno(string strQuery)
+        public SqlDataReader ExecutaComandoComRetorno(string procedureName)
         {
-            var cmdComando = new SqlCommand(strQuery, minhaConexao);
-            return cmdComando.ExecuteReader();
+            return new SqlCommand(procedureName, minhaConexao)
+            {
+                CommandType = CommandType.StoredProcedure
+            }.ExecuteReader();
         }
 
         public void Dispose()

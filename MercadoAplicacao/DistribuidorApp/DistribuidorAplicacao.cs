@@ -1,10 +1,6 @@
 ﻿using Mercado.Dominio;
 using Mercado.Dominio.Contrato;
-using System;
 using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace Mercado.Aplicacao.DistribuidorApp
 {

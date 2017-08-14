@@ -41,14 +41,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contexto.cs" />
-    <Compile Include="DistribuidorRepositorioADO.cs" />
-    <Compile Include="EstoqueRepositorioADO.cs" />
-    <Compile Include="FabricanteRepositorioADO.cs" />
-    <Compile Include="ProdutoRepositorioADO.cs" />
+    <Compile Include="Contexto\Contexto.cs" />
+    <Compile Include="Repositorios\DistribuidorRepositorioADO.cs" />
+    <Compile Include="Repositorios\EstoqueRepositorioADO.cs" />
+    <Compile Include="Repositorios\FabricanteRepositorioADO.cs" />
+    <Compile Include="Repositorios\ProdutoRepositorioADO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UsuarioRepositorioADO.cs" />
-    <Compile Include="VendaRepositorioADO.cs" />
+    <Compile Include="Repositorios\UsuarioRepositorioADO.cs" />
+    <Compile Include="Repositorios\VendaRepositorioADO.cs" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\MercadoDominio\MercadoDominio.csproj">

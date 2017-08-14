@@ -1,10 +1,8 @@
-﻿using Mercado.Dominio.Contrato;
-using System.Linq;
+﻿using System.Linq;
 using Mercado.Dominio;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using MercadoDominio.Contrato;
-using System;
 
 namespace Mercado.RepositorioADO
 {

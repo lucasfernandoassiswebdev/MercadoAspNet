@@ -11,6 +11,18 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoDominio", "MercadoDo
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "MercadoRepositorioADO", "MercadoRepositorioADO\MercadoRepositorioADO.csproj", "{54B114F9-0ADF-4428-9670-3ED8A46F1160}"
 EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "0 - Apresentacao", "0 - Apresentacao", "{530490A5-9688-470C-8B4E-821DC00AD3F6}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "1 - Services", "1 - Services", "{48974E87-9C1A-41F3-9717-13DE864366E4}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "2 - Aplicacao", "2 - Aplicacao", "{5B17A686-DD4F-4592-A94A-7B94C2F40E67}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "3 - Domínio", "3 - Domínio", "{C42FD0D0-46CC-4928-976D-4FFD9DFA570C}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4 - Infraestrutura", "4 - Infraestrutura", "{448AC4F3-24A5-40B3-8752-48E01DB647A5}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "4.1 - Data", "4.1 - Data", "{837DA53A-CE31-4104-8982-1BE89A0AD82A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -36,5 +48,12 @@ Global
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{7F9036F1-3476-489D-A731-AEC5DB32B9B2} = {530490A5-9688-470C-8B4E-821DC00AD3F6}
+		{C6125B5E-699A-4443-9CB8-92B8CE7BD067} = {5B17A686-DD4F-4592-A94A-7B94C2F40E67}
+		{943441D3-8897-424D-A1B5-79F90EA64018} = {C42FD0D0-46CC-4928-976D-4FFD9DFA570C}
+		{54B114F9-0ADF-4428-9670-3ED8A46F1160} = {837DA53A-CE31-4104-8982-1BE89A0AD82A}
+		{837DA53A-CE31-4104-8982-1BE89A0AD82A} = {448AC4F3-24A5-40B3-8752-48E01DB647A5}
 	EndGlobalSection
 EndGlobal

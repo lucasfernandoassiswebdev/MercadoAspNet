@@ -3,7 +3,6 @@ using Mercado.Dominio.Contrato;
 using System.Collections.Generic;
 using System.Data.SqlClient;
 using System.Linq;
-using System;
 
 namespace Mercado.RepositorioADO
 {
