@@ -12,26 +12,23 @@ namespace Mercado.RepositorioADO
 
         private void Insert(Estoque estoque)
         {
-            var strQuery = "";
-            strQuery += " INSERT INTO DBEstoque(IdProduto,Quantidade) " + 
-                          $" VALUES('{estoque.IdProduto}','{estoque.Quantidade}')";
-
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("InsereEstoque");
+                cmd.Parameters.AddWithValue("@IdProduto", estoque.IdProduto);
+                cmd.Parameters.AddWithValue("@Quantidade", estoque.Quantidade);
+                cmd.ExecuteNonQuery();
             }
         }
 
         private void Alterar(Estoque estoque)
         {
-            var strQuery = "";
-            strQuery += " UPDATE DBEstoque SET " +
-                          $" IdProduto = " + estoque.IdProduto +
-                          $", Quantidade = " + estoque.Quantidade +
-                          $" WHERE IdProduto = " + estoque.IdProduto;
-            using (contexto = new Contexto())
+           using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("AlteraEstoque");
+                cmd.Parameters.AddWithValue("@IdProduto", estoque.IdProduto);
+                cmd.Parameters.AddWithValue("@Quantidade", estoque.Quantidade);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -51,8 +48,9 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $"DELETE FROM DBEstoque WHERE IdProduto = '{estoque.IdProduto}'";
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("ExcluirEstoque");
+                cmd.Parameters.AddWithValue("@IdProduto", estoque.IdProduto);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -60,31 +58,28 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = " select p.id as 'IdProduto', p.Nome as 'Nome', d.Nome as 'Distribuidor', " +
-                               $" f.Nome as 'Fabricante', e.Quantidade from DBProdutos p " +
-                               $" inner join DBEstoque e on e.IdProduto = p.Id" +
-                               $" inner join DBFabricantes f on f.Id = p.Fabricante" +
-                               $" inner join DBDistribuidores d on d.Id = p.Distribuidor";
+                var cmd = contexto.ExecutaComandoComRetorno("ListarEstoque");
+
                 var estoques = new List<Estoque>();
-                using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
-                    while (reader.Read())
-                        estoques.Add(new Estoque()
+
+                while (cmd.Read())
+                estoques.Add(new Estoque()
+                {
+                    IdProduto = cmd.ReadAsInt("IdProduto"),
+                    Produto = new Produto
+                    {
+                        Nome = cmd.ReadAsString("Nome"),
+                        Fabricante = new Fabricante
                         {
-                            IdProduto = reader.ReadAsInt("IdProduto"),
-                            Produto = new Produto
-                            {
-                                Nome = reader.ReadAsString("Nome"),
-                                Fabricante = new Fabricante
-                                {
-                                    Nome = reader.ReadAsString("Fabricante")
-                                },
-                                Distribuidor = new Distribuidor
-                                {
-                                    Nome = reader.ReadAsString("Distribuidor")
-                                }
-                            },
-                            Quantidade = reader.ReadAsDecimal("Quantidade")
-                        });
+                            Nome = cmd.ReadAsString("Fabricante")
+                        },
+                        Distribuidor = new Distribuidor
+                        {
+                            Nome = cmd.ReadAsString("Distribuidor")
+                        }
+                    },
+                   Quantidade = cmd.ReadAsDecimal("Quantidade")
+                });
 
                 return estoques;
             }
@@ -94,41 +89,35 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $" SELECT * FROM DBEstoque WHERE IdProduto = {id}";
-                var retornoDataReader = contexto.ExecutaComandoComRetorno(strQuery);
-                return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
-            }
-        }
+                var cmd = contexto.ExecutaComandoComRetorno("ListarEstoquePorIdProduto");
+                cmd.Parameters.AddWithValue("@Id", id);
 
-        private List<Estoque> TransformaReaderEmListaDeObjeto(SqlDataReader reader)
-        {
-            var estoques = new List<Estoque>();
-            while (reader.Read())
-            {
-                var temObjeto = new Estoque()
+                var estoque = new Estoque();
+                while (cmd.Read())
                 {
-                    Id = reader.ReadAsInt("Id"),
-                    IdProduto = reader.ReadAsInt("IdProduto"),
-                    Quantidade = reader.ReadAsDecimal("Quantidade")
-                };
-                estoques.Add(temObjeto);
-            }
+                    var temObjeto = new Estoque()
+                    {
+                        Id = cmd.ReadAsInt("Id"),
+                        IdProduto = cmd.ReadAsInt("IdProduto"),
+                        Quantidade = cmd.ReadAsDecimal("Quantidade")
+                    };
+                    estoque.Add(temObjeto);
+                }
 
-            reader.Close();
-            return estoques;
+                cmd.Close();
+                return estoque;
+            }
         }
 
         public decimal? BuscaQuantidadeProduto(int idProduto)
         {
             using (contexto = new Contexto())
             {
-                var strQuery = "SELECT e.Id, e.Quantidade FROM DBEstoque e " +
-                               "INNER JOIN DBProdutos p on p.Id = e.IdProduto " +
-                               $"WHERE IdProduto = {idProduto}";
+                var cmd = contexto.ExecutaComandoComRetorno("BuscaQProduto");
+                cmd.Parameters.AddWithValue("@IdProduto", idProduto);
 
-                using (var r = contexto.ExecutaComandoComRetorno(strQuery))
-                    if (r.Read())
-                        return r.ReadAsDecimal("Quantidade");
+                if (cmd.Read())
+                        return cmd.ReadAsDecimal("Quantidade");
 
                 return null;
             }
@@ -138,13 +127,11 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = "SELECT e.Id FROM DBEstoque e " +
-                               "INNER JOIN DBProdutos p on p.Id = e.IdProduto " +
-                               $"WHERE IdProduto = {IdProduto}";
+                var cmd = contexto.ExecutaComandoComRetorno("RetornaIdEstoquePeloProduto");
+                cmd.Parameters.AddWithValue("@IdProduto", IdProduto);
 
-                using (var r = contexto.ExecutaComandoComRetorno(strQuery))
-                    if (r.Read())
-                        return r.ReadAsInt("Id");
+                if (cmd.Read())
+                    return cmd.ReadAsInt("Id");
 
                 return 0;
             }
