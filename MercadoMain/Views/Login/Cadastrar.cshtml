@@ -23,10 +23,10 @@
                 @Html.ValidationMessageFor(model => model.LoginU, "", new { @class = "text-danger" })
             </div>
         </div>
-
+        
         <div style="margin-left:6.5%;margin-bottom:0.5%">
             <label for="funcionario">Nome do funcionario</label>
-            <select id="funcionario" name="IdFuncionario">
+            <select id="funcionario" name="Usuario">
                 @foreach (var funcionario in (IEnumerable<Usuario>)ViewBag.Usuarios)
                 {
                     <option value="@funcionario.Id">@funcionario.Nome</option>

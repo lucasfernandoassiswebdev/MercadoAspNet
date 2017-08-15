@@ -26,13 +26,13 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.LoginU)
+            @item.LoginU
         </td>
         <td>
             @item.Funcionario.Nome
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.Senha)
+            @item.Senha
         </td>
         <td>
             @Html.ActionLink("Editar", "Editar", new {  id= item.Usuario }) |
