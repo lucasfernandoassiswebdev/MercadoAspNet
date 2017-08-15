@@ -30,8 +30,7 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appProduto = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
-                appProduto.Salvar(usuario);
+                appUsuario.Salvar(usuario);
                 return RedirectToAction("Index");
             }
             return View(usuario);

@@ -1,12 +1,14 @@
 ﻿using Mercado.Dominio;
+using Mercado.Dominio.Contrato;
 using Mercado.RepositorioADO;
 using MercadoDominio.Entidades;
 using MercadoRepositorioADO.Extensoes;
 using System.Collections.Generic;
+using System;
 
 namespace MercadoRepositorioADO.Repositorios
 {
-    public class LoginRepositorioADO
+    public class LoginRepositorioADO : IRepositorio<Login>
     {
         private Contexto contexto;
 
@@ -44,7 +46,17 @@ namespace MercadoRepositorioADO.Repositorios
             }
         }
 
-        public IEnumerable<Login> ListarLogins()
+        public void Excluir(Login login)
+        {
+            using (contexto = new Contexto())
+            {
+                var cmd = contexto.ExecutaComando("ExcluiLogin");
+                cmd.Parameters.AddWithValue("@Id", login.usuario);
+                cmd.ExecuteNonQuery();
+            }
+        }
+
+        public IEnumerable<Login> ListarTodos()
         {
             using (contexto = new Contexto())
             {
@@ -59,7 +71,8 @@ namespace MercadoRepositorioADO.Repositorios
                             login = reader.ReadAsString("login"),
                             usuario = reader.ReadAsInt("usuario"),
                             senha = reader.ReadAsString("senha"),
-                            funcionario = new Usuario {
+                            funcionario = new Usuario
+                            {
                                 Nome = reader.ReadAsString("Nome")
                             }
                         });
@@ -67,12 +80,12 @@ namespace MercadoRepositorioADO.Repositorios
             }
         }
 
-        public Login LoginFuncionario(int id)
+        public Login ListarPorId(int Id)
         {
             using (contexto = new Contexto())
             {
                 var cmd = contexto.ExecutaComando("LoginFuncionario");
-                cmd.Parameters.AddWithValue("@Id",id);
+                cmd.Parameters.AddWithValue("@Id", Id);
 
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())

@@ -46,6 +46,8 @@
     <Compile Include="EstoqueApp\EstoqueAplicacaoConstrutor.cs" />
     <Compile Include="FabricanteApp\FabricanteAplicacao.cs" />
     <Compile Include="FabricanteApp\FabricanteAplicacaoConstrutor.cs" />
+    <Compile Include="LoginApp\LoginAplicacao.cs" />
+    <Compile Include="LoginApp\LoginAplicacaoConstrutor.cs" />
     <Compile Include="ProdutoApp\ProdutoAplicacao.cs" />
     <Compile Include="ProdutoApp\ProdutoAplicacaoConstrutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

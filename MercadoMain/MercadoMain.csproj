@@ -145,6 +145,7 @@
     <Compile Include="Controllers\EstoqueController.cs" />
     <Compile Include="Controllers\FabricanteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
+    <Compile Include="Controllers\LoginController.cs" />
     <Compile Include="Controllers\ProdutoController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Controllers\VendaController.cs" />
@@ -218,6 +219,7 @@
     <Content Include="Views\Venda\Cadastrar.cshtml" />
     <Content Include="Views\Venda\Index.cshtml" />
     <Content Include="Views\Venda\Editar.cshtml" />
+    <Content Include="Views\Login\Index.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

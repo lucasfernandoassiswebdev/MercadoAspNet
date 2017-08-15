@@ -9,12 +9,5 @@ namespace ProjetoMercado.Controllers
         {
             return View();
         }
-
-        //[HttpPost]
-        //[ValidateAntiForgeryToken]
-        //public ActionResult Index(Login login)
-        //{
-
-        //}
     }
 }
