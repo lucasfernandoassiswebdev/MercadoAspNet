@@ -80,6 +80,7 @@ namespace ProjetoMercado.Controllers
             var produto = appProduto.ListarPorId(id);
             if (produto == null)
                 return HttpNotFound();
+
             ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
             ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
