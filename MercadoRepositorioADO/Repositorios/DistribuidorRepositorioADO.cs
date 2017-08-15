@@ -58,14 +58,12 @@ namespace Mercado.RepositorioADO
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
                     {
-                        var Distribuidor = new Distribuidor()
+                        distribuidores.Add( new Distribuidor()
                         {
                             Id = reader.ReadAsInt("Id"),
                             Nome = reader.ReadAsString("Nome")
-                        };
-                        distribuidores.Add(Distribuidor);
-                    }
-                
+                        });
+                    };
                 return distribuidores;
             }
         }

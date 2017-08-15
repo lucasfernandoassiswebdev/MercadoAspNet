@@ -1,6 +1,7 @@
 ﻿using Mercado.Dominio.Contrato;
 using Mercado.Dominio;
 using System.Collections.Generic;
+using MercadoRepositorioADO.Extensoes;
 
 namespace Mercado.RepositorioADO
 {
@@ -58,24 +59,25 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("ListaProdutos");
+                var cmd = contexto.ExecutaComando("ListaProdutos");
                 var produtos = new List<Produto>();
-                
-                while (cmd.Read())
-                    produtos.Add(new Produto()
-                    {
-                        Id = cmd.ReadAsInt("Id"),
-                        Nome = cmd.ReadAsString("Nome"),
-                        Valor = cmd.ReadAsDecimal("Valor"),
-                        Fabricante = new Fabricante
+
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        produtos.Add( new Produto()
                         {
-                            Nome = cmd.ReadAsString("nFabricante")
-                        },
-                        Distribuidor = new Distribuidor
-                        {
-                            Nome = cmd.ReadAsString("nDistribuidor")
-                        }
-                    });
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome"),
+                            Valor = reader.ReadAsDecimal("Valor"),
+                            Fabricante = new Fabricante
+                            {
+                                Nome = reader.ReadAsString("nFabricante")
+                            },
+                            Distribuidor = new Distribuidor
+                            {
+                                Nome = reader.ReadAsString("nDistribuidor")
+                            }
+                        });
 
                 return produtos;
             }
@@ -85,29 +87,30 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("ListaProdutoPorId");
+                var cmd = contexto.ExecutaComando("ListaProdutoPorId");
                 cmd.Parameters.AddWithValue("@Id", id);
 
                 var produto = new Produto();
-                while (cmd.Read())
-                    return new Produto
-                    {
-                        Id = cmd.ReadAsInt("Id"),
-                        Nome = cmd.ReadAsString("Nome"),
-                        IdFabricante = cmd.ReadAsInt("Fabricante"),
-                        IdDistribuidor = cmd.ReadAsInt("Distribuidor"),
-                        Valor = cmd.ReadAsDecimal("Valor"),
-                        Fabricante = new Fabricante
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return new Produto
                         {
-                            Nome = cmd.ReadAsString("NomeFabricante")
-                        },
-                        Distribuidor = new Distribuidor
-                        {
-                            Nome = cmd.ReadAsString("NomeDistribuidor")
-                        }
-                    };
-                 cmd.Close();
-                 return produto;
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome"),
+                            IdFabricante = reader.ReadAsInt("Fabricante"),
+                            IdDistribuidor = reader.ReadAsInt("Distribuidor"),
+                            Valor = reader.ReadAsDecimal("Valor"),
+                            Fabricante = new Fabricante
+                            {
+                                Nome = reader.ReadAsString("NomeFabricante")
+                            },
+                            Distribuidor = new Distribuidor
+                            {
+                                Nome = reader.ReadAsString("NomeDistribuidor")
+                            }
+                        };
+                
+                 return null;
             }
         }
     }

@@ -1,6 +1,7 @@
 ﻿using Mercado.Dominio.Contrato;
 using Mercado.Dominio;
 using System.Collections.Generic;
+using MercadoRepositorioADO.Extensoes;
 
 namespace Mercado.RepositorioADO
 {
@@ -51,20 +52,17 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var retornoDataReader = contexto.ExecutaComandoComRetorno("ListaFabricantes");
-
+                var cmd = contexto.ExecutaComando("ListaFabricantes");
                 var fabricantes = new List<Fabricante>();
-                while (retornoDataReader.Read())
-                {
-                    var temObjeto = new Fabricante()
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
                     {
-                        Id = retornoDataReader.ReadAsInt("Id"),
-                        Nome = retornoDataReader.ReadAsString("Nome")
-                    };
-                    fabricantes.Add(temObjeto);
-                }
-
-                retornoDataReader.Close();
+                        fabricantes.Add(new Fabricante()
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome")
+                        });
+                    }
                 return fabricantes;
             }
         }
@@ -73,23 +71,18 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("ListaFabricantePorId");
+                var cmd = contexto.ExecutaComando("ListaFabricantePorId");
                 cmd.Parameters.AddWithValue("@Id", id);
-
                 var fabricante = new Fabricante();
-                while (cmd.Read())
-                {
-                    var temObjeto = new Fabricante()
-                    {
-                        Id = cmd.ReadAsInt("Id"),
-                        Nome = cmd.ReadAsString("Nome")
-                    };
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return new Fabricante()
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome")
+                        };
 
-                    fabricante.Add(temObjeto);
-                }
-
-                cmd.Close();
-                return fabricante;
+                return null;
             }
         }
     }

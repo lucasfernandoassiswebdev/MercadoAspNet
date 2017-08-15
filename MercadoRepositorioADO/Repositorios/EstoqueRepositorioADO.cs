@@ -62,7 +62,7 @@ namespace Mercado.RepositorioADO
                 var estoques = new List<Estoque>();
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
-                        estoques.Add(new Estoque()
+                        estoques.Add( new Estoque()
                         {
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             Produto = new Produto
@@ -107,11 +107,11 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("BuscaQProduto");
+                var cmd = contexto.ExecutaComando("BuscaQProduto");
                 cmd.Parameters.AddWithValue("@IdProduto", idProduto);
-
-                if (cmd.Read())
-                        return cmd.ReadAsDecimal("Quantidade");
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return reader.ReadAsDecimal("Quantidade");
 
                 return null;
             }
@@ -121,12 +121,11 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("RetornaIdEstoquePeloProduto");
+                var cmd = contexto.ExecutaComando("RetornaIdEstoquePeloProduto");
                 cmd.Parameters.AddWithValue("@IdProduto", IdProduto);
-
-                if (cmd.Read())
-                    return cmd.ReadAsInt("Id");
-
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return reader.ReadAsInt("Id");
                 return 0;
             }
         }

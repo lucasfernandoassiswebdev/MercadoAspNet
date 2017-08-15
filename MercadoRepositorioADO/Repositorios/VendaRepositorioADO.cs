@@ -1,5 +1,6 @@
 ﻿using Mercado.Dominio;
 using Mercado.Dominio.Contrato;
+using MercadoRepositorioADO.Extensoes;
 using System.Collections.Generic;
 
 namespace Mercado.RepositorioADO
@@ -10,26 +11,26 @@ namespace Mercado.RepositorioADO
 
         private void Insert(Venda venda)
         {
-            var strQuery = "";
-            strQuery += " INSERT INTO DBVendas(IdProduto,Quantidade,Funcionario)" + 
-                       $" VALUES({venda.IdProduto},{venda.Quantidade},{venda.IdFuncionario})";
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("InsereVenda");
+                cmd.Parameters.AddWithValue("@IdProduto", venda.IdProduto);
+                cmd.Parameters.AddWithValue("@Quantidade", venda.Quantidade);
+                cmd.Parameters.AddWithValue("@IdFuncionario", venda.IdFuncionario);
+                cmd.ExecuteNonQuery();
             }
         }
 
         private void Alterar(Venda venda)
         {
-            var strQuery = "";
-            strQuery += "UPDATE DBVendas SET ";
-            strQuery += $" IdProduto = {venda.IdProduto}, " +
-                        $" Quantidade = {venda.Quantidade}, " +
-                        $" Funcionario = {venda.IdFuncionario} " +
-                        $" WHERE IdVenda = {venda.IdVenda} ";
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("AlteraVenda");
+                cmd.Parameters.AddWithValue("@IdVenda", venda.IdVenda);
+                cmd.Parameters.AddWithValue("@IdProduto", venda.IdProduto);
+                cmd.Parameters.AddWithValue("@Quantidade", venda.Quantidade);
+                cmd.Parameters.AddWithValue("@IdFuncionario", venda.IdFuncionario);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -45,8 +46,9 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $" DELETE FROM DBVendas WHERE IdVenda = {venda.IdVenda}";
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("ExcluirVenda");
+                cmd.Parameters.AddWithValue("@Id", venda.IdVenda);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -54,14 +56,12 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = " select v.IdVenda, p.Id as 'IdProduto', p.Nome as 'Produto', v.Quantidade, v.Funcionario, u.Nome as 'FuncionarioNome' from DBVendas v " +
-                               " inner join DBProdutos p on p.Id  = v.IdProduto" +
-                               " inner join DBUsuarios u on u.Id = v.Funcionario";
-                //byte, short, int, long, ubyte, ushort, uint, ulong
+                var cmd = contexto.ExecutaComando("ListaVendas");
                 var vendas = new List<Venda>();
-                using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
+
+                using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
-                        vendas.Add(new Venda()
+                        vendas.Add( new Venda()
                         {
                             IdVenda = reader.ReadAsInt("IdVenda"),
                             IdProduto = reader.ReadAsInt("IdProduto"),
@@ -85,11 +85,9 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = " SELECT v.IdVenda, v.IdProduto, p.Nome, v.Quantidade, v.Funcionario FROM DBVendas v  " +
-                               " inner join DBProdutos p on p.Id = v.IdProduto " +
-                              $" WHERE IdVenda = {id}";
+                var cmd = contexto.ExecutaComando("ListaVendaPorId");
 
-                using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
+                using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                         return new Venda
                         {
