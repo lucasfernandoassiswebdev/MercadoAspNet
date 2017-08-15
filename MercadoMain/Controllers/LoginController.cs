@@ -1,9 +1,6 @@
-﻿using MercadoAplicacao.LoginApp;
+﻿using Mercado.Aplicacao.UsuarioApp;
+using MercadoAplicacao.LoginApp;
 using MercadoDominio.Entidades;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
 using System.Web.Mvc;
 
 namespace MercadoMain.Controllers
@@ -11,10 +8,12 @@ namespace MercadoMain.Controllers
     public class LoginController : Controller
     {
         private LoginAplicacao appLogin;
+        private UsuarioAplicacao appUsuario;
 
         public  LoginController()
         {
             appLogin = LoginAplicacaoConstrutor.LoginAplicacaoADO();
+            appUsuario = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
         }
 
         public ActionResult Index()
@@ -25,6 +24,7 @@ namespace MercadoMain.Controllers
 
         public ActionResult Cadastrar()
         {
+            ViewBag.Usuarios = appUsuario.ListarTodos();
             return View();
         }
 
@@ -42,6 +42,9 @@ namespace MercadoMain.Controllers
 
         public ActionResult Editar(int id)
         {
+            var login = appLogin.ListarPorId(id);
+            if (login == null)
+                return HttpNotFound();
             return View();
         }
 

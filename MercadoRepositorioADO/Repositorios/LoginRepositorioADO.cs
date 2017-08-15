@@ -71,7 +71,7 @@ namespace MercadoRepositorioADO.Repositorios
                             login = reader.ReadAsString("login"),
                             usuario = reader.ReadAsInt("usuario"),
                             senha = reader.ReadAsString("senha"),
-                            funcionario = new Usuario
+                            Funcionario = new Usuario
                             {
                                 Nome = reader.ReadAsString("Nome")
                             }
@@ -94,7 +94,7 @@ namespace MercadoRepositorioADO.Repositorios
                             login = reader.ReadAsString("login"),
                             usuario = reader.ReadAsInt("usuario"),
                             senha = reader.ReadAsString("senha"),
-                            funcionario = new Usuario()
+                            Funcionario = new Usuario()
                             {
                                 Nome = reader.ReadAsString("Nome")
                             }

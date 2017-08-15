@@ -61,6 +61,7 @@ namespace Mercado.RepositorioADO
                     while (reader.Read())
                         listaUsuarios.Add( new Usuario()
                         {
+                            Id = reader.ReadAsInt("Id"),
                             Nome = reader.ReadAsString("Nome"),
                             Nivel = reader.ReadAsString("Nivel")
                         });

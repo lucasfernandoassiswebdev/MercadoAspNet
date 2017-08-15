@@ -15,10 +15,10 @@ namespace MercadoDominio.Entidades
         public int usuario { get; set; }
 
 
-        [Required(ErrorMessage = "A senha é obrigatório")]
+        [Required(ErrorMessage = "A senha é obrigatória")]
         [DisplayName("Senha: ")]
         public string senha { get; set; }
 
-        public Usuario funcionario;
+        public Usuario Funcionario { get; set; }
     }
 }

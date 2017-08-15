@@ -22,6 +22,7 @@
                 @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
             </div>
         </div>
+
         <div style="margin-left:11%">
             <label for="batata">Fabricante</label>
             <select name="IdFabricante" id="batata">
@@ -30,6 +31,7 @@
                     <option value="@fabricante.Id">@fabricante.Nome</option>
                 }
             </select><br /><br />
+            
             <label for="batata2">Distribuidor</label>
             <select name="IdDistribuidor" id="batata2">
                 @foreach (var distribuidor in (IEnumerable<Distribuidor>)ViewBag.Distribuidores)
