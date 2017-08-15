@@ -1,6 +1,6 @@
-﻿using MercadoDominio.Entidades.Contrato;
-using MercadoDominio.Entidades;
+﻿using MercadoDominio.Entidades;
 using System.Collections.Generic;
+using MercadoDominio.Entidades.Entidades.Contrato;
 
 namespace MercadoAplicacao.LoginApp
 {

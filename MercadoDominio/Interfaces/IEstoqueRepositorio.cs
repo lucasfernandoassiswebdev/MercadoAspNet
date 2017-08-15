@@ -1,5 +1,5 @@
 ﻿using MercadoDominio.Entidades;
-using MercadoDominio.Entidades.Contrato;
+using MercadoDominio.Entidades.Entidades.Contrato;
 
 namespace MercadoDominio.Contrato
 {

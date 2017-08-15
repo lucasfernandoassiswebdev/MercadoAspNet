@@ -1,7 +1,7 @@
-﻿using MercadoDominio.Entidades.Contrato;
-using MercadoDominio.Entidades;
+﻿using MercadoDominio.Entidades;
 using System.Collections.Generic;
 using MercadoRepositorioADO.Extensoes;
+using MercadoDominio.Entidades.Entidades.Contrato;
 
 namespace Mercado.RepositorioADO
 {
