@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 
-namespace Mercado.Dominio.Contrato
+namespace MercadoDominio.Entidades.Entidades.Contrato
 {
     public interface IRepositorio<T> where T : class
     {

@@ -1,5 +1,5 @@
 ﻿using Mercado.Aplicacao.FabricanteApp;
-using Mercado.Dominio;
+using MercadoDominio.Entidades;
 using System.Web.Mvc;
 
 namespace ProjetoMercado.Controllers

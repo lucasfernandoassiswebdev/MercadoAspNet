@@ -1,4 +1,4 @@
-﻿using Mercado.Dominio.Contrato;
+﻿using MercadoDominio.Entidades.Contrato;
 using MercadoDominio.Entidades;
 using System.Collections.Generic;
 

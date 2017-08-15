@@ -15,10 +15,10 @@
             Login
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.usuario)
+            @Html.DisplayNameFor(model => model.Usuario)
         </th>
         <th>
-            @Html.DisplayNameFor(model => model.senha)
+            @Html.DisplayNameFor(model => model.Senha)
         </th>
         <th></th>
     </tr>
@@ -26,17 +26,17 @@
 @foreach (var item in Model) {
     <tr>
         <td>
-            @Html.DisplayFor(modelItem => item.login)
+            @Html.DisplayFor(modelItem => item.LoginU)
         </td>
         <td>
             @item.Funcionario.Nome
         </td>
         <td>
-            @Html.DisplayFor(modelItem => item.senha)
+            @Html.DisplayFor(modelItem => item.Senha)
         </td>
         <td>
-            @Html.ActionLink("Editar", "Editar", new {  id= item.usuario }) |
-            @Html.ActionLink("Deletar", "Excluir", new { id = item.usuario })
+            @Html.ActionLink("Editar", "Editar", new {  id= item.Usuario }) |
+            @Html.ActionLink("Deletar", "Excluir", new { id = item.Usuario })
         </td>
     </tr>
 }

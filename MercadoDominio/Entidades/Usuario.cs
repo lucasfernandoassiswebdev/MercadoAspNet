@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mercado.Dominio
+namespace Mercado.Dominio.Entidades
 {
     public class Usuario
     {

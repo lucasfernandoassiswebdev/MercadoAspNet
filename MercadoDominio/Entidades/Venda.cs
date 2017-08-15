@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace Mercado.Dominio
+namespace MercadoDominio.Entidades
 {
     public class Venda
     {

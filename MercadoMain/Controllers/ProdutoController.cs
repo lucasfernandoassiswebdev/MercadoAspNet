@@ -1,7 +1,7 @@
 ﻿using Mercado.Aplicacao.DistribuidorApp;
 using Mercado.Aplicacao.FabricanteApp;
 using Mercado.Aplicacao.ProdutoApp;
-using Mercado.Dominio;
+using MercadoDominio.Entidades;
 using System.Web.Mvc;
 
 namespace ProjetoMercado.Controllers

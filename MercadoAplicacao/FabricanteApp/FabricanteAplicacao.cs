@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
-using Mercado.Dominio;
-using Mercado.Dominio.Contrato;
+using MercadoDominio.Entidades;
+using MercadoDominio.Entidades.Contrato;
 
 namespace Mercado.Aplicacao.FabricanteApp
 {

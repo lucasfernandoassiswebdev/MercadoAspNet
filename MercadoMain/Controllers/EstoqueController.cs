@@ -1,6 +1,6 @@
 ﻿using Mercado.Aplicacao.EstoqueApp;
 using Mercado.Aplicacao.ProdutoApp;
-using Mercado.Dominio;
+using MercadoDominio.Entidades;
 using System.Web.Mvc;
 
 namespace ProjetoMercado.Controllers

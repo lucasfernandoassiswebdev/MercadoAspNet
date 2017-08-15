@@ -1,5 +1,4 @@
-﻿using Mercado.Dominio;
-using Mercado.Dominio.Contrato;
+﻿using MercadoDominio.Entidades.Contrato;
 using Mercado.RepositorioADO;
 using MercadoDominio.Entidades;
 using MercadoRepositorioADO.Extensoes;
@@ -16,9 +15,9 @@ namespace MercadoRepositorioADO.Repositorios
             using (contexto = new Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereLogin");
-                cmd.Parameters.AddWithValue("@login", login.login);
-                cmd.Parameters.AddWithValue("@usuario", login.usuario);
-                cmd.Parameters.AddWithValue("@senha", login.senha);
+                cmd.Parameters.AddWithValue("@login", login.LoginU);
+                cmd.Parameters.AddWithValue("@usuario", login.Usuario);
+                cmd.Parameters.AddWithValue("@senha", login.Senha);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -28,16 +27,16 @@ namespace MercadoRepositorioADO.Repositorios
             using (contexto = new Contexto())
             {
                 var cmd = contexto.ExecutaComando("AlteraLogin");
-                cmd.Parameters.AddWithValue("@login", login.login);
-                cmd.Parameters.AddWithValue("@senha", login.senha);
-                cmd.Parameters.AddWithValue("@funcionario", login.usuario);
+                cmd.Parameters.AddWithValue("@login", login.LoginU);
+                cmd.Parameters.AddWithValue("@senha", login.Senha);
+                cmd.Parameters.AddWithValue("@funcionario", login.Usuario);
                 cmd.ExecuteNonQuery();
             }
         }
 
         public void Salvar(Login login)
         {
-            if (login.usuario > 0)
+            if (login.Usuario > 0)
             {
                 Insert(login);
             } else
@@ -51,7 +50,7 @@ namespace MercadoRepositorioADO.Repositorios
             using (contexto = new Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluiLogin");
-                cmd.Parameters.AddWithValue("@Id", login.usuario);
+                cmd.Parameters.AddWithValue("@Id", login.Usuario);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -68,9 +67,9 @@ namespace MercadoRepositorioADO.Repositorios
                     while (reader.Read())
                         logins.Add(new Login()
                         {
-                            login = reader.ReadAsString("login"),
-                            usuario = reader.ReadAsInt("usuario"),
-                            senha = reader.ReadAsString("senha"),
+                            LoginU = reader.ReadAsString("login"),
+                            Usuario = reader.ReadAsInt("usuario"),
+                            Senha = reader.ReadAsString("senha"),
                             Funcionario = new Usuario
                             {
                                 Nome = reader.ReadAsString("Nome")
@@ -91,9 +90,9 @@ namespace MercadoRepositorioADO.Repositorios
                     if (reader.Read())
                         return new Login()
                         {
-                            login = reader.ReadAsString("login"),
-                            usuario = reader.ReadAsInt("usuario"),
-                            senha = reader.ReadAsString("senha"),
+                            LoginU = reader.ReadAsString("login"),
+                            Usuario = reader.ReadAsInt("usuario"),
+                            Senha = reader.ReadAsString("senha"),
                             Funcionario = new Usuario()
                             {
                                 Nome = reader.ReadAsString("Nome")

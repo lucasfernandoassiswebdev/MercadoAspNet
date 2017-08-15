@@ -1,5 +1,5 @@
-﻿using Mercado.Dominio.Contrato;
-using Mercado.Dominio;
+﻿using MercadoDominio.Entidades.Contrato;
+using MercadoDominio.Entidades;
 using System.Collections.Generic;
 using MercadoRepositorioADO.Extensoes;
 

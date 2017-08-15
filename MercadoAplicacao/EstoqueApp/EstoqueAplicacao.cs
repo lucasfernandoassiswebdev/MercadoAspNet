@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Mercado.Dominio;
+using MercadoDominio.Entidades;
 using MercadoDominio.Contrato;
 
 namespace Mercado.Aplicacao.EstoqueApp
