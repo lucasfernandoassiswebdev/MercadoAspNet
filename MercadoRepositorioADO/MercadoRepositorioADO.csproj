@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Contexto\Contexto.cs" />
+    <Compile Include="Extensoes\DatabaseExtension.cs" />
     <Compile Include="Repositorios\DistribuidorRepositorioADO.cs" />
     <Compile Include="Repositorios\EstoqueRepositorioADO.cs" />
     <Compile Include="Repositorios\FabricanteRepositorioADO.cs" />

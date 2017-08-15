@@ -1,8 +1,7 @@
-﻿using System.Linq;
-using Mercado.Dominio;
+﻿using Mercado.Dominio;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 using MercadoDominio.Contrato;
+using MercadoRepositorioADO.Extensoes;
 
 namespace Mercado.RepositorioADO
 {
@@ -58,28 +57,28 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("ListarEstoque");
+                var cmd = contexto.ExecutaComando("ListarEstoque");
 
                 var estoques = new List<Estoque>();
-
-                while (cmd.Read())
-                estoques.Add(new Estoque()
-                {
-                    IdProduto = cmd.ReadAsInt("IdProduto"),
-                    Produto = new Produto
-                    {
-                        Nome = cmd.ReadAsString("Nome"),
-                        Fabricante = new Fabricante
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        estoques.Add(new Estoque()
                         {
-                            Nome = cmd.ReadAsString("Fabricante")
-                        },
-                        Distribuidor = new Distribuidor
-                        {
-                            Nome = cmd.ReadAsString("Distribuidor")
-                        }
-                    },
-                   Quantidade = cmd.ReadAsDecimal("Quantidade")
-                });
+                            IdProduto = reader.ReadAsInt("IdProduto"),
+                            Produto = new Produto
+                            {
+                                Nome = reader.ReadAsString("Nome"),
+                                Fabricante = new Fabricante
+                                {
+                                    Nome = reader.ReadAsString("Fabricante")
+                                },
+                                Distribuidor = new Distribuidor
+                                {
+                                    Nome = reader.ReadAsString("Distribuidor")
+                                }
+                            },
+                            Quantidade = reader.ReadAsDecimal("Quantidade")
+                        });
 
                 return estoques;
             }
@@ -89,23 +88,18 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("ListarEstoquePorIdProduto");
+                var cmd = contexto.ExecutaComando("ListarEstoquePorIdProduto");
                 cmd.Parameters.AddWithValue("@Id", id);
-
                 var estoque = new Estoque();
-                while (cmd.Read())
-                {
-                    var temObjeto = new Estoque()
-                    {
-                        Id = cmd.ReadAsInt("Id"),
-                        IdProduto = cmd.ReadAsInt("IdProduto"),
-                        Quantidade = cmd.ReadAsDecimal("Quantidade")
-                    };
-                    estoque.Add(temObjeto);
-                }
-
-                cmd.Close();
-                return estoque;
+                using (var reader = cmd.ExecuteReader())
+                     if (reader.Read())
+                        return new Estoque()
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            IdProduto = reader.ReadAsInt("IdProduto"),
+                            Quantidade = reader.ReadAsDecimal("Quantidade")
+                        };
+                return null;
             }
         }
 

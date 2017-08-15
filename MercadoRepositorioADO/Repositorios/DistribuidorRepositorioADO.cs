@@ -1,7 +1,7 @@
 ﻿using Mercado.Dominio.Contrato;
 using Mercado.Dominio;
 using System.Collections.Generic;
-using System.Data.SqlClient;
+using MercadoRepositorioADO.Extensoes;
 
 namespace Mercado.RepositorioADO
 {
@@ -52,21 +52,20 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var retornoDataReader = contexto.ExecutaComandoComRetorno("ListaDistribuidores");
-
+                var cmd = contexto.ExecutaComando("ListaDistribuidores");
                 var distribuidores = new List<Distribuidor>();
-                while (retornoDataReader.Read())
-                {
-                    var temObjeto = new Distribuidor()
-                    {
-                        Id = retornoDataReader.ReadAsInt("Id"),
-                        Nome = retornoDataReader.ReadAsString("Nome")
-                    };
-                   distribuidores.Add(temObjeto);
-                 }
-                
-                retornoDataReader.Close();
 
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                    {
+                        var Distribuidor = new Distribuidor()
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome")
+                        };
+                        distribuidores.Add(Distribuidor);
+                    }
+                
                 return distribuidores;
             }
         }
@@ -75,22 +74,18 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComandoComRetorno("ListarDistribuidorPorId");
+                var cmd = contexto.ExecutaComando("ListarDistribuidorPorId");
                 cmd.Parameters.AddWithValue("@Id", id);
 
-                var distribuidor = new Distribuidor();
-                while (cmd.Read())
-                {
-                    var temObjeto = new Distribuidor()
-                    {
-                        Id = cmd.ReadAsInt("Id"),
-                        Nome = cmd.ReadAsString("Nome")
-                    };
-                    distribuidor.Add(temObjeto);
-                }
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return new Distribuidor
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome")
+                        };
 
-                cmd.Close();
-                return distribuidor;
+                return null;
             }
         }
     }

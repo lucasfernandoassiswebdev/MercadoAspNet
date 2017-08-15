@@ -12,25 +12,24 @@ namespace Mercado.RepositorioADO
 
         private void Insert(Usuario usuario)
         {
-            var strQuery = "";
-            strQuery += " INSERT INTO DBUsuarios(Nome,Nivel)" +
-                       $" VALUES('{usuario.Nome}','{usuario.Nivel}')";
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("InsereUsuario");
+                cmd.Parameters.AddWithValue("@Nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("@Nivel", usuario.Nivel);
+                cmd.ExecuteNonQuery();
             }
         }
 
         private void Alterar(Usuario usuario)
         {
-            var strQuery = "";
-            strQuery += "UPDATE DBUsuarios SET " + 
-                        $" Nome = '{usuario.Nome}', " +
-                        $" Nivel = '{usuario.Nivel}' " +
-                        $" WHERE Id = '{usuario.Id}' ";
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("InsereProduto");
+                cmd.Parameters.AddWithValue("@Nome", produto.Nome);
+                cmd.Parameters.AddWithValue("@Valor", produto.Valor);
+                cmd.Parameters.AddWithValue("@Fabricante", produto.IdFabricante);
+                cmd.ExecuteNonQuery();
             }
         }
 

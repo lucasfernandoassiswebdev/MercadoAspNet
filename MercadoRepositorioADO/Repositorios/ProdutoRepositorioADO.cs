@@ -1,7 +1,6 @@
 ﻿using Mercado.Dominio.Contrato;
 using Mercado.Dominio;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 
 namespace Mercado.RepositorioADO
 {
@@ -11,28 +10,28 @@ namespace Mercado.RepositorioADO
 
         private void Insert(Produto produto)
         {
-            var strQuery = "";
-            strQuery += " INSERT INTO DBProdutos(Nome,Valor,Fabricante,Distribuidor)" + 
-                       $" VALUES('{produto.Nome}','{produto.Valor}','{produto.IdFabricante}','{produto.IdDistribuidor}')";
-            using (contexto = new Contexto())
+           using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("InsereProduto");
+                cmd.Parameters.AddWithValue("@Nome", produto.Nome);
+                cmd.Parameters.AddWithValue("@Valor", produto.Valor);
+                cmd.Parameters.AddWithValue("@Fabricante", produto.IdFabricante);
+                cmd.Parameters.AddWithValue("@Distribuidor", produto.IdDistribuidor);
+                cmd.ExecuteNonQuery();
             }
         }
 
         private void Alterar(Produto produto)
         {
-            var strQuery = "";
-            strQuery += "UPDATE DBProdutos SET ";
-            //String Interpolation = $
-            strQuery += $" Nome = '{produto.Nome}', " +
-                        $" Valor = '{produto.Valor}', " + 
-                        $" Fabricante = '{produto.IdFabricante}', " +
-                        $" Distribuidor = '{produto.IdDistribuidor}' " +
-                        $" WHERE Id = '{produto.Id}' ";
             using (contexto = new Contexto())
             {
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("AlteraProduto");
+                cmd.Parameters.AddWithValue("@Id", produto.Id);
+                cmd.Parameters.AddWithValue("@Nome", produto.Nome);
+                cmd.Parameters.AddWithValue("@Valor", produto.Valor);
+                cmd.Parameters.AddWithValue("@Fabricante", produto.IdFabricante);
+                cmd.Parameters.AddWithValue("@Distribuidor", produto.IdDistribuidor);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -49,8 +48,9 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $"DELETE FROM DBProdutos WHERE Id = '{produto.Id}'";
-                contexto.ExecutaComando(strQuery);
+                var cmd = contexto.ExecutaComando("ExcluiProduto");
+                cmd.Parameters.AddWithValue("@Id", produto.Id);
+                cmd.ExecuteNonQuery();
             }
         }
 
@@ -58,27 +58,24 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = " select p.Id, p.Nome, p.Valor, f.Nome as 'nFabricante', d.Nome as 'nDistribuidor' from DBProdutos p " +
-                               " inner join DBFabricantes f on f.Id = p.Fabricante " +
-                               " inner join DBDistribuidores d on d.Id = p.Distribuidor";
-                //byte, short, int, long, ubyte, ushort, uint, ulong
+                var cmd = contexto.ExecutaComandoComRetorno("ListaProdutos");
                 var produtos = new List<Produto>();
-                using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
-                    while (reader.Read())
-                        produtos.Add(new Produto()
+                
+                while (cmd.Read())
+                    produtos.Add(new Produto()
+                    {
+                        Id = cmd.ReadAsInt("Id"),
+                        Nome = cmd.ReadAsString("Nome"),
+                        Valor = cmd.ReadAsDecimal("Valor"),
+                        Fabricante = new Fabricante
                         {
-                            Id = reader.ReadAsInt("Id"),
-                            Nome = reader.ReadAsString("Nome"),
-                            Valor = reader.ReadAsDecimal("Valor"),
-                            Fabricante = new Fabricante
-                            {
-                                Nome = reader.ReadAsString("nFabricante")
-                            },
-                            Distribuidor = new Distribuidor
-                            {
-                                Nome = reader.ReadAsString("nDistribuidor")
-                            }
-                        });
+                            Nome = cmd.ReadAsString("nFabricante")
+                        },
+                        Distribuidor = new Distribuidor
+                        {
+                            Nome = cmd.ReadAsString("nDistribuidor")
+                        }
+                    });
 
                 return produtos;
             }
@@ -88,56 +85,30 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var strQuery = $" select p.Id, p.Nome, p.Valor, p.Fabricante, p.Distribuidor, p.Valor, " +
-                               "  f.Nome as 'NomeFabricante', d.Nome  as 'NomeDistribuidor' from DBProdutos p " +
-                               "  inner join DBFabricantes f on f.Id = p.Fabricante " +
-                               "  inner join DBDistribuidores d on d.Id = p.Distribuidor " +
-                               $" where p.Id = {id}";
-                using (var reader = contexto.ExecutaComandoComRetorno(strQuery))
-                    if (reader.Read())
-                        return new Produto
+                var cmd = contexto.ExecutaComandoComRetorno("ListaProdutoPorId");
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                var produto = new Produto();
+                while (cmd.Read())
+                    return new Produto
+                    {
+                        Id = cmd.ReadAsInt("Id"),
+                        Nome = cmd.ReadAsString("Nome"),
+                        IdFabricante = cmd.ReadAsInt("Fabricante"),
+                        IdDistribuidor = cmd.ReadAsInt("Distribuidor"),
+                        Valor = cmd.ReadAsDecimal("Valor"),
+                        Fabricante = new Fabricante
                         {
-                            Id = reader.ReadAsInt("Id"),
-                            Nome = reader.ReadAsString("Nome"),
-                            IdFabricante = reader.ReadAsInt("Fabricante"),
-                            IdDistribuidor = reader.ReadAsInt("Distribuidor"),
-                            Valor = reader.ReadAsDecimal("Valor"),
-                            Fabricante = new Fabricante
-                            {
-                                Nome = reader.ReadAsString("NomeFabricante")
-                            },
-                            Distribuidor = new Distribuidor
-                            {
-                                Nome = reader.ReadAsString("NomeDistribuidor")
-                            }
-                        };
-
-                return null;
+                            Nome = cmd.ReadAsString("NomeFabricante")
+                        },
+                        Distribuidor = new Distribuidor
+                        {
+                            Nome = cmd.ReadAsString("NomeDistribuidor")
+                        }
+                    };
+                 cmd.Close();
+                 return produto;
             }
-        }
-    }
-
-    public static class DatabaseExtension
-    {
-        public static int? ReadAsIntNull(this SqlDataReader r, string name)
-        {
-            var ordinal = r.GetOrdinal(name);
-            return r.IsDBNull(ordinal) ? (int?)null : r.GetInt32(ordinal);
-        }
-
-        public static int ReadAsInt(this SqlDataReader r, string name)
-        {
-            return r.GetInt32(r.GetOrdinal(name));
-        }
-
-        public static string ReadAsString(this SqlDataReader r, string name)
-        {
-            return r.GetString(r.GetOrdinal(name));
-        }
-
-        public static decimal ReadAsDecimal(this SqlDataReader r, string name)
-        {
-            return r.GetDecimal(r.GetOrdinal(name));
         }
     }
 }

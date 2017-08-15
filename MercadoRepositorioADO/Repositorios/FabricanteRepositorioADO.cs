@@ -1,8 +1,6 @@
 ﻿using Mercado.Dominio.Contrato;
-using System.Linq;
 using Mercado.Dominio;
 using System.Collections.Generic;
-using System.Data.SqlClient;
 
 namespace Mercado.RepositorioADO
 {
@@ -75,26 +73,24 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var retornoDataReader = contexto.ExecutaComandoComRetorno("ListaFabricantePorId");
-                return TransformaReaderEmListaDeObjeto(retornoDataReader).FirstOrDefault();
-            }
-        }
+                var cmd = contexto.ExecutaComandoComRetorno("ListaFabricantePorId");
+                cmd.Parameters.AddWithValue("@Id", id);
 
-        private List<Fabricante> TransformaReaderEmListaDeObjeto(SqlDataReader reader)
-        {
-            var fabricantes = new List<Fabricante>();
-            while (reader.Read())
-            {
-                var temObjeto = new Fabricante()
+                var fabricante = new Fabricante();
+                while (cmd.Read())
                 {
-                    Id = reader.ReadAsInt("Id"),
-                    Nome = reader.ReadAsString("Nome")
-                };
-                fabricantes.Add(temObjeto);
-            }
+                    var temObjeto = new Fabricante()
+                    {
+                        Id = cmd.ReadAsInt("Id"),
+                        Nome = cmd.ReadAsString("Nome")
+                    };
 
-            reader.Close();
-            return fabricantes;
+                    fabricante.Add(temObjeto);
+                }
+
+                cmd.Close();
+                return fabricante;
+            }
         }
     }
 }

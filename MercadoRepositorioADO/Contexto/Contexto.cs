@@ -25,14 +25,6 @@ namespace Mercado.RepositorioADO
             };
         }
 
-        public SqlDataReader ExecutaComandoComRetorno(string procedureName)
-        {
-            return new SqlCommand(procedureName, minhaConexao)
-            {
-                CommandType = CommandType.StoredProcedure
-            }.ExecuteReader();
-        }
-
         public void Dispose()
         {
             if (minhaConexao.State == System.Data.ConnectionState.Open)
