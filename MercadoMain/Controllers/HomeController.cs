@@ -1,4 +1,5 @@
 ﻿using System.Web.Mvc;
+using System.Web.UI.WebControls;
 
 namespace ProjetoMercado.Controllers
 {
@@ -8,5 +9,12 @@ namespace ProjetoMercado.Controllers
         {
             return View();
         }
+
+        //[HttpPost]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult Index(Login login)
+        //{
+
+        //}
     }
 }

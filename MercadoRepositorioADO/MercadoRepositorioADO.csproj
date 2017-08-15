@@ -46,6 +46,7 @@
     <Compile Include="Repositorios\DistribuidorRepositorioADO.cs" />
     <Compile Include="Repositorios\EstoqueRepositorioADO.cs" />
     <Compile Include="Repositorios\FabricanteRepositorioADO.cs" />
+    <Compile Include="Repositorios\LoginRepositorioADO.cs" />
     <Compile Include="Repositorios\ProdutoRepositorioADO.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositorios\UsuarioRepositorioADO.cs" />
