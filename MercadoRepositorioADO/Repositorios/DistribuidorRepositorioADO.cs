@@ -72,7 +72,7 @@ namespace Mercado.RepositorioADO
         {
             using (contexto = new Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListarDistribuidorPorId");
+                var cmd = contexto.ExecutaComando("ListaDistribuidorPorId");
                 cmd.Parameters.AddWithValue("@Id", id);
 
                 using (var reader = cmd.ExecuteReader())
