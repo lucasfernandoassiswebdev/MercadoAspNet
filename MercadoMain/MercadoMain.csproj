@@ -141,14 +141,14 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\DistribuidorController.cs" />
-    <Compile Include="Controllers\EstoqueController.cs" />
-    <Compile Include="Controllers\FabricanteController.cs" />
+    <Compile Include="Controllers\Produtos\DistribuidorController.cs" />
+    <Compile Include="Controllers\Produtos\EstoqueController.cs" />
+    <Compile Include="Controllers\Produtos\FabricanteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\LoginController.cs" />
-    <Compile Include="Controllers\ProdutoController.cs" />
-    <Compile Include="Controllers\UsuarioController.cs" />
-    <Compile Include="Controllers\VendaController.cs" />
+    <Compile Include="Controllers\Usuarios\LoginController.cs" />
+    <Compile Include="Controllers\Produtos\ProdutoController.cs" />
+    <Compile Include="Controllers\Usuarios\UsuarioController.cs" />
+    <Compile Include="Controllers\Vendas\VendaController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -223,6 +223,7 @@
     <Content Include="Views\Login\Cadastrar.cshtml" />
     <Content Include="Views\Login\Excluir.cshtml" />
     <Content Include="Views\Login\Editar.cshtml" />
+    <Content Include="Views\Home\LogadoComSucesso.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

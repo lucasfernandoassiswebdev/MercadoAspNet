@@ -1,0 +1,16 @@
+﻿@model MercadoDominio.Entidades.Login
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Resultado do login</h2>
+
+<div>
+    <h4>Login:</h4>
+    <h4>@ViewBag.Resultado</h4>
+    <hr />
+</div>
+<p>
+    @Html.ActionLink("Voltar a página inicial", "Index");
+</p>
