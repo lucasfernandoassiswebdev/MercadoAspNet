@@ -18,6 +18,10 @@ namespace MercadoDominio.Entidades
         [DisplayName("Valor: ")]
         public decimal Valor { get; set; }
 
+        [Required(ErrorMessage = "É obrigatório escolher uma imagem para o produto")]
+        [DisplayName("Imagem desejada: ")]
+        public string Imagem { get; set; }
+
         public Fabricante Fabricante { get; set; }
         public Distribuidor Distribuidor { get; set; }
     }

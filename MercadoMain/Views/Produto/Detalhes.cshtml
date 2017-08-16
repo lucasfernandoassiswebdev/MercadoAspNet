@@ -3,6 +3,9 @@
 @{
     ViewBag.Title = "Detalhes";
 }
+@{
+    var imagePath = "C:\\Users\\user\\Desktop\\imagens\\" + @Model.Imagem;    
+}
 
 <h2>Detalhes</h2>
 
@@ -40,6 +43,14 @@
 
         <dd>
             R$ @Html.DisplayFor(model => model.Valor)
+        </dd>
+        
+        <dt>
+            Imagem
+        </dt>
+
+        <dd>
+            <img src="@imagePath" style="max-height: 300px; max-width: 300px"/>
         </dd>
 
     </dl>
