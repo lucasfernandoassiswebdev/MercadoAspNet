@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Web.Mvc;
+using System.Web.Security;
 using MercadoAplicacao.LoginApp;
 using MercadoDominio.Entidades;
 
@@ -53,6 +54,16 @@ namespace ProjetoMercado.Controllers
             }
 
             return View();
+        }
+
+        public ActionResult Logoff()
+        {
+            if (Session["Login"] != null)
+            {
+                Session.Clear();
+            }
+
+            return RedirectToAction("Index","Home");
         }
     }
 }

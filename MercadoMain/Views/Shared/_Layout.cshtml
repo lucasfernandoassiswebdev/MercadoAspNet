@@ -34,21 +34,26 @@
     </style>
 </head>
 <body>
+
+@if (Session["Login"] != null)
+{
     <ul>
-        <li>@Html.ActionLink("Inicio","../Home")</li>
+        <li>@Html.ActionLink("Inicio", "../Home")</li>
         <li>@Html.ActionLink("Fabricantes", "../Fabricante")</li>
-        <li>@Html.ActionLink("Distribuidores","../Distribuidor")</li>
+        <li>@Html.ActionLink("Distribuidores", "../Distribuidor")</li>
         <li>@Html.ActionLink("Produtos", "../Produto")</li>
-        <li>@Html.ActionLink("Estoque","../Estoque")</li>
-        <li>@Html.ActionLink("Usuários","../Usuario")</li>
+        <li>@Html.ActionLink("Estoque", "../Estoque")</li>
+        <li>@Html.ActionLink("Usuários", "../Usuario")</li>
         <li>@Html.ActionLink("Controle de login", "../Login")</li>
         <li>@Html.ActionLink("Controle das Vendas", "../Venda")</li>
         <li>@Html.ActionLink("Menu de vendas", "../Venda/Cadastrar")</li>
+        <li>@Html.ActionLink("Deslogar", "../Home/Logoff")</li>
     </ul>
+}
 
-    @RenderBody()
-    @Scripts.Render("~/bundles/jquery")
-    @Scripts.Render("~/bundles/bootstrap")
-    @RenderSection("scripts", required: false)
+@RenderBody()
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@RenderSection("scripts", required: false)
 </body>
 </html>
