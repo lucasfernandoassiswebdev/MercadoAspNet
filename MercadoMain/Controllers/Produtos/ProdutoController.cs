@@ -3,10 +3,11 @@ using Mercado.Aplicacao.FabricanteApp;
 using Mercado.Aplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
+using MercadoMain.Controllers;
 
 namespace ProjetoMercado.Controllers
 {
-    public class ProdutoController : Controller
+    public class ProdutoController : AuthController
     {
         private ProdutoAplicacao appProduto;
         private FabricanteAplicacao appFabricante;

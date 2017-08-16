@@ -1,10 +1,11 @@
 ﻿using Mercado.Aplicacao.UsuarioApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
+using MercadoMain.Controllers;
 
 namespace ProjetoMercado.Controllers
 {
-    public class UsuarioController : Controller
+    public class UsuarioController : AuthController
     {
         private UsuarioAplicacao appUsuario;
 

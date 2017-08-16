@@ -2,10 +2,11 @@
 using Mercado.Aplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
+using MercadoMain.Controllers;
 
 namespace ProjetoMercado.Controllers
 {
-    public class EstoqueController : Controller
+    public class EstoqueController : AuthController
     {
         private EstoqueAplicacao appEstoque;
         private ProdutoAplicacao appProdutos;

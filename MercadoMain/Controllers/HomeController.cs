@@ -20,6 +20,12 @@ namespace ProjetoMercado.Controllers
             return View();
         }
 
+        public ActionResult Unauthorized()
+        {
+            ModelState.AddModelError("LOGIN", "Você não está logado!");
+            return View("Index");
+        }
+
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Index(Login login)
@@ -45,12 +51,11 @@ namespace ProjetoMercado.Controllers
         {
             if (Session["Login"] == null)
             {
-                @ViewBag.Resultado = "login ou senha incorretos";
+                ViewBag.Resultado = "login ou senha incorretos";
             }
             else
             {
-                @ViewBag.Resultado = Session["Login"] + " logado com sucesso";
-                Session["Login"] = "";
+                ViewBag.Resultado = Session["Login"] + " logado com sucesso";
             }
 
             return View();

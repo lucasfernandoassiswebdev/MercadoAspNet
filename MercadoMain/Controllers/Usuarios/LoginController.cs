@@ -5,7 +5,7 @@ using System.Web.Mvc;
 
 namespace MercadoMain.Controllers
 {
-    public class LoginController : Controller
+    public class LoginController : AuthController
     {
         private LoginAplicacao appLogin;
         private UsuarioAplicacao appUsuario;

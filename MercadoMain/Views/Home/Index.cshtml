@@ -16,20 +16,24 @@
 @using (Html.BeginForm())
 { 
     @Html.AntiForgeryToken()
-    @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
     <h2 style="margin-left: 40%">Página inicial</h2><br/>
     <h3 style="margin-left: 45%">Login</h3><br/>
+    if(@Session["Login"] == null)
+     {
+         <div style="margin-left: 37%">
+             <label for="login">Login:</label>
+             <input type="text" placeholder="Digite aqui o seu login" name="LoginU" id="login" class="centro"/><br/><br/>
 
-    <div style="margin-left: 37%">
-        <label for="login">Login:</label>
-        <input type="text" placeholder="Digite aqui o seu login" name="LoginU" id="login" class="centro" /><br /><br />
+             <label for="senha">Senha:</label>
+             <input type="password" placeholder="Digite aqui a sua senha" name="Senha" id="senha" class="centro"/><br/><br/>
 
-        <label for="senha">Senha:</label>
-        <input type="password" placeholder="Digite aqui a sua senha" name="Senha" id="senha" class="centro" /><br/><br />
-
-        <input type="submit" placeholder="Logar" style="margin-left: 13%" value="Logar"/>
-    </div>
-
-    <h1 style="margin-left: 50%">@ViewBag.Erro</h1>
+             <input type="submit" placeholder="Logar" style="margin-left: 13%" value="Logar"/>
+         </div>
+    }
+    else
+    {
+        <div style="margin-left: 45%">@Html.ActionLink("Deslogar", "Logoff")</div>
+    }
 }

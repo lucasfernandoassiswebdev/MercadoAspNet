@@ -4,10 +4,11 @@ using Mercado.Aplicacao.UsuarioApp;
 using Mercado.Aplicacao.VendasApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
+using MercadoMain.Controllers;
 
 namespace ProjetoMercado.Controllers
 {
-    public class VendaController : Controller
+    public class VendaController : AuthController
     {
         private VendasAplicacao appVendas;
         private ProdutoAplicacao appProdutos;

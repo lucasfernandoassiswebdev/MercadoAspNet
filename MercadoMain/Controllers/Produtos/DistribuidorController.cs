@@ -1,10 +1,11 @@
 ﻿using Mercado.Aplicacao.DistribuidorApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
+using MercadoMain.Controllers;
 
 namespace ProjetoMercado.Controllers
 {
-    public class DistribuidorController : Controller
+    public class DistribuidorController : AuthController
     {
         private DistribuidorAplicacao appDistribuidor;
 
