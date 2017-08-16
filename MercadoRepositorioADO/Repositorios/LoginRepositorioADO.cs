@@ -21,7 +21,7 @@ namespace MercadoRepositorioADO.Repositorios
             }
         }
 
-        private void Alterar(Login login)
+        public void Alterar(Login login)
         {
             using (contexto = new Contexto())
             {
@@ -35,12 +35,12 @@ namespace MercadoRepositorioADO.Repositorios
 
         public void Salvar(Login login)
         {
-            if (login.Usuario > 0)
-            {
-                Insert(login);
-            } else
+            if (login.Id > 0)
             {
                 Alterar(login);
+            } else
+            {
+                Insert(login);
             }
         }
 

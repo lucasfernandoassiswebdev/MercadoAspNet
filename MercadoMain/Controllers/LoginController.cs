@@ -45,6 +45,8 @@ namespace MercadoMain.Controllers
             var login = appLogin.ListarPorId(id);
             if (login == null)
                 return HttpNotFound();
+
+            @ViewBag.Login = appLogin.ListarPorId(id);
             return View();
         }
 
@@ -71,8 +73,9 @@ namespace MercadoMain.Controllers
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult Excluir(Login login)
+        public ActionResult ExcluirConfirmado(int id)
         {
+            var login = appLogin.ListarPorId(id);
             appLogin.Excluir(login);
             return RedirectToAction("Index");
         }

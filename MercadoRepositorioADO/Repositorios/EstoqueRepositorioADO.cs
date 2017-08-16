@@ -89,7 +89,7 @@ namespace Mercado.RepositorioADO
             using (contexto = new Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListarEstoquePorIdProduto");
-                cmd.Parameters.AddWithValue("@Id", id);
+                cmd.Parameters.AddWithValue("@IdProduto", id);
                 var estoque = new Estoque();
                 using (var reader = cmd.ExecuteReader())
                      if (reader.Read())

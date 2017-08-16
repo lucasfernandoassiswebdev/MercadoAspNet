@@ -221,8 +221,8 @@
     <Content Include="Views\Venda\Editar.cshtml" />
     <Content Include="Views\Login\Index.cshtml" />
     <Content Include="Views\Login\Cadastrar.cshtml" />
-    <Content Include="Views\Login\Editar.cshtml" />
     <Content Include="Views\Login\Excluir.cshtml" />
+    <Content Include="Views\Login\Editar.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
