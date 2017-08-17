@@ -1,9 +1,13 @@
-﻿using Mercado.Aplicacao.DistribuidorApp;
+﻿using System.Web;
+using Mercado.Aplicacao.DistribuidorApp;
 using Mercado.Aplicacao.FabricanteApp;
 using Mercado.Aplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
 using MercadoMain.Controllers;
+using System.IO;
+using System;
+using System.Linq;
 
 namespace ProjetoMercado.Controllers
 {
@@ -34,15 +38,25 @@ namespace ProjetoMercado.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]
-        public ActionResult Cadastrar(Produto produto)
+        [ValidateAntiForgeryToken]                      //esse parâmetro file vem de inputs to tipo file
+        public ActionResult Cadastrar(Produto produto, HttpPostedFileBase uploadImagem)
         {
             if (ModelState.IsValid)
             {
-                if (produto.Imagem == null)
-                    produto.Imagem = "C:\\Users\\user\\Desktop\\imagens\\padrao.jpg";
+                if (uploadImagem == null)
+                    produto.Imagem = "imagens\\padrao.jpg";
+                else
+                    produto.Imagem = uploadImagem.FileName;
+            
+                if (uploadImagem != null)
+                {
+                    string[] strName = uploadImagem.FileName.Split('.');
+                    //string strExt = strName[strName.Count() - 1];
+                    string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
+                    string pathBase = $"/Imagens/{produto.Imagem}";
+                    uploadImagem.SaveAs(pathSave);
+                }
 
-                var appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
                 appProduto.Salvar(produto);
                 return RedirectToAction("Index");
             }
@@ -58,12 +72,15 @@ namespace ProjetoMercado.Controllers
             var produto = appProduto.ListarPorId(id);
             ViewBag.Fabricantes = appFabricante.ListarTodos();
             ViewBag.Distribuidores = appDistribuidores.ListarTodos();
+
             if (produto == null)
                 return HttpNotFound();
+
             if (produto.Imagem != null)
                 @ViewBag.Foto = produto.Imagem;
             else
-                @ViewBag.Foto = "C:\\Users\\user\\Desktop\\imagens\\padrao.png";
+                @ViewBag.Foto = "\\imagens\\padrao.png";
+
             return View(produto);
         }
 
@@ -75,8 +92,8 @@ namespace ProjetoMercado.Controllers
             {
                 if (produto.Imagem == null)
                     produto.Imagem = "C:\\Users\\user\\Desktop\\imagens\\padrao.jpg";
-                var appDistribuidor = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
-                appDistribuidor.Salvar(produto);
+
+                appProduto.Salvar(produto);
                 return RedirectToAction("Index");
             }
             ViewBag.Fabricantes = appFabricante.ListarTodos();
