@@ -54,12 +54,15 @@
         <div class="form-group" style="margin-left: 15%">
             <label for="imagem">Selecione a imagem do produto</label>
             <span class="input-group-btn" id="imagem" style="width:auto">
-                <span class="btn btn-primary btn-file" style="width: auto">
-                    <input type="file" single name="uploadImagem" accept="image/x-png,image/gif,image/jpeg">
+                <span class="btn btn-primary btn-file" style="width: auto" id="campoDeImagem">
+                    <input type="file" single name="uploadImagem" accept="image/x-png,image/gif,image/jpeg" >
                 </span>
             </span>
         </div>
        
+        <button onclick="limpa()" style="margin-left: 15%">Limpar imagem</button>
+        <br/><br />
+        
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Cadastrar" class="btn btn-default"/>
@@ -71,6 +74,13 @@
 <div>
     @Html.ActionLink("Voltar a lista", "Index")
 </div>
+
+<script>
+    function limpa() {
+        document.getElementById('campoDeImagem').innerHTML = "batataaaa";
+        console.log('Eu funciono');
+    };
+</script>
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")

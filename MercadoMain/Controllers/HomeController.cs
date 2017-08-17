@@ -39,7 +39,6 @@ namespace ProjetoMercado.Controllers
                     if (log.LoginU == login.LoginU && log.Senha == login.Senha)
                     {
                         Session["Login"] = log;
-                        ViewBag.Resultado = log.Funcionario.Nivel;
                     }
                 }
                 return RedirectToAction("LogadoComSucesso");
@@ -55,7 +54,7 @@ namespace ProjetoMercado.Controllers
             }
             else
             {
-                ViewBag.Resultado = Session["Login"] + " logado com sucesso";
+                ViewBag.Resultado = ((Login)Session["Login"]).Funcionario.Nome + " logado com sucesso";
             }
 
             return View();
