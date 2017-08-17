@@ -1,4 +1,5 @@
-﻿<!DOCTYPE html>
+﻿@using MercadoDominio.Entidades
+<!DOCTYPE html>
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
@@ -36,7 +37,7 @@
 </head>
 <body>
 
-@if (Session["Login"] != null)
+@if (Session["Login"] != null && ((Login)Session["Login"]).Funcionario.Nivel == "A")
 {
     <ul>
         <li>@Html.ActionLink("Inicio", "../Home")</li>
@@ -50,6 +51,10 @@
         <li>@Html.ActionLink("Menu de vendas", "../Venda/Cadastrar")</li>
         <li>@Html.ActionLink("Deslogar", "../Home/Logoff")</li>
     </ul>
+}
+else
+{
+  <ul>Você não tem nível suficiente para acessar os menus</ul>
 }
 
 @RenderBody()

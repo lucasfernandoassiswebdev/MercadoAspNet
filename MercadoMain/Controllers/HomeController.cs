@@ -38,8 +38,8 @@ namespace ProjetoMercado.Controllers
                 {
                     if (log.LoginU == login.LoginU && log.Senha == login.Senha)
                     {
-                        Session["Login"] = login.LoginU;
-                        ViewBag.Resultado = Session["Login"].ToString();
+                        Session["Login"] = log;
+                        ViewBag.Resultado = log.Funcionario.Nivel;
                     }
                 }
                 return RedirectToAction("LogadoComSucesso");

@@ -71,7 +71,8 @@ namespace MercadoRepositorioADO.Repositorios
                             Senha = reader.ReadAsString("senha"),
                             Funcionario = new Usuario
                             {
-                                Nome = reader.ReadAsString("Nome")
+                                Nome = reader.ReadAsString("Nome"),
+                                Nivel = reader.ReadAsString("Nivel")
                             }
                         });
                 return logins;
