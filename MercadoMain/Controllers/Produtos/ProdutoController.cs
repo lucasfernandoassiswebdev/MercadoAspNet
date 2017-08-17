@@ -40,7 +40,7 @@ namespace ProjetoMercado.Controllers
             if (ModelState.IsValid)
             {
                 if (produto.Imagem == null)
-                    produto.Imagem = "padrao.jpg";
+                    produto.Imagem = "C:\\Users\\user\\Desktop\\imagens\\padrao.jpg";
 
                 var appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
                 appProduto.Salvar(produto);
