@@ -33,6 +33,7 @@ namespace Mercado.RepositorioADO
                 cmd.Parameters.AddWithValue("@Valor", produto.Valor);
                 cmd.Parameters.AddWithValue("@Fabricante", produto.IdFabricante);
                 cmd.Parameters.AddWithValue("@Distribuidor", produto.IdDistribuidor);
+                cmd.Parameters.AddWithValue("@Imagem", produto.Imagem);
                 cmd.ExecuteNonQuery();
             }
         }

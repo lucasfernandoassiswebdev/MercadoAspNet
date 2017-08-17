@@ -39,6 +39,9 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (produto.Imagem == null)
+                    produto.Imagem = "padrao.jpg";
+
                 var appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
                 appProduto.Salvar(produto);
                 return RedirectToAction("Index");
@@ -57,7 +60,10 @@ namespace ProjetoMercado.Controllers
             ViewBag.Distribuidores = appDistribuidores.ListarTodos();
             if (produto == null)
                 return HttpNotFound();
-
+            if (produto.Imagem != null)
+                @ViewBag.Foto = produto.Imagem;
+            else
+                @ViewBag.Foto = "C:\\Users\\user\\Desktop\\imagens\\padrao.png";
             return View(produto);
         }
 
@@ -67,6 +73,8 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
+                if (produto.Imagem == null)
+                    produto.Imagem = "C:\\Users\\user\\Desktop\\imagens\\padrao.jpg";
                 var appDistribuidor = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
                 appDistribuidor.Salvar(produto);
                 return RedirectToAction("Index");
