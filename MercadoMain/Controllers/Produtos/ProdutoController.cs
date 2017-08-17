@@ -46,10 +46,8 @@ namespace ProjetoMercado.Controllers
                 if (uploadImagem == null)
                     produto.Imagem = "imagens\\padrao.jpg";
                 else
+                { 
                     produto.Imagem = uploadImagem.FileName;
-            
-                if (uploadImagem != null)
-                {
                     string[] strName = uploadImagem.FileName.Split('.');
                     //string strExt = strName[strName.Count() - 1];
                     string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
@@ -86,12 +84,22 @@ namespace ProjetoMercado.Controllers
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Editar(Produto produto)
+        public ActionResult Editar(Produto produto, HttpPostedFileBase uploadImagem)
         {
             if (ModelState.IsValid)
             {
-                if (produto.Imagem == null)
-                    produto.Imagem = "C:\\Users\\user\\Desktop\\imagens\\padrao.jpg";
+                if (uploadImagem == null)
+                    produto.Imagem = "imagens\\padrao.jpg";
+                else
+                { 
+                    produto.Imagem = uploadImagem.FileName;
+                    string[] strName = uploadImagem.FileName.Split('.');
+                    //string strExt = strName[strName.Count() - 1];
+                    string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
+                    string pathBase = $"/Imagens/{produto.Imagem}";
+                    uploadImagem.SaveAs(pathSave);
+
+                }
 
                 appProduto.Salvar(produto);
                 return RedirectToAction("Index");

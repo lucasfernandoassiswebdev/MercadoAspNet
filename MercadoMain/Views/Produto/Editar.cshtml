@@ -7,7 +7,7 @@
 <h2>Editar Produto</h2>
 
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Editar", "Produto", FormMethod.Post, new { enctype = "multipart/form-data" }))
 {
     @Html.AntiForgeryToken()
     
@@ -65,7 +65,7 @@
 
             <span class="input-group-btn" id="imagem" style="width:auto">
                 <span class="btn btn-primary btn-file" style="width: auto">
-                    <input type="file" single name="Imagem">
+                    <input type="file" single name="uploadImagem">
                 </span>
             </span>
         </div>
