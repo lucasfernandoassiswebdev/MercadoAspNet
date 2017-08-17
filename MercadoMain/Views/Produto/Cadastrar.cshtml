@@ -54,8 +54,8 @@
         <div class="form-group" style="margin-left: 15%">
             <label for="imagem">Selecione a imagem do produto</label>
             <span class="input-group-btn" id="imagem" style="width:auto">
-                <span class="btn btn-primary btn-file" style="width: auto" id="campoDeImagem">
-                    <input type="file" single name="uploadImagem" accept="image/x-png,image/gif,image/jpeg" >
+                <span class="btn btn-primary btn-file" style="width: auto" >
+                    <input type="file" single name="uploadImagem" accept="image/x-png,image/gif,image/jpeg" id="campoDeImagem">
                 </span>
             </span>
         </div>
@@ -77,7 +77,7 @@
 
 <script>
     function limpa() {
-        document.getElementById('campoDeImagem').innerHTML = "batataaaa";
+        document.getElementById('campoDeImagem').innerHTML = "";
         console.log('Eu funciono');
     };
 </script>
