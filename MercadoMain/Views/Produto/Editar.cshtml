@@ -25,9 +25,9 @@
             </div>
         </div>
 
-        <div style="margin-left:10.5%">
+        <div style="margin-left:10%">
             <label for="batata">Fabricante: </label>
-            <select name="IdFabricante" id="batata">
+            <select name="IdFabricante" id="batata" style="margin-left:10px">
                 @foreach (var fabricante in (IEnumerable<Fabricante>)ViewBag.Fabricantes)
                 {
                     <option value="@fabricante.Id" @(Model.IdFabricante == fabricante.Id ? "selected" : string.Empty)>
@@ -57,7 +57,7 @@
         
         <div style="margin-left: 10%">
             Foto atual:
-            <img style="max-width: 300px; max-height: 300px" src="../../imagens/@ViewBag.Foto"/>
+            <img style="max-width: 300px; max-height: 300px" src="../../imagens/@ViewBag.Foto" id="fotoAtual"/>
         </div>
 
         <div class="form-group" style="margin-left: 15%">
@@ -65,12 +65,12 @@
 
             <span class="input-group-btn" id="imagem" style="width:auto">
                 <span class="btn btn-primary btn-file" style="width: auto">
-                    <input type="file" single name="uploadImagem">
+                    <input type="file" single name="uploadImagem" id="campoDeImagem">
                 </span>
             </span>
         </div>
         
-        <button onclick="limpa()" style="margin-left: 15%">Limpar imagem</button>
+        <button onclick="limpa()" style="margin-left: 15%" value="any" type="button">Limpar imagem</button>
         <br /><br />
 
         <div class="form-group">
@@ -87,4 +87,14 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        function limpa() {
+            document.getElementById('campoDeImagem').value = "";
+        }  
+
+        $('#campoDeImagem').on('change', function () {
+           
+        });
+
+    </script>
 }

@@ -60,7 +60,7 @@
             </span>
         </div>
        
-        <button onclick="limpa()" style="margin-left: 15%">Limpar imagem</button>
+        <button onclick="limpa()" style="margin-left: 15%" value="any" type="button">Limpar imagem</button>
         <br/><br />
         
         <div class="form-group">
@@ -77,9 +77,8 @@
 
 <script>
     function limpa() {
-        document.getElementById('campoDeImagem').innerHTML = "";
-        console.log('Eu funciono');
-    };
+        document.getElementById('campoDeImagem').value = "";
+    }  
 </script>
 
 @section Scripts {
