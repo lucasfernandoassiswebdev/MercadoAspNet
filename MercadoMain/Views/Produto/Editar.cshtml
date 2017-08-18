@@ -75,7 +75,7 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Salvar" class="btn btn-default" />
+                <input type="submit" id="enviaForm" value="Salvar" class="btn btn-default" />
             </div>
         </div>
     </div>
@@ -90,10 +90,28 @@
     <script>
         function limpa() {
             document.getElementById('campoDeImagem').value = "";
-        }  
+        }
 
-        $('#campoDeImagem').on('change', function () {
-           
+        $('#campoDeImagem').change(function() {
+            readURL(this);
+        });
+
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function(e) {
+                    $('#fotoAtual').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+        $('#enviaForm').click(function() {
+            if (!$('#campoDeImagem').val()) {
+                $('#campoDeImagem').val("@ViewBag.Foto");
+            }
         });
 
     </script>

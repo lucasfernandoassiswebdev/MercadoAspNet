@@ -44,7 +44,7 @@ namespace ProjetoMercado.Controllers
             if (ModelState.IsValid)
             {
                 if (uploadImagem == null)
-                    produto.Imagem = "imagens\\padrao.jpg";
+                    produto.Imagem = "padrao.jpg";
                 else
                 { 
                     produto.Imagem = uploadImagem.FileName;
@@ -77,7 +77,7 @@ namespace ProjetoMercado.Controllers
             if (produto.Imagem != null)
                 @ViewBag.Foto = produto.Imagem;
             else
-                @ViewBag.Foto = "\\imagens\\padrao.png";
+                @ViewBag.Foto = "padrao.jpg";
 
             return View(produto);
         }
@@ -89,7 +89,7 @@ namespace ProjetoMercado.Controllers
             if (ModelState.IsValid)
             {
                 if (uploadImagem == null)
-                    produto.Imagem = "imagens\\padrao.jpg";
+                    produto.Imagem = "padrao.jpg";
                 else
                 { 
                     produto.Imagem = uploadImagem.FileName;
