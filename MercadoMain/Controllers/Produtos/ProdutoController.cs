@@ -1,4 +1,5 @@
-﻿using System.IO;
+﻿using System.Drawing;
+using System.IO;
 using System.Web;
 using Mercado.Aplicacao.DistribuidorApp;
 using Mercado.Aplicacao.FabricanteApp;
@@ -7,7 +8,6 @@ using MercadoDominio.Entidades;
 using System.Web.Mvc;
 using MercadoMain.Controllers;
 using OfficeOpenXml;
-using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
 using OfficeOpenXml.Style;
 
 namespace ProjetoMercado.Controllers
@@ -145,8 +145,7 @@ namespace ProjetoMercado.Controllers
             ExcelPackage excel = new ExcelPackage();
             //dando o nome a página de "index"
             var workSheet = excel.Workbook.Worksheets.Add("Index");
-            //setando propriedades de cor das linhas da tabela e altura das linhas
-            workSheet.TabColor = System.Drawing.Color.Black;
+            //setando propriedades da altura das linhas
             workSheet.DefaultRowHeight = 12;
 
             //definindo estilos e propriedades
@@ -155,20 +154,37 @@ namespace ProjetoMercado.Controllers
             workSheet.Row(1).Style.Font.Bold = true;
 
             //formatações para a coluna de valor do produto 
-            workSheet.Column(4).Style.Numberformat.Format = "#.##0,00 [$Krakozhian Money Units]";
+            workSheet.Column(4).Style.Numberformat.Format = "R$ #,##0.00;(#,##0.00)";
             workSheet.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
-
-            //nome das colunas da tabela que será gerada
+            //nome das colunas da tabela que será gerada (1ª linha)
             workSheet.Cells[1, 1].Value = "Nome";
             workSheet.Cells[1, 2].Value = "Fabricante";
             workSheet.Cells[1, 3].Value = "Distribuidor";
             workSheet.Cells[1, 4].Value = "Valor";
 
+            //listando produtos a serem preenchidos na tabela
             var produtos = appProduto.ListarTodos();
+            //linha de início
             int recordIndex = 2;
             foreach (var produto in produtos)
             {
-                //workSheet.Cells[recordIndex, 0].Value = (recordIndex - 1).ToString();
+                if (recordIndex % 2 == 0)
+                {
+                    for (int i = 1; i < 5; i++)
+                    {
+                        workSheet.Cells[recordIndex,i].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        workSheet.Cells[recordIndex,i].Style.Fill.BackgroundColor.SetColor(Color.White);
+                    }
+                }
+                else
+                {
+                    for (int i = 1; i < 5; i++)
+                    {
+                        workSheet.Cells[recordIndex, i].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                        workSheet.Cells[recordIndex, i].Style.Fill.BackgroundColor.SetColor(Color.Gray);
+                    }
+                }
+                //preenchendo a tabela do Excel
                 workSheet.Cells[recordIndex, 1].Value = produto.Nome;
                 workSheet.Cells[recordIndex, 2].Value = produto.Fabricante.Nome;
                 workSheet.Cells[recordIndex, 3].Value = produto.Distribuidor.Nome;
