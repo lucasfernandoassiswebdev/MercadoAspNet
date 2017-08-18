@@ -70,6 +70,8 @@
             </span>
         </div>
         
+        <input type="hidden" value="@Model.Imagem" name="Imagem"/>
+        
         <button onclick="limpa()" style="margin-left: 15%" value="any" type="button">Limpar imagem</button>
         <br /><br />
 
@@ -110,7 +112,7 @@
 
         $('#enviaForm').click(function() {
             if (!$('#campoDeImagem').val()) {
-                $('#campoDeImagem').val("@ViewBag.Foto");
+                //não é possível setar o campo de um input através de código, há não ser que você o defina como uma string vazia
             }
         });
 

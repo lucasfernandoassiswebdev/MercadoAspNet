@@ -1,13 +1,14 @@
-﻿using System.Web;
+﻿using System.IO;
+using System.Web;
 using Mercado.Aplicacao.DistribuidorApp;
 using Mercado.Aplicacao.FabricanteApp;
 using Mercado.Aplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
 using MercadoMain.Controllers;
-using System.IO;
-using System;
-using System.Linq;
+using OfficeOpenXml;
+using OfficeOpenXml.FormulaParsing.Excel.Functions.Text;
+using OfficeOpenXml.Style;
 
 namespace ProjetoMercado.Controllers
 {
@@ -88,9 +89,7 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
-                if (uploadImagem == null)
-                    produto.Imagem = "padrao.jpg";
-                else
+                if (uploadImagem != null)
                 { 
                     produto.Imagem = uploadImagem.FileName;
                     string[] strName = uploadImagem.FileName.Split('.');
@@ -138,6 +137,64 @@ namespace ProjetoMercado.Controllers
             var produto = appProduto.ListarPorId(id);
             appProduto.Excluir(produto);
             return RedirectToAction("Index");
+        }
+
+        public ActionResult ExportarExcel()
+        {
+            //criando uma instância de ExcelPackage (uma ferramenta do EPPlus)
+            ExcelPackage excel = new ExcelPackage();
+            //dando o nome a página de "index"
+            var workSheet = excel.Workbook.Worksheets.Add("Index");
+            //setando propriedades de cor das linhas da tabela e altura das linhas
+            workSheet.TabColor = System.Drawing.Color.Black;
+            workSheet.DefaultRowHeight = 12;
+
+            //definindo estilos e propriedades
+            workSheet.Row(1).Height = 20;
+            workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
+            workSheet.Row(1).Style.Font.Bold = true;
+
+            //formatações para a coluna de valor do produto 
+            workSheet.Column(4).Style.Numberformat.Format = "#.##0,00 [$Krakozhian Money Units]";
+            workSheet.Column(4).Style.HorizontalAlignment = ExcelHorizontalAlignment.Left;
+
+            //nome das colunas da tabela que será gerada
+            workSheet.Cells[1, 1].Value = "Nome";
+            workSheet.Cells[1, 2].Value = "Fabricante";
+            workSheet.Cells[1, 3].Value = "Distribuidor";
+            workSheet.Cells[1, 4].Value = "Valor";
+
+            var produtos = appProduto.ListarTodos();
+            int recordIndex = 2;
+            foreach (var produto in produtos)
+            {
+                //workSheet.Cells[recordIndex, 0].Value = (recordIndex - 1).ToString();
+                workSheet.Cells[recordIndex, 1].Value = produto.Nome;
+                workSheet.Cells[recordIndex, 2].Value = produto.Fabricante.Nome;
+                workSheet.Cells[recordIndex, 3].Value = produto.Distribuidor.Nome;
+                workSheet.Cells[recordIndex, 4].Value = produto.Valor;
+                recordIndex++;
+            }
+
+            //autofit seta o a largura das colunas automaticamente
+            workSheet.Column(1).AutoFit();
+            workSheet.Column(2).AutoFit();
+            workSheet.Column(3).AutoFit();
+            workSheet.Column(4).AutoFit();
+
+            string excelName = "ListaDeProdutos";
+            using (var memoryStream = new MemoryStream())
+            {
+                Response.ContentType = "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet";
+                //nome dado ao arquivo Excel que será gerado
+                Response.AddHeader("content-disposition", "attachment; filename=" + excelName + ".xlsx");
+                excel.SaveAs(memoryStream);
+                memoryStream.WriteTo(Response.OutputStream);
+                Response.Flush();
+                Response.End();
+            }
+
+            return View();
         }
     }
 }
