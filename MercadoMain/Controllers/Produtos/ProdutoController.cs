@@ -147,7 +147,7 @@ namespace ProjetoMercado.Controllers
             var workSheet = excel.Workbook.Worksheets.Add("Index");
             //setando propriedades da altura das linhas
             workSheet.DefaultRowHeight = 12;
-
+            
             //definindo estilos e propriedades
             workSheet.Row(1).Height = 20;
             workSheet.Row(1).Style.HorizontalAlignment = ExcelHorizontalAlignment.Center;
@@ -161,7 +161,16 @@ namespace ProjetoMercado.Controllers
             workSheet.Cells[1, 2].Value = "Fabricante";
             workSheet.Cells[1, 3].Value = "Distribuidor";
             workSheet.Cells[1, 4].Value = "Valor";
+            for (int i = 1; i < 5; i++)
+            {
+                workSheet.Cells[1, i].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
+                workSheet.Cells[1, i].Style.Fill.BackgroundColor.SetColor(Color.Gray);
 
+                workSheet.Cells[1, i].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                workSheet.Cells[1, i].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                workSheet.Cells[1, i].Style.Border.Top.Style = ExcelBorderStyle.Thin;
+                workSheet.Cells[1, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+            }
             //listando produtos a serem preenchidos na tabela
             var produtos = appProduto.ListarTodos();
             //linha de início
@@ -174,6 +183,11 @@ namespace ProjetoMercado.Controllers
                     {
                         workSheet.Cells[recordIndex,i].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         workSheet.Cells[recordIndex,i].Style.Fill.BackgroundColor.SetColor(Color.White);
+
+                        workSheet.Cells[recordIndex, i].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        workSheet.Cells[recordIndex, i].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        workSheet.Cells[recordIndex, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        workSheet.Cells[recordIndex, i].Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     }
                 }
                 else
@@ -182,8 +196,14 @@ namespace ProjetoMercado.Controllers
                     {
                         workSheet.Cells[recordIndex, i].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
                         workSheet.Cells[recordIndex, i].Style.Fill.BackgroundColor.SetColor(Color.Gray);
+
+                        workSheet.Cells[recordIndex, i].Style.Border.Right.Style = ExcelBorderStyle.Thin;
+                        workSheet.Cells[recordIndex, i].Style.Border.Left.Style = ExcelBorderStyle.Thin;
+                        workSheet.Cells[recordIndex, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
+                        workSheet.Cells[recordIndex, i].Style.Border.Top.Style = ExcelBorderStyle.Thin;
                     }
                 }
+
                 //preenchendo a tabela do Excel
                 workSheet.Cells[recordIndex, 1].Value = produto.Nome;
                 workSheet.Cells[recordIndex, 2].Value = produto.Fabricante.Nome;
