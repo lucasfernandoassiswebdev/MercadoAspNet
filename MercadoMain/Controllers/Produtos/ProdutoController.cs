@@ -39,7 +39,8 @@ namespace ProjetoMercado.Controllers
         }
 
         [HttpPost]
-        [ValidateAntiForgeryToken]                      //esse parâmetro file vem de inputs to tipo file
+        [ValidateAntiForgeryToken]
+        //esse parâmetro file vem de inputs to tipo file
         public ActionResult Cadastrar(Produto produto, HttpPostedFileBase uploadImagem)
         {
             if (ModelState.IsValid)
