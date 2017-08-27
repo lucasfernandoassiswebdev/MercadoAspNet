@@ -1,4 +1,5 @@
-﻿using System.Web.Mvc;
+﻿using MercadoMain.SimpleInjector;
+using System.Web.Mvc;
 using System.Web.Optimization;
 using System.Web.Routing;
 
@@ -8,6 +9,7 @@ namespace MercadoMain
     {
         protected void Application_Start()
         {
+            DependencyResolver.SetResolver(SimpleInjectorContainer.RegisterServices());
             AreaRegistration.RegisterAllAreas();
             FilterConfig.RegisterGlobalFilters(GlobalFilters.Filters);
             RouteConfig.RegisterRoutes(RouteTable.Routes);
