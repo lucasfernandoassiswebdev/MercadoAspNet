@@ -2,24 +2,26 @@
 using Mercado.Aplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
+using MercadoAplicacao.EstoqueApp;
 using MercadoMain.Controllers;
 
 namespace ProjetoMercado.Controllers
 {
     public class EstoqueController : AuthController
     {
-        private EstoqueAplicacao appEstoque;
+        private readonly IEstoqueAplicacao _appEstoque;
         private ProdutoAplicacao appProdutos;
 
-        public EstoqueController()
+        public EstoqueController(IEstoqueAplicacao appEstoque)
         {
+            _appEstoque = appEstoque;
             appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
-            appEstoque = EstoqueAplicacaoConstrutor.EstoqueAplicacaoADO();
+            //appEstoque = EstoqueAplicacaoConstrutor.EstoqueAplicacaoADO();
         }
 
         public ActionResult Index()
         {
-            var listaDoEstoque = appEstoque.ListarTodos();
+            var listaDoEstoque = _appEstoque.ListarTodos();
             ViewBag.Produtos = appProdutos.ListarTodos();
             return View(listaDoEstoque);
         }
@@ -46,7 +48,7 @@ namespace ProjetoMercado.Controllers
 
         public ActionResult Editar(int id)
         {
-            var estoque = appEstoque.ListarPorId(id);
+            var estoque = _appEstoque.ListarPorId(id);
             if (estoque == null)
                 return HttpNotFound();
             ViewBag.Produto = appProdutos.ListarPorId(estoque.IdProduto);
@@ -59,7 +61,7 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
-                appEstoque.Salvar(estoque);
+                _appEstoque.Salvar(estoque);
                 return RedirectToAction("Index");
             }
             ViewBag.Produto = appProdutos.ListarPorId(estoque.IdProduto);
@@ -68,7 +70,7 @@ namespace ProjetoMercado.Controllers
 
         public ActionResult Detalhes(int id)
         {
-            var estoque = appEstoque.ListarPorId(id);
+            var estoque = _appEstoque.ListarPorId(id);
 
             if (estoque == null)
                 return HttpNotFound();
@@ -78,7 +80,7 @@ namespace ProjetoMercado.Controllers
 
         public ActionResult Excluir(int id)
         {
-            var estoque = appEstoque.ListarPorId(id);
+            var estoque = _appEstoque.ListarPorId(id);
 
             if (estoque == null)
                 return HttpNotFound();
@@ -90,8 +92,8 @@ namespace ProjetoMercado.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
-            var estoque = appEstoque.ListarPorId(id);
-            appEstoque.Excluir(estoque);
+            var estoque = _appEstoque.ListarPorId(id);
+            _appEstoque.Excluir(estoque);
             ViewBag.Produto = appProdutos.ListarPorId(id);
             return RedirectToAction("Index");
         }
