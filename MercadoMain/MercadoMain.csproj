@@ -263,6 +263,10 @@
       <Project>{943441d3-8897-424d-a1b5-79f90ea64018}</Project>
       <Name>MercadoDominio</Name>
     </ProjectReference>
+    <ProjectReference Include="..\MercadoRepositorioADO\MercadoRepositorioADO.csproj">
+      <Project>{54b114f9-0adf-4428-9670-3ed8a46f1160}</Project>
+      <Name>MercadoRepositorioADO</Name>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

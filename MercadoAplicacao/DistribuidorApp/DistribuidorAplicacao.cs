@@ -1,36 +1,38 @@
 ﻿using MercadoDominio.Entidades;
 using MercadoDominio.Entidades.Entidades.Contrato;
 using System.Collections.Generic;
+using MercadoAplicacao.DistribuidorApp;
+using System;
 
 namespace Mercado.Aplicacao.DistribuidorApp
 {
-    public class DistribuidorAplicacao
+    public class DistribuidorAplicacao : IDistribuidorAplicacao
     {
-        private readonly IRepositorio<Distribuidor> repositorio;
+        private readonly IRepositorio<Distribuidor> _repositorio;
 
-        public DistribuidorAplicacao(IRepositorio<Distribuidor> repo)
+        public DistribuidorAplicacao(IRepositorio<Distribuidor> repositorio)
         {
-            repositorio = repo;
+            _repositorio = repositorio;
         }
 
         public void Salvar(Distribuidor distribuidor)
         {
-            repositorio.Salvar(distribuidor);
+            _repositorio.Salvar(distribuidor);
         }
 
         public void Excluir(Distribuidor distribuidor)
         {
-            repositorio.Excluir(distribuidor);
+            _repositorio.Excluir(distribuidor);
         }
 
         public IEnumerable<Distribuidor> ListarTodos()
         {
-            return repositorio.ListarTodos();
+            return _repositorio.ListarTodos();
         }
 
         public Distribuidor ListarPorId(int id)
         {
-            return repositorio.ListarPorId(id);
+            return _repositorio.ListarPorId(id);
         }
     }
 }

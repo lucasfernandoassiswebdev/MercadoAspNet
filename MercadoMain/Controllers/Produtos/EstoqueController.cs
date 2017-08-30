@@ -16,7 +16,6 @@ namespace ProjetoMercado.Controllers
         {
             _appEstoque = appEstoque;
             appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
-            //appEstoque = EstoqueAplicacaoConstrutor.EstoqueAplicacaoADO();
         }
 
         public ActionResult Index()
@@ -38,8 +37,8 @@ namespace ProjetoMercado.Controllers
         {
             if (ModelState.IsValid)
             {
-                var appProduto = EstoqueAplicacaoConstrutor.EstoqueAplicacaoADO();
-                appProduto.Salvar(estoque);
+                
+                _appEstoque.Salvar(estoque);
                 return RedirectToAction("Index");
             }
             ViewBag.Produtos = appProdutos.ListarTodos();

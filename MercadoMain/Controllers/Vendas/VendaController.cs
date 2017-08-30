@@ -13,14 +13,14 @@ namespace ProjetoMercado.Controllers
         private VendasAplicacao appVendas;
         private ProdutoAplicacao appProdutos;
         private UsuarioAplicacao appUsuarios;
-        private EstoqueAplicacao appEstoque;
+        private readonly  EstoqueAplicacao _appEstoque;
 
-        public VendaController()
+        public VendaController(EstoqueAplicacao estoque)
         {
             appVendas = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
             appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
             appUsuarios = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
-            appEstoque = EstoqueAplicacaoConstrutor.EstoqueAplicacaoADO();
+            _appEstoque = estoque;
         }
 
         public ActionResult Index()
@@ -47,8 +47,8 @@ namespace ProjetoMercado.Controllers
 
                 - SimpleInjector
              */
-            var quantidade = appEstoque.BuscaQuantidadeProduto(venda.IdProduto);
-            var IdEstoque = appEstoque.RetornaIdEstoque(venda.IdProduto);
+            var quantidade = _appEstoque.BuscaQuantidadeProduto(venda.IdProduto);
+            var IdEstoque = _appEstoque.RetornaIdEstoque(venda.IdProduto);
             decimal? novoEstoque = quantidade - venda.Quantidade;
 
             if (quantidade == null)
@@ -66,7 +66,7 @@ namespace ProjetoMercado.Controllers
                     Quantidade = (decimal)novoEstoque
                 };
 
-                appEstoque.Salvar(estoque);
+                _appEstoque.Salvar(estoque);
 
                 return RedirectToAction("Index");
             }

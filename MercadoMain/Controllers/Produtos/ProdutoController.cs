@@ -16,13 +16,13 @@ namespace ProjetoMercado.Controllers
     {
         private ProdutoAplicacao appProduto;
         private FabricanteAplicacao appFabricante;
-        private DistribuidorAplicacao appDistribuidores;
+        private readonly  DistribuidorAplicacao _appDistribuidores;
 
-        public ProdutoController()
+        public ProdutoController(DistribuidorAplicacao distribuidor)
         {
             appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
             appFabricante = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
-            appDistribuidores = DistribuidorAplicacaoConstrutor.DistribuidorAplicacaoADO();
+            _appDistribuidores = distribuidor;
         }
         
         public ActionResult Index()
@@ -34,7 +34,7 @@ namespace ProjetoMercado.Controllers
         public ActionResult Cadastrar()
         {
             ViewBag.Fabricantes = appFabricante.ListarTodos();
-            ViewBag.Distribuidores = appDistribuidores.ListarTodos();
+            ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
             return View();
         }
 
@@ -62,7 +62,7 @@ namespace ProjetoMercado.Controllers
             }
 
             ViewBag.Fabricantes = appFabricante.ListarTodos();
-            ViewBag.Distribuidores = appDistribuidores.ListarTodos();
+            ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
 
             return View(produto);
         }
@@ -71,7 +71,7 @@ namespace ProjetoMercado.Controllers
         {
             var produto = appProduto.ListarPorId(id);
             ViewBag.Fabricantes = appFabricante.ListarTodos();
-            ViewBag.Distribuidores = appDistribuidores.ListarTodos();
+            ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
 
             if (produto == null)
                 return HttpNotFound();
@@ -105,7 +105,7 @@ namespace ProjetoMercado.Controllers
                 return RedirectToAction("Index");
             }
             ViewBag.Fabricantes = appFabricante.ListarTodos();
-            ViewBag.Distribuidores = appDistribuidores.ListarTodos();
+            ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
             return View(produto);
         }
 
@@ -116,7 +116,7 @@ namespace ProjetoMercado.Controllers
                 return HttpNotFound();
 
             ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
-            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor);
+            ViewBag.Distribuidores = _appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
         }
 
@@ -127,7 +127,7 @@ namespace ProjetoMercado.Controllers
             if (produto == null)
                 return HttpNotFound();
             ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
-            ViewBag.Distribuidores = appDistribuidores.ListarPorId(produto.IdDistribuidor);
+            ViewBag.Distribuidores = _appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
         }
 
