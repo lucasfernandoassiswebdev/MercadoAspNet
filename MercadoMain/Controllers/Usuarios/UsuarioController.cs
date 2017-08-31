@@ -7,16 +7,16 @@ namespace MercadoMain.Controllers.Usuarios
 {
     public class UsuarioController : AuthController
     {
-        private UsuarioAplicacao appUsuario;
+        private readonly IUsuarioAplicacao _appUsuario;
 
-        public UsuarioController()
+        public UsuarioController(IUsuarioAplicacao usuario)
         {
-            appUsuario = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
+            _appUsuario = usuario;
         }
 
         public ActionResult Index()
         {
-            var listaDeUsuarios = appUsuario.ListarTodos();
+            var listaDeUsuarios = _appUsuario.ListarTodos();
             return View(listaDeUsuarios);
         }
 
@@ -31,7 +31,7 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if (ModelState.IsValid)
             {
-                appUsuario.Salvar(usuario);
+                _appUsuario.Salvar(usuario);
                 return RedirectToAction("Index");
             }
             return View(usuario);
@@ -39,7 +39,7 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Editar(int id)
         {
-            var usuario = appUsuario.ListarPorId(id);
+            var usuario = _appUsuario.ListarPorId(id);
 
             if (usuario == null)
                 return HttpNotFound();
@@ -53,8 +53,7 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if (ModelState.IsValid)
             {
-                var appUsuario = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
-                appUsuario.Salvar(usuario);
+                _appUsuario.Salvar(usuario);
                 return RedirectToAction("Index");
             }
             return View(usuario);
@@ -62,7 +61,7 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Detalhes(int id)
         {
-            var usuario = appUsuario.ListarPorId(id);
+            var usuario = _appUsuario.ListarPorId(id);
 
             if (usuario == null)
                 return HttpNotFound();
@@ -72,7 +71,7 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Excluir(int id)
         {
-            var usuario = appUsuario.ListarPorId(id);
+            var usuario = _appUsuario.ListarPorId(id);
 
             if (usuario == null)
                 return HttpNotFound();
@@ -84,8 +83,8 @@ namespace MercadoMain.Controllers.Usuarios
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
-            var usuario = appUsuario.ListarPorId(id);
-            appUsuario.Excluir(usuario);
+            var usuario = _appUsuario.ListarPorId(id);
+            _appUsuario.Excluir(usuario);
             return RedirectToAction("Index");
         }
     }

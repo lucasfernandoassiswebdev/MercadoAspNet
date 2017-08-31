@@ -9,12 +9,12 @@ namespace MercadoMain.Controllers.Usuarios
     public class LoginController : AuthController
     {
         private readonly ILoginAplicacao _appLogin;
-        private UsuarioAplicacao appUsuario;
+        private readonly IUsuarioAplicacao _appUsuario;
 
-        public  LoginController(ILoginAplicacao login)
+        public  LoginController(ILoginAplicacao login, IUsuarioAplicacao usuario)
         {
             _appLogin = login;
-            appUsuario = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
+            _appUsuario = usuario;
         }
 
         public ActionResult Index()
@@ -25,7 +25,7 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Usuarios = appUsuario.ListarTodos();
+            ViewBag.Usuarios = _appUsuario.ListarTodos();
             return View();
         }
 

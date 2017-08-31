@@ -2,6 +2,7 @@
 using MercadoAplicacao.EstoqueApp;
 using MercadoAplicacao.FabricanteApp;
 using MercadoAplicacao.LoginApp;
+using MercadoAplicacao.UsuarioApp;
 using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Repositorios;
 using SimpleInjector;
@@ -27,7 +28,9 @@ namespace MercadoMain.SimpleInjector
             //login
             container.Register<ILoginRepositorio, LoginRepositorioADO>();
             container.Register<ILoginAplicacao, LoginAplicacao>();
-
+            //usuarios
+            container.Register<IUsuarioRepositorio, UsuarioRepositorioADO>();
+            container.Register<IUsuarioAplicacao, UsuarioAplicacao>();
 
 
             container.Verify();

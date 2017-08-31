@@ -51,8 +51,8 @@
     <Compile Include="ProdutoApp\ProdutoAplicacao.cs" />
     <Compile Include="ProdutoApp\ProdutoAplicacaoConstrutor.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="UsuarioApp\IUsuarioAplicacao.cs" />
     <Compile Include="UsuarioApp\UsuarioAplicacao.cs" />
-    <Compile Include="UsuarioApp\UsuarioAplicacaoConstrutor.cs" />
     <Compile Include="VendasApp\VendasAplicacao.cs.cs" />
     <Compile Include="VendasApp\VendasAplicacaoConstrutor.cs" />
   </ItemGroup>
