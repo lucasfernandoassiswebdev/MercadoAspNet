@@ -40,13 +40,6 @@ namespace MercadoMain.Controllers.Vendas
         [ValidateAntiForgeryToken]
         public ActionResult Cadastrar(Venda venda)
         {
-            //Chamar o repositório passando o Id do Produto para buscar sua quantidade no estoque
-            /*
-                Injeção de Dependência
-                Dependency Injection
-
-                - SimpleInjector
-             */
             var quantidade = _appEstoque.BuscaQuantidadeProduto(venda.IdProduto);
             var IdEstoque = _appEstoque.RetornaIdEstoque(venda.IdProduto);
             decimal? novoEstoque = quantidade - venda.Quantidade;
