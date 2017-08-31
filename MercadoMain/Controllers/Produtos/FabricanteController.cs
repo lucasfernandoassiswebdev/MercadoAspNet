@@ -22,6 +22,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Cadastrar()
         {
+            ViewBag.Fabricantes = _appFabricante.ListarTodos();
             return View();
         }
 
