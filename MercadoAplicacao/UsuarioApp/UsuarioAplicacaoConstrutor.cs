@@ -1,6 +1,6 @@
-﻿using Mercado.RepositorioADO;
+﻿using MercadoRepositorioADO.Repositorios;
 
-namespace Mercado.Aplicacao.UsuarioApp
+namespace MercadoAplicacao.UsuarioApp
 {
     public class UsuarioAplicacaoConstrutor
     {

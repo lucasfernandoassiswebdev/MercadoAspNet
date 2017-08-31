@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace MercadoMain.Controllers
+namespace MercadoMain.Controllers.Autenticacao
 {
     public class AuthController : Controller
     {

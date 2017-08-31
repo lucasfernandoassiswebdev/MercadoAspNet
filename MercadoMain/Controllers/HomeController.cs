@@ -1,10 +1,8 @@
-﻿using System;
-using System.Web.Mvc;
-using System.Web.Security;
-using MercadoAplicacao.LoginApp;
+﻿using MercadoAplicacao.LoginApp;
 using MercadoDominio.Entidades;
+using System.Web.Mvc;
 
-namespace ProjetoMercado.Controllers
+namespace MercadoMain.Controllers
 {
     public class HomeController : Controller
     {

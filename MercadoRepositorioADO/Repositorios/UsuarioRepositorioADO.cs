@@ -1,17 +1,17 @@
 ﻿using MercadoDominio.Entidades;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Extensoes;
 using System.Collections.Generic;
 
-namespace Mercado.RepositorioADO
+namespace MercadoRepositorioADO.Repositorios
 {
     public class UsuarioRepositorioADO : IRepositorio<Usuario>
     {
-        private Contexto contexto;
+        private Contexto.Contexto contexto;
 
         private void Insert(Usuario usuario)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereUsuario");
                 cmd.Parameters.AddWithValue("@Nome", usuario.Nome);
@@ -22,7 +22,7 @@ namespace Mercado.RepositorioADO
 
         private void Alterar(Usuario usuario)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("AlteraUsuario");
                 cmd.Parameters.AddWithValue("@Id", usuario.Id);
@@ -42,7 +42,7 @@ namespace Mercado.RepositorioADO
 
         public void Excluir(Usuario usuario)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluirUsuario");
                 cmd.Parameters.AddWithValue("@Id", usuario.Id);
@@ -52,7 +52,7 @@ namespace Mercado.RepositorioADO
 
         public IEnumerable<Usuario> ListarTodos()
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaUsuarios");
                 var listaUsuarios = new List<Usuario>();
@@ -72,7 +72,7 @@ namespace Mercado.RepositorioADO
 
         public Usuario ListarPorId(int id)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaUsuarioPorId");
                 cmd.Parameters.AddWithValue("@Id",id);

@@ -1,17 +1,17 @@
 ﻿using MercadoDominio.Entidades;
-using System.Collections.Generic;
+using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Extensoes;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using System.Collections.Generic;
 
-namespace Mercado.RepositorioADO
+namespace MercadoRepositorioADO.Repositorios
 {
     public class DistribuidorRepositorioADO : IRepositorio<Distribuidor>
     {
-        private Contexto contexto;
+        private Contexto.Contexto contexto;
 
         private void Insert(Distribuidor distribuidor)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereDistribuidor");
                 cmd.Parameters.AddWithValue("@Nome", distribuidor.Nome);
@@ -21,7 +21,7 @@ namespace Mercado.RepositorioADO
 
         private void Alterar(Distribuidor distribuidor)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("AlteraDistribuidor");
                 cmd.Parameters.AddWithValue("@Nome", distribuidor.Nome);
@@ -40,7 +40,7 @@ namespace Mercado.RepositorioADO
 
         public void Excluir(Distribuidor distribuidor)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluiDistribuidor");
                 cmd.Parameters.AddWithValue("@Id", distribuidor.Id);
@@ -50,7 +50,7 @@ namespace Mercado.RepositorioADO
 
         public IEnumerable<Distribuidor> ListarTodos()
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaDistribuidores");
                 var distribuidores = new List<Distribuidor>();
@@ -70,7 +70,7 @@ namespace Mercado.RepositorioADO
 
         public Distribuidor ListarPorId(int id)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaDistribuidorPorId");
                 cmd.Parameters.AddWithValue("@Id", id);

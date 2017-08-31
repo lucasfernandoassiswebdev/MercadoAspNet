@@ -1,6 +1,5 @@
-﻿using Mercado.RepositorioADO;
-using MercadoDominio.Entidades;
-using MercadoDominio.Entidades.Entidades.Contrato;
+﻿using MercadoDominio.Entidades;
+using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Extensoes;
 using System.Collections.Generic;
 
@@ -8,10 +7,10 @@ namespace MercadoRepositorioADO.Repositorios
 {
     public class LoginRepositorioADO : IRepositorio<Login>
     {
-        private Contexto contexto;
+        private Contexto.Contexto contexto;
 
         private void Insert(Login login) {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereLogin");
                 cmd.Parameters.AddWithValue("@login", login.LoginU);
@@ -23,7 +22,7 @@ namespace MercadoRepositorioADO.Repositorios
 
         public void Alterar(Login login)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("AlteraLogin");
                 cmd.Parameters.AddWithValue("@login", login.LoginU);
@@ -46,7 +45,7 @@ namespace MercadoRepositorioADO.Repositorios
 
         public void Excluir(Login login)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluiLogin");
                 cmd.Parameters.AddWithValue("@Id", login.Usuario);
@@ -56,7 +55,7 @@ namespace MercadoRepositorioADO.Repositorios
 
         public IEnumerable<Login> ListarTodos()
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListarLogins");
 
@@ -81,7 +80,7 @@ namespace MercadoRepositorioADO.Repositorios
 
         public Login ListarPorId(int Id)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("LoginFuncionario");
                 cmd.Parameters.AddWithValue("@Id", Id);

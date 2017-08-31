@@ -1,9 +1,9 @@
 ﻿using System;
-using System.Data.SqlClient;
-using System.Data;
 using System.Configuration;
+using System.Data;
+using System.Data.SqlClient;
 
-namespace Mercado.RepositorioADO
+namespace MercadoRepositorioADO.Contexto
 {
     public class Contexto : IDisposable
     {

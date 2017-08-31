@@ -1,8 +1,8 @@
 ﻿using MercadoDominio.Entidades;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using MercadoDominio.Interfaces;
 using System.Collections.Generic;
 
-namespace Mercado.Aplicacao.VendasApp
+namespace MercadoAplicacao.VendasApp
 {
     public class VendasAplicacao
     {

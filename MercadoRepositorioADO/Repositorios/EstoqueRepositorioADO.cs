@@ -1,19 +1,19 @@
 ﻿using MercadoDominio.Entidades;
-using System.Collections.Generic;
-using MercadoDominio.Contrato;
+using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Extensoes;
+using System.Collections.Generic;
 
-namespace Mercado.RepositorioADO
+namespace MercadoRepositorioADO.Repositorios
 {
     public class EstoqueRepositorioADO : IEstoqueRepositorio
     {
-        private Contexto contexto;
+        private Contexto.Contexto _contexto;
 
         private void Insert(Estoque estoque)
         {
-            using (contexto = new Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("InsereEstoque");
+                var cmd = _contexto.ExecutaComando("InsereEstoque");
                 cmd.Parameters.AddWithValue("@IdProduto", estoque.IdProduto);
                 cmd.Parameters.AddWithValue("@Quantidade", estoque.Quantidade);
                 cmd.ExecuteNonQuery();
@@ -22,9 +22,9 @@ namespace Mercado.RepositorioADO
 
         private void Alterar(Estoque estoque)
         {
-           using (contexto = new Contexto())
+           using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("AlteraEstoque");
+                var cmd = _contexto.ExecutaComando("AlteraEstoque");
                 cmd.Parameters.AddWithValue("@IdProduto", estoque.IdProduto);
                 cmd.Parameters.AddWithValue("@Quantidade", estoque.Quantidade);
                 cmd.ExecuteNonQuery();
@@ -45,9 +45,9 @@ namespace Mercado.RepositorioADO
 
         public void Excluir(Estoque estoque)
         {
-            using (contexto = new Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ExcluirEstoque");
+                var cmd = _contexto.ExecutaComando("ExcluirEstoque");
                 cmd.Parameters.AddWithValue("@IdProduto", estoque.IdProduto);
                 cmd.ExecuteNonQuery();
             }
@@ -55,9 +55,9 @@ namespace Mercado.RepositorioADO
 
         public IEnumerable<Estoque> ListarTodos()
         {
-            using (contexto = new Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListarEstoque");
+                var cmd = _contexto.ExecutaComando("ListarEstoque");
 
                 var estoques = new List<Estoque>();
                 using (var reader = cmd.ExecuteReader())
@@ -86,29 +86,31 @@ namespace Mercado.RepositorioADO
 
         public Estoque ListarPorId(int id)
         {
-            using (contexto = new Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListarEstoquePorIdProduto");
+                var cmd = _contexto.ExecutaComando("ListarEstoquePorIdProduto");
                 cmd.Parameters.AddWithValue("@IdProduto", id);
-                var estoque = new Estoque();
+                
                 using (var reader = cmd.ExecuteReader())
                      if (reader.Read())
-                        return new Estoque()
+                        return new Estoque
                         {
                             Id = reader.ReadAsInt("Id"),
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             Quantidade = reader.ReadAsDecimal("Quantidade")
                         };
+
                 return null;
             }
         }
 
         public decimal? BuscaQuantidadeProduto(int idProduto)
         {
-            using (contexto = new Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("BuscaQProduto");
+                var cmd = _contexto.ExecutaComando("BuscaQProduto");
                 cmd.Parameters.AddWithValue("@IdProduto", idProduto);
+
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                         return reader.ReadAsDecimal("Quantidade");
@@ -119,13 +121,15 @@ namespace Mercado.RepositorioADO
 
         public int RetornaIdEstoque(int IdProduto)
         {
-            using (contexto = new Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("RetornaIdEstoquePeloProduto");
+                var cmd = _contexto.ExecutaComando("RetornaIdEstoquePeloProduto");
                 cmd.Parameters.AddWithValue("@IdProduto", IdProduto);
+
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                         return reader.ReadAsInt("Id");
+
                 return 0;
             }
         }

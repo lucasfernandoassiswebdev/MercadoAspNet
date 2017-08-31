@@ -1,11 +1,10 @@
-﻿using Mercado.Aplicacao.EstoqueApp;
-using Mercado.Aplicacao.ProdutoApp;
+﻿using MercadoAplicacao.EstoqueApp;
+using MercadoAplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
+using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
-using MercadoAplicacao.EstoqueApp;
-using MercadoMain.Controllers;
 
-namespace ProjetoMercado.Controllers
+namespace MercadoMain.Controllers.Produtos
 {
     public class EstoqueController : AuthController
     {

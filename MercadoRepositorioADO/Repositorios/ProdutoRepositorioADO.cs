@@ -1,17 +1,17 @@
 ﻿using MercadoDominio.Entidades;
-using System.Collections.Generic;
+using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Extensoes;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using System.Collections.Generic;
 
-namespace Mercado.RepositorioADO
+namespace MercadoRepositorioADO.Repositorios
 {
     public class ProdutoRepositorioADO : IRepositorio<Produto>
     {
-        private Contexto contexto;
+        private Contexto.Contexto contexto;
 
         private void Insert(Produto produto)
         {
-           using (contexto = new Contexto())
+           using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereProduto");
                 cmd.Parameters.AddWithValue("@Nome", produto.Nome);
@@ -25,7 +25,7 @@ namespace Mercado.RepositorioADO
 
         private void Alterar(Produto produto)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("AlteraProduto");
                 cmd.Parameters.AddWithValue("@Id", produto.Id);
@@ -49,7 +49,7 @@ namespace Mercado.RepositorioADO
 
         public void Excluir(Produto produto)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluiProduto");
                 cmd.Parameters.AddWithValue("@Id", produto.Id);
@@ -59,7 +59,7 @@ namespace Mercado.RepositorioADO
 
         public IEnumerable<Produto> ListarTodos()
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaProdutos");
                 var produtos = new List<Produto>();
@@ -87,7 +87,7 @@ namespace Mercado.RepositorioADO
 
         public Produto ListarPorId(int id)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaProdutoPorId");
                 cmd.Parameters.AddWithValue("@Id", id);

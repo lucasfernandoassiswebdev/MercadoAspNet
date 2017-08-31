@@ -1,5 +1,5 @@
-﻿using System.Collections.Generic;
-using MercadoDominio.Entidades;
+﻿using MercadoDominio.Entidades;
+using System.Collections.Generic;
 
 namespace MercadoAplicacao.EstoqueApp
 {
@@ -10,6 +10,6 @@ namespace MercadoAplicacao.EstoqueApp
         IEnumerable<Estoque> ListarTodos();
         Estoque ListarPorId(int id);
         decimal? BuscaQuantidadeProduto(int idProduto);
-        int RetornaIdEstoque(int IdProduto);
+        int RetornaIdEstoque(int idProduto);
     }
 }

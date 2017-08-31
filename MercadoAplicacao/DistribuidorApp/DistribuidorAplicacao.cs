@@ -1,11 +1,8 @@
 ﻿using MercadoDominio.Entidades;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using MercadoDominio.Interfaces;
 using System.Collections.Generic;
-using MercadoAplicacao.DistribuidorApp;
-using System;
-using Mercado.RepositorioADO;
 
-namespace Mercado.Aplicacao.DistribuidorApp
+namespace MercadoAplicacao.DistribuidorApp
 {
     public class DistribuidorAplicacao
     {

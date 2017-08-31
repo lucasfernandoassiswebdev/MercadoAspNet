@@ -1,9 +1,8 @@
-﻿using System.Collections.Generic;
-using MercadoAplicacao.EstoqueApp;
-using MercadoDominio.Entidades;
-using MercadoDominio.Contrato;
+﻿using MercadoDominio.Entidades;
+using MercadoDominio.Interfaces;
+using System.Collections.Generic;
 
-namespace Mercado.Aplicacao.EstoqueApp
+namespace MercadoAplicacao.EstoqueApp
 {
     public class EstoqueAplicacao : IEstoqueAplicacao
     {
@@ -39,9 +38,9 @@ namespace Mercado.Aplicacao.EstoqueApp
             return _repositorio.BuscaQuantidadeProduto(idProduto);
         }
 
-        public int RetornaIdEstoque(int IdProduto)
+        public int RetornaIdEstoque(int idProduto)
         {
-            return _repositorio.RetornaIdEstoque(IdProduto);
+            return _repositorio.RetornaIdEstoque(idProduto);
         }
     }
 }

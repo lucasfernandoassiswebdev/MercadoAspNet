@@ -1,28 +1,28 @@
-﻿using System.Drawing;
-using System.IO;
-using System.Web;
-using Mercado.Aplicacao.DistribuidorApp;
-using Mercado.Aplicacao.FabricanteApp;
-using Mercado.Aplicacao.ProdutoApp;
+﻿using MercadoAplicacao.DistribuidorApp;
+using MercadoAplicacao.FabricanteApp;
+using MercadoAplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
-using System.Web.Mvc;
-using MercadoMain.Controllers;
+using MercadoMain.Controllers.Autenticacao;
 using OfficeOpenXml;
 using OfficeOpenXml.Style;
+using System.Drawing;
+using System.IO;
+using System.Web;
+using System.Web.Mvc;
 
-namespace ProjetoMercado.Controllers
+namespace MercadoMain.Controllers.Produtos
 {
     public class ProdutoController : AuthController
     {
         private ProdutoAplicacao appProduto;
         private FabricanteAplicacao appFabricante;
-        private readonly  DistribuidorAplicacao _appDistribuidores;
+        private readonly DistribuidorAplicacao _appDistribuidores;
 
-        public ProdutoController(DistribuidorAplicacao distribuidor)
+        public ProdutoController()
         {
             appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
             appFabricante = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
-            _appDistribuidores = distribuidor;
+            _appDistribuidores = DistribuidorAplicacaoConstrutor.DistribuidorAplicacaoADO();
         }
         
         public ActionResult Index()

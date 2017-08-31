@@ -1,26 +1,26 @@
-﻿using Mercado.Aplicacao.EstoqueApp;
-using Mercado.Aplicacao.ProdutoApp;
-using Mercado.Aplicacao.UsuarioApp;
-using Mercado.Aplicacao.VendasApp;
+﻿using MercadoAplicacao.EstoqueApp;
+using MercadoAplicacao.ProdutoApp;
+using MercadoAplicacao.UsuarioApp;
+using MercadoAplicacao.VendasApp;
 using MercadoDominio.Entidades;
+using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
-using MercadoMain.Controllers;
 
-namespace ProjetoMercado.Controllers
+namespace MercadoMain.Controllers.Vendas
 {
     public class VendaController : AuthController
     {
         private VendasAplicacao appVendas;
         private ProdutoAplicacao appProdutos;
         private UsuarioAplicacao appUsuarios;
-        private readonly  EstoqueAplicacao _appEstoque;
+        private readonly IEstoqueAplicacao _appEstoque;
 
-        public VendaController(EstoqueAplicacao estoque)
+        public VendaController(IEstoqueAplicacao estoqueAplicacao)
         {
             appVendas = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
             appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
             appUsuarios = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
-            _appEstoque = estoque;
+            _appEstoque = estoqueAplicacao;
         }
 
         public ActionResult Index()

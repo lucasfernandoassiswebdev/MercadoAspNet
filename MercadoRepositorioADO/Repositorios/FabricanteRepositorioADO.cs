@@ -1,17 +1,17 @@
 ﻿using MercadoDominio.Entidades;
-using System.Collections.Generic;
+using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Extensoes;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using System.Collections.Generic;
 
-namespace Mercado.RepositorioADO
+namespace MercadoRepositorioADO.Repositorios
 {
     public class FabricanteRepositorioADO : IRepositorio<Fabricante>
     {
-        private Contexto contexto;
+        private Contexto.Contexto contexto;
 
         private void Insert(Fabricante fabricante)
         {
-           using (contexto = new Contexto())
+           using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereFabricante");
                 cmd.Parameters.AddWithValue("@Nome", fabricante.Nome);
@@ -21,7 +21,7 @@ namespace Mercado.RepositorioADO
 
         private void Alterar(Fabricante fabricante)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("AlteraFabricante");
                 cmd.Parameters.AddWithValue("@Nome", fabricante.Nome);
@@ -40,7 +40,7 @@ namespace Mercado.RepositorioADO
 
         public void Excluir(Fabricante fabricante)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluiFabricante");
                 cmd.Parameters.AddWithValue("@Id", fabricante.Id);
@@ -50,7 +50,7 @@ namespace Mercado.RepositorioADO
 
         public IEnumerable<Fabricante> ListarTodos()
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaFabricantes");
                 var fabricantes = new List<Fabricante>();
@@ -69,7 +69,7 @@ namespace Mercado.RepositorioADO
 
         public Fabricante ListarPorId(int id)
         {
-            using (contexto = new Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ListaFabricantePorId");
                 cmd.Parameters.AddWithValue("@Id", id);

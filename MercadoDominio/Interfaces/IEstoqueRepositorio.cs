@@ -1,10 +1,14 @@
 ﻿using MercadoDominio.Entidades;
-using MercadoDominio.Entidades.Entidades.Contrato;
+using System.Collections.Generic;
 
-namespace MercadoDominio.Contrato
+namespace MercadoDominio.Interfaces
 {
-    public interface IEstoqueRepositorio : IRepositorio<Estoque>
+    public interface IEstoqueRepositorio
     {
+        void Salvar(Estoque entidade);
+        void Excluir(Estoque entidade);
+        IEnumerable<Estoque> ListarTodos();
+        Estoque ListarPorId(int Id);
         decimal? BuscaQuantidadeProduto(int idProduto);
         int RetornaIdEstoque(int IdProduto);
     }

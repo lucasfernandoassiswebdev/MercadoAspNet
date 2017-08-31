@@ -1,5 +1,4 @@
-﻿using Mercado.Aplicacao.DistribuidorApp;
-using Mercado.RepositorioADO;
+﻿using MercadoRepositorioADO.Repositorios;
 
 namespace MercadoAplicacao.DistribuidorApp
 {

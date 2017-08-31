@@ -1,9 +1,9 @@
-﻿using Mercado.Aplicacao.UsuarioApp;
+﻿using MercadoAplicacao.UsuarioApp;
 using MercadoDominio.Entidades;
+using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
-using MercadoMain.Controllers;
 
-namespace ProjetoMercado.Controllers
+namespace MercadoMain.Controllers.Usuarios
 {
     public class UsuarioController : AuthController
     {

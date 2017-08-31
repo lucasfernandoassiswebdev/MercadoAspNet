@@ -1,9 +1,9 @@
-﻿using Mercado.Aplicacao.FabricanteApp;
+﻿using MercadoAplicacao.FabricanteApp;
 using MercadoDominio.Entidades;
+using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
-using MercadoMain.Controllers;
 
-namespace ProjetoMercado.Controllers
+namespace MercadoMain.Controllers.Produtos
 {
     public class FabricanteController : AuthController
     {
