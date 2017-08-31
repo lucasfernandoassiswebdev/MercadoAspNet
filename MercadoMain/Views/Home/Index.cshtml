@@ -2,11 +2,11 @@
     ViewBag.Title = "Home Page";
 }
 <style>
-    h2,h3 {
-        margin: 0 auto;
+     h2,h3 {
+         margin: 0 auto;
         
-        font-weight:bold;
-    }
+         font-weight:bold;
+     }
     .centro {
         margin: 0 auto;
         font-weight: bold;
@@ -17,10 +17,10 @@
 { 
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
+    <div style="margin-top: 5%">
     <h2 style="margin-left: 40%">Página inicial</h2><br/>
     <h3 style="margin-left: 45%">Login</h3><br/>
-    if(@Session["Login"] == null)
+    @if(Session["Login"] == null)
      {
          <div style="margin-left: 37%">
              <label for="login">Login:</label>
@@ -36,4 +36,5 @@
     {
         <div style="margin-left: 45%">@Html.ActionLink("Deslogar", "Logoff")</div>
     }
+    </div>
 }
