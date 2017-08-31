@@ -44,7 +44,7 @@ namespace MercadoMain.Controllers.Produtos
 
                 if (distribuidor.Nome.Length > 75)
                 {
-                    ModelState.AddModelError("DISTRIBUIDOR", "Você está ultrapssando o número máximo de caracteres!");
+                    ModelState.AddModelError("DISTRIBUIDOR", "Você está ultrapssando o número máximo de caracteres permitidos!");
                     return View("Cadastrar");
                 }
 
@@ -70,6 +70,21 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
+                var distribuidores = _appDistribuidor.ListarTodos();
+                foreach (var distribuidorA in distribuidores)
+                {
+                    if (distribuidorA.Nome == distribuidor.Nome)
+                    {
+                        ModelState.AddModelError("DISTRIBUIDOR", "O nome escolhido é o mesmo que o atual!");
+                        return View("Cadastrar");
+                    }
+                }
+
+                if (distribuidor.Nome.Length > 75)
+                {
+                    ModelState.AddModelError("DISTRIBUIDOR", "Você está ultrapssando o número máximo de caracteres permitidos!");
+                    return View("Cadastrar");
+                }
                 _appDistribuidor.Salvar(distribuidor);
                 return RedirectToAction("Index");
             }

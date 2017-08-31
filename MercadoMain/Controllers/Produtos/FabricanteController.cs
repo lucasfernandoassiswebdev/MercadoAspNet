@@ -45,7 +45,7 @@ namespace MercadoMain.Controllers.Produtos
 
                 if (fabricante.Nome.Length > 75)
                 {
-                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres!");
+                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres permitidos!");
                     return View("Cadastrar");
                 }
 
@@ -76,14 +76,14 @@ namespace MercadoMain.Controllers.Produtos
                 {
                     if (fabricanteA.Nome == fabricante.Nome)
                     {
-                        ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome!");
+                        ModelState.AddModelError("FABRICANTE", "O nome escolhido é o mesmo que o atual!");
                         return View("Editar");
                     }
                 }
 
                 if (fabricante.Nome.Length > 75)
                 {
-                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres!");
+                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres permitidos!");
                     return View("Editar");
                 }
 

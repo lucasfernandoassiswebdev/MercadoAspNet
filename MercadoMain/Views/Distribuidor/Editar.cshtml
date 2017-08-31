@@ -4,24 +4,29 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar distribuidor</h2>
+<style>
+    p {
+        display: inline;
+    }
+</style>
+
+<h2 style="margin-bottom: 60px">Editar distribuidor</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
     <div class="form-horizontal">
-        <h4>Distribuidor</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr style="margin-bottom: 20px"/>
         @Html.HiddenFor(model => model.Id)
 
         <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
+                <label for="nomeDistribuidor">Novo nome do distribuidor:</label>
+                <input type="text" id="nomeDistribuidor" name="Nome" />
+                <p id="alerta" style="margin-left: 10px"></p>
             </div>
         </div>
 
@@ -38,5 +43,39 @@
 </div>
 
 @section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#nomeDistribuidor').keyup(function() {
+                var contador = $('#nomeDistribuidor').val().length;
+                verificaCaracteres(contador);
+            });
+
+            $('#nomeDistribuidor').blur(function() {
+                var contador = $('#nomeDistribuidor').val().length;
+                verificaCaracteres(contador);
+            });
+
+            $('#nomeDistribuidor').focus(function() {
+                var contador = $('#nomeDistribuidor').val().length;
+                verificaCaracteres(contador);
+            });
+        });
+
+        function verificaCaracteres(quantidade) {
+            if (quantidade > 75) {
+                $('#alerta').text('Tamanho de nome inválido').css({
+                    color: 'red',
+                    'font-weight': 'bold'
+                });
+                $('input[type="submit"]').prop('disabled', true);
+            } else {
+                $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
+                    color: 'black',
+                    'font-weight': 'normal'
+                });
+                $('input[type="submit"]').prop('disabled', false);
+            }
+        }
+    </script>
     @Scripts.Render("~/bundles/jqueryval")
 }
