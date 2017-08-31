@@ -5,23 +5,26 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar novo produto</h2>
+<style>
+    p {
+        display: inline;
+    }
+</style>
+
+<h2 style="margin-bottom: 50px">Cadastrar novo produto</h2>
 
 
 @using (Html.BeginForm("Cadastrar", "Produto", FormMethod.Post, new { enctype = "multipart/form-data" })) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
     <div class="form-horizontal">
-        <h4>Cadastrar Produto</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
+        <div class="form-group" style="margin-left:8.2%">
+            <label for="nomeProduto">Nome do Produto</label>
+            <input type="text" id="nomeProduto" name="Nome" />
+            <p id="alerta" style="margin-left: 10px"></p>
         </div>
 
         <div style="margin-left:11%">
@@ -100,6 +103,40 @@
                 }
 
                 reader.readAsDataURL(input.files[0]);
+            }
+        }
+
+
+        $(document).ready(function () {
+            $('#nomeProduto').keyup(function () {
+                var contador = $('#nomeProduto').val().length;
+                verificaCaracteres(contador);
+            });
+
+            $('#nomeProduto').blur(function () {
+                var contador = $('#nomeProduto').val().length;
+                verificaCaracteres(contador);
+            });
+
+            $('#nomeProduto').focus(function () {
+                var contador = $('#nomeProduto').val().length;
+                verificaCaracteres(contador);
+            });
+        });
+
+        function verificaCaracteres(quantidade) {
+            if (quantidade > 50) {
+                $('#alerta').text('Tamanho de nome inválido').css({
+                    color: 'red',
+                    'font-weight': 'bold'
+                });
+                $('input[type="submit"]').prop('disabled', true);
+            } else {
+                $('#alerta').text('Caracteres restantes: ' + (50 - quantidade)).css({
+                    color: 'black',
+                    'font-weight': 'normal'
+                });
+                $('input[type="submit"]').prop('disabled', false);
             }
         }
     </script>

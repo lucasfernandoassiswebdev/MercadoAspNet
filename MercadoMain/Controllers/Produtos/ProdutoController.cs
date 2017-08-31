@@ -40,7 +40,7 @@ namespace MercadoMain.Controllers.Produtos
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //esse parâmetro file vem de inputs to tipo file
+        //esse parâmetro do tipo HttpPostedFileBase vem de inputs to tipo file
         public ActionResult Cadastrar(Produto produto, HttpPostedFileBase uploadImagem)
         {
             if (ModelState.IsValid)
@@ -49,12 +49,41 @@ namespace MercadoMain.Controllers.Produtos
                     produto.Imagem = "padrao.jpg";
                 else
                 { 
+                    //copiando a imagem para a aplicação
                     produto.Imagem = uploadImagem.FileName;
                     string[] strName = uploadImagem.FileName.Split('.');
-                    //string strExt = strName[strName.Count() - 1];
                     string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
                     string pathBase = $"/Imagens/{produto.Imagem}";
                     uploadImagem.SaveAs(pathSave);
+                }
+
+                //verificando se já existe outro produto com o mesmo nome e fabricante
+                var produtos = _appProduto.ListarTodos();
+                var fabricantes = _appFabricantes.ListarTodos();
+
+                foreach (var produtoA in produtos)
+                {
+                    if (produtoA.Nome == produto.Nome)
+                    {
+                        foreach (var fabricante in fabricantes)
+                        {
+                            if (produto.IdFabricante == fabricante.Id)
+                            {
+                                ModelState.AddModelError("PRODUTO", "Já existe um produto com este nome deste mesmo fabricante!");
+                                ViewBag.Fabricantes = _appFabricantes.ListarTodos();
+                                ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
+                                return View("Cadastrar");
+                            }
+                        }
+                    }
+                }
+
+                if (produto.Nome.Length > 50)
+                {
+                    ModelState.AddModelError("PRODUTO", "Você ultrapassou a quantidade máxima de caracteres permitida!");
+                    ViewBag.Fabricantes = _appFabricantes.ListarTodos();
+                    ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
+                    return View("Cadastrar");
                 }
 
                 _appProduto.Salvar(produto);

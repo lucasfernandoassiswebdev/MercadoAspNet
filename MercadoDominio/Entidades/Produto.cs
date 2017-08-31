@@ -9,6 +9,7 @@ namespace MercadoDominio.Entidades
 
         [Required(ErrorMessage = "Preencha o campo do nome do produto")]
         [DisplayName("Nome do produto: ")]
+        [StringLength(50, ErrorMessage = "O produto deve ter no mínimo 2 letras e no máximo 50", MinimumLength = 2)]
         public string Nome { get; set; }
 
         public int IdFabricante { get; set; }
