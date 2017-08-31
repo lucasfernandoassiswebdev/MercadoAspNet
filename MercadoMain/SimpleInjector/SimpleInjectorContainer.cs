@@ -18,11 +18,8 @@ namespace MercadoMain.SimpleInjector
             //estoque
             container.Register<IEstoqueAplicacao, EstoqueAplicacao>();
             container.Register<IEstoqueRepositorio, EstoqueRepositorioADO>();
-            //distribuidor
-            container.Register<IDistribuidorAplicacao, DistribuidorAplicacao>();
-            //fabricante
-
-
+          
+           
             container.Verify();
             return container;
         }

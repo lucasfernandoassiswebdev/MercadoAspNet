@@ -41,7 +41,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="DistribuidorApp\DistribuidorAplicacao.cs" />
-    <Compile Include="DistribuidorApp\IDistribuidorAplicacao.cs" />
+    <Compile Include="DistribuidorApp\DistribuidorAplicacaoConstrutor.cs" />
     <Compile Include="EstoqueApp\EstoqueAplicacao.cs" />
     <Compile Include="EstoqueApp\IEstoqueAplicacao.cs" />
     <Compile Include="FabricanteApp\FabricanteAplicacao.cs" />

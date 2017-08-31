@@ -3,36 +3,37 @@ using MercadoDominio.Entidades.Entidades.Contrato;
 using System.Collections.Generic;
 using MercadoAplicacao.DistribuidorApp;
 using System;
+using Mercado.RepositorioADO;
 
 namespace Mercado.Aplicacao.DistribuidorApp
 {
-    public class DistribuidorAplicacao : IDistribuidorAplicacao
+    public class DistribuidorAplicacao
     {
-        private readonly IRepositorio<Distribuidor> _repositorio;
+        private readonly IRepositorio<Distribuidor> repositorio;
 
-        public DistribuidorAplicacao(IRepositorio<Distribuidor> repositorio)
+        public DistribuidorAplicacao(IRepositorio<Distribuidor> repo)
         {
-            _repositorio = repositorio;
+            repositorio = repo;
         }
 
         public void Salvar(Distribuidor distribuidor)
         {
-            _repositorio.Salvar(distribuidor);
+            repositorio.Salvar(distribuidor);
         }
 
         public void Excluir(Distribuidor distribuidor)
         {
-            _repositorio.Excluir(distribuidor);
+            repositorio.Excluir(distribuidor);
         }
 
         public IEnumerable<Distribuidor> ListarTodos()
         {
-            return _repositorio.ListarTodos();
+            return repositorio.ListarTodos();
         }
 
         public Distribuidor ListarPorId(int id)
         {
-            return _repositorio.ListarPorId(id);
+            return repositorio.ListarPorId(id);
         }
     }
 }
