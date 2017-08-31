@@ -31,6 +31,23 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
+                var distribuidores = _appDistribuidor.ListarTodos();
+
+                foreach (var distribuidorA in distribuidores)
+                {
+                    if (distribuidorA.Nome == distribuidor.Nome)
+                    {
+                        ModelState.AddModelError("DISTRIBUIDOR", "Já existe um distribuidor com este mesmo nome!");
+                        return View("Cadastrar");
+                    }
+                }
+
+                if (distribuidor.Nome.Length > 75)
+                {
+                    ModelState.AddModelError("DISTRIBUIDOR", "Você está ultrapssando o número máximo de caracteres!");
+                    return View("Cadastrar");
+                }
+
                 _appDistribuidor.Salvar(distribuidor);
                 return RedirectToAction("Index");
             }

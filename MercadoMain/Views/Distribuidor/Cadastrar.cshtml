@@ -4,7 +4,7 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar novo distribuidor</h2>
+<h2 style="margin-left: 10px;margin-bottom: 60px">Cadastrar novo distribuidor</h2>
 
 <style>
     p {
@@ -15,11 +15,10 @@
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
     <div class="form-horizontal">
-        <h4>Distribuidor</h4>
         <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
         <div class="form-group">
             <label for="nomeDistribuidor">Nome do Fabricante</label>
             <input type="text" id="nomeDistribuidor" name="Nome"/>
