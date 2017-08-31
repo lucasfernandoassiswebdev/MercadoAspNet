@@ -4,33 +4,33 @@ using System.Collections.Generic;
 
 namespace MercadoAplicacao.VendasApp
 {
-    public class VendasAplicacao
+    public class VendasAplicacao : IVendasAplicacao
     {
-        private readonly IRepositorio<Venda> repositorio;
+        private readonly IVendasRepositorio _appVendas;
 
-        public VendasAplicacao(IRepositorio<Venda> repo)
+        public VendasAplicacao(IVendasRepositorio venda)
         {
-            repositorio = repo;
+            _appVendas = venda;
         }
 
         public void Salvar(Venda venda)
         {
-            repositorio.Salvar(venda);
+            _appVendas.Salvar(venda);
         }
 
         public void Excluir(Venda venda)
         {
-            repositorio.Excluir(venda);
+            _appVendas.Excluir(venda);
         }
 
         public IEnumerable<Venda> ListarTodos()
         {
-            return repositorio.ListarTodos();
+            return _appVendas.ListarTodos();
         }
 
         public Venda ListarPorId(int id)
         {
-            return repositorio.ListarPorId(id);
+            return _appVendas.ListarPorId(id);
         }
     }
 }

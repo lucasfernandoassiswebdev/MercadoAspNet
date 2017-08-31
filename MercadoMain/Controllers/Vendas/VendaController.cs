@@ -10,14 +10,14 @@ namespace MercadoMain.Controllers.Vendas
 {
     public class VendaController : AuthController
     {
-        private VendasAplicacao appVendas;
+        private readonly IVendasAplicacao _appVendas;
         private readonly IProdutoAplicacao _appProdutos;
         private readonly IUsuarioAplicacao _appUsuarios;
         private readonly IEstoqueAplicacao _appEstoque;
 
-        public VendaController(IEstoqueAplicacao estoqueAplicacao, IUsuarioAplicacao usuario, IProdutoAplicacao produto)
+        public VendaController(IEstoqueAplicacao estoqueAplicacao, IUsuarioAplicacao usuario, IProdutoAplicacao produto, IVendasAplicacao venda)
         {
-            appVendas = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
+            _appVendas = venda;
             _appProdutos = produto;
             _appUsuarios = usuario;
             _appEstoque = estoqueAplicacao;
@@ -25,7 +25,7 @@ namespace MercadoMain.Controllers.Vendas
 
         public ActionResult Index()
         {
-            var listaDeVendas = appVendas.ListarTodos();
+            var listaDeVendas = _appVendas.ListarTodos();
             return View(listaDeVendas);
         }
 
@@ -58,7 +58,7 @@ namespace MercadoMain.Controllers.Vendas
 
             if (ModelState.IsValid)
             {
-                appVendas.Salvar(venda);
+                _appVendas.Salvar(venda);
                 var estoque = new Estoque
                 {
                     Id = IdEstoque,
@@ -77,7 +77,7 @@ namespace MercadoMain.Controllers.Vendas
 
         public ActionResult Editar(int id)
         {
-            var venda = appVendas.ListarPorId(id);
+            var venda = _appVendas.ListarPorId(id);
 
             if (venda == null)
                 return HttpNotFound();
@@ -92,8 +92,7 @@ namespace MercadoMain.Controllers.Vendas
         {
             if (ModelState.IsValid)
             {
-                var appUsuario = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
-                appUsuario.Salvar(venda);
+                _appVendas.Salvar(venda);
                 return RedirectToAction("Index");
             }
             ViewBag.Produtos = _appProdutos.ListarTodos();
@@ -103,7 +102,7 @@ namespace MercadoMain.Controllers.Vendas
 
         public ActionResult Detalhes(int id)
         {
-            var venda = appVendas.ListarPorId(id);
+            var venda = _appVendas.ListarPorId(id);
 
             if (venda == null)
                 return HttpNotFound();
@@ -114,7 +113,7 @@ namespace MercadoMain.Controllers.Vendas
 
         public ActionResult Excluir(int id)
         {
-            var venda = appVendas.ListarPorId(id);
+            var venda = _appVendas.ListarPorId(id);
 
             if (venda == null)
                 return HttpNotFound();
@@ -127,8 +126,8 @@ namespace MercadoMain.Controllers.Vendas
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)
         {
-            var venda = appVendas.ListarPorId(id);
-            appVendas.Excluir(venda);
+            var venda = _appVendas.ListarPorId(id);
+            _appVendas.Excluir(venda);
             ViewBag.Funcionario = _appUsuarios.ListarPorId(venda.IdFuncionario);
             return RedirectToAction("Index");
         }
