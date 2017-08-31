@@ -19,7 +19,6 @@ namespace MercadoMain.SimpleInjector
             container.Register<IEstoqueAplicacao, EstoqueAplicacao>();
             container.Register<IEstoqueRepositorio, EstoqueRepositorioADO>();
           
-           
             container.Verify();
             return container;
         }
