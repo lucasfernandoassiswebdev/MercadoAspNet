@@ -11,14 +11,14 @@ namespace MercadoMain.Controllers.Vendas
     public class VendaController : AuthController
     {
         private VendasAplicacao appVendas;
-        private ProdutoAplicacao appProdutos;
+        private readonly IProdutoAplicacao _appProdutos;
         private readonly IUsuarioAplicacao _appUsuarios;
         private readonly IEstoqueAplicacao _appEstoque;
 
-        public VendaController(IEstoqueAplicacao estoqueAplicacao, IUsuarioAplicacao usuario)
+        public VendaController(IEstoqueAplicacao estoqueAplicacao, IUsuarioAplicacao usuario, IProdutoAplicacao produto)
         {
             appVendas = VendasAplicacaoConstrutor.VendaoAplicacaoADO();
-            appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
+            _appProdutos = produto;
             _appUsuarios = usuario;
             _appEstoque = estoqueAplicacao;
         }
@@ -31,7 +31,7 @@ namespace MercadoMain.Controllers.Vendas
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarTodos();
             return View();
         }
@@ -70,7 +70,7 @@ namespace MercadoMain.Controllers.Vendas
 
                 return RedirectToAction("Index");
             }
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarTodos();
             return View(venda);
         }
@@ -81,7 +81,7 @@ namespace MercadoMain.Controllers.Vendas
 
             if (venda == null)
                 return HttpNotFound();
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionarios = _appUsuarios.ListarTodos();
             return View(venda);
         }
@@ -96,7 +96,7 @@ namespace MercadoMain.Controllers.Vendas
                 appUsuario.Salvar(venda);
                 return RedirectToAction("Index");
             }
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionarios = _appUsuarios.ListarTodos();
             return View(venda);
         }
@@ -107,7 +107,7 @@ namespace MercadoMain.Controllers.Vendas
 
             if (venda == null)
                 return HttpNotFound();
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarPorId(venda.IdFuncionario);
             return View(venda);
         }

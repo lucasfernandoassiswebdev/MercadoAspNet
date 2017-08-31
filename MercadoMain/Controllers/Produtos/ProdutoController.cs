@@ -14,20 +14,20 @@ namespace MercadoMain.Controllers.Produtos
 {
     public class ProdutoController : AuthController
     {
-        private ProdutoAplicacao appProduto;
+        private readonly IProdutoAplicacao _appProduto;
         private readonly IFabricanteAplicacao _appFabricantes;
         private readonly IDistribuidorAplicacao _appDistribuidores;
 
-        public ProdutoController(IDistribuidorAplicacao distribuidor, IFabricanteAplicacao fabricante)
+        public ProdutoController(IDistribuidorAplicacao distribuidor, IFabricanteAplicacao fabricante, IProdutoAplicacao produto)
         {
-            appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
+            _appProduto = produto;
             _appFabricantes = fabricante;
             _appDistribuidores = distribuidor;
         }
         
         public ActionResult Index()
         {
-            var listaDeProdutos = appProduto.ListarTodos();
+            var listaDeProdutos = _appProduto.ListarTodos();
             return View(listaDeProdutos);
         }
 
@@ -57,7 +57,7 @@ namespace MercadoMain.Controllers.Produtos
                     uploadImagem.SaveAs(pathSave);
                 }
 
-                appProduto.Salvar(produto);
+                _appProduto.Salvar(produto);
                 return RedirectToAction("Index");
             }
 
@@ -69,7 +69,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Editar(int id)
         {
-            var produto = appProduto.ListarPorId(id);
+            var produto = _appProduto.ListarPorId(id);
             ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
 
@@ -101,7 +101,7 @@ namespace MercadoMain.Controllers.Produtos
 
                 }
 
-                appProduto.Salvar(produto);
+                _appProduto.Salvar(produto);
                 return RedirectToAction("Index");
             }
             ViewBag.Fabricantes = _appFabricantes.ListarTodos();
@@ -111,7 +111,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Detalhes(int id)
         {
-            var produto = appProduto.ListarPorId(id);
+            var produto = _appProduto.ListarPorId(id);
             if (produto == null)
                 return HttpNotFound();
 
@@ -122,7 +122,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Excluir(int id)
         {
-            var produto = appProduto.ListarPorId(id);
+            var produto = _appProduto.ListarPorId(id);
 
             if (produto == null)
                 return HttpNotFound();
@@ -135,8 +135,8 @@ namespace MercadoMain.Controllers.Produtos
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
-            var produto = appProduto.ListarPorId(id);
-            appProduto.Excluir(produto);
+            var produto = _appProduto.ListarPorId(id);
+            _appProduto.Excluir(produto);
             return RedirectToAction("Index");
         }
 
@@ -173,7 +173,7 @@ namespace MercadoMain.Controllers.Produtos
                 workSheet.Cells[1, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
             }
             //listando produtos a serem preenchidos na tabela
-            var produtos = appProduto.ListarTodos();
+            var produtos = _appProduto.ListarTodos();
             //linha de início
             int recordIndex = 2;
             foreach (var produto in produtos)

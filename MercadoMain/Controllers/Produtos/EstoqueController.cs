@@ -9,24 +9,24 @@ namespace MercadoMain.Controllers.Produtos
     public class EstoqueController : AuthController
     {
         private readonly IEstoqueAplicacao _appEstoque;
-        private ProdutoAplicacao appProdutos;
+        private readonly  IProdutoAplicacao _appProdutos;
 
-        public EstoqueController(IEstoqueAplicacao appEstoque)
+        public EstoqueController(IEstoqueAplicacao estoque, IProdutoAplicacao produto)
         {
-            _appEstoque = appEstoque;
-            appProdutos = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
+            _appEstoque = estoque;
+            _appProdutos = produto;
         }
 
         public ActionResult Index()
         {
             var listaDoEstoque = _appEstoque.ListarTodos();
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             return View(listaDoEstoque);
         }
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             return View();
         }
 
@@ -40,7 +40,7 @@ namespace MercadoMain.Controllers.Produtos
                 _appEstoque.Salvar(estoque);
                 return RedirectToAction("Index");
             }
-            ViewBag.Produtos = appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarTodos();
             return View(estoque);
         }
 
@@ -49,7 +49,7 @@ namespace MercadoMain.Controllers.Produtos
             var estoque = _appEstoque.ListarPorId(id);
             if (estoque == null)
                 return HttpNotFound();
-            ViewBag.Produto = appProdutos.ListarPorId(estoque.IdProduto);
+            ViewBag.Produto = _appProdutos.ListarPorId(estoque.IdProduto);
             return View(estoque);
         }
 
@@ -62,7 +62,7 @@ namespace MercadoMain.Controllers.Produtos
                 _appEstoque.Salvar(estoque);
                 return RedirectToAction("Index");
             }
-            ViewBag.Produto = appProdutos.ListarPorId(estoque.IdProduto);
+            ViewBag.Produto = _appProdutos.ListarPorId(estoque.IdProduto);
             return View(estoque);
         }
 
@@ -72,7 +72,7 @@ namespace MercadoMain.Controllers.Produtos
 
             if (estoque == null)
                 return HttpNotFound();
-            ViewBag.Produto = appProdutos.ListarPorId(id);
+            ViewBag.Produto = _appProdutos.ListarPorId(id);
             return View(estoque);
         }
 
@@ -82,7 +82,7 @@ namespace MercadoMain.Controllers.Produtos
 
             if (estoque == null)
                 return HttpNotFound();
-            ViewBag.Produto = appProdutos.ListarPorId(id);
+            ViewBag.Produto = _appProdutos.ListarPorId(id);
             return View(estoque);
         }
 
@@ -92,7 +92,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             var estoque = _appEstoque.ListarPorId(id);
             _appEstoque.Excluir(estoque);
-            ViewBag.Produto = appProdutos.ListarPorId(id);
+            ViewBag.Produto = _appProdutos.ListarPorId(id);
             return RedirectToAction("Index");
         }
     }

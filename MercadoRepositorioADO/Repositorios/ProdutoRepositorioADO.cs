@@ -5,7 +5,7 @@ using System.Collections.Generic;
 
 namespace MercadoRepositorioADO.Repositorios
 {
-    public class ProdutoRepositorioADO : IRepositorio<Produto>
+    public class ProdutoRepositorioADO : IProdutoRepositorio
     {
         private Contexto.Contexto contexto;
 
