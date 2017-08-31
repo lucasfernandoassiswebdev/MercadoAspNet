@@ -1,13 +1,14 @@
 ﻿using MercadoDominio.Entidades;
+using MercadoDominio.Interfaces;
 using System.Collections.Generic;
 
 namespace MercadoAplicacao.DistribuidorApp
 {
     public class DistribuidorAplicacao : IDistribuidorAplicacao
     {
-        private readonly IDistribuidorAplicacao _appDistribuidor;
+        private readonly IDistribuidorRepositorio _appDistribuidor;
 
-        public DistribuidorAplicacao(IDistribuidorAplicacao distribuidor)
+        public DistribuidorAplicacao(IDistribuidorRepositorio distribuidor)
         {
             _appDistribuidor = distribuidor;
         }
