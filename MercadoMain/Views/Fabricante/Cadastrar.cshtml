@@ -9,10 +9,10 @@
     p {
         display: inline;
     }
-</style
+</style>
 
-@using (Html.BeginForm()) 
-{
+@using (Html.BeginForm())
+{ 
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
@@ -62,13 +62,13 @@
                     color: 'red',
                     'font-weight': 'bold'
                 });
-                $('input[type="submit"]').html('disabled');
+                $('input[type="submit"]').prop('disabled',true);
             } else {
                 $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
                     color: 'black',
                     'font-weight': 'normal'
                 });
-                $('input').prop('disabled',false);
+                $('input[type="submit"]').prop('disabled',false);
             }
         }
     </script>
