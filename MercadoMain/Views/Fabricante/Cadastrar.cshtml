@@ -1,4 +1,5 @@
-﻿@model MercadoDominio.Entidades.Fabricante
+﻿@using MercadoDominio.Entidades
+@model MercadoDominio.Entidades.Fabricante
 
 @{
     ViewBag.Title = "Cadastrar";
@@ -39,44 +40,40 @@
 
 @section Scripts {
     <script>
-        $(document).ready(function() {
-            $('#nomeFabricante').keyup(function() {
-                var contador = $('#nomeFabricante').val().length;
-                verificaCaracteres(contador);
-            });
-
-            $('#nomeFabricante').blur(function() {
-                var contador = $('#nomeFabricante').val().length;
-                verificaCaracteres(contador);
-            });
-
-            $('#nomeFabricante').focus(function() {
-                var contador = $('#nomeFabricante').val().length;
-                verificaCaracteres(contador);
-            });
+    $(document).ready(function() {
+        $('#nomeFabricante').keyup(function() {
+            var contador = $('#nomeFabricante').val().length;
+            verificaCaracteres(contador);
         });
 
-        function verificaCaracteres(quantidade) {
-            if (quantidade > 75) {
-                $('#alerta').text('Tamanho de nome inválido').css({
-                    color: 'red',
-                    'font-weight': 'bold'
-                });
-                $('input[type="submit"]').prop('disabled', true);
-            } else {
-                $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
-                    color: 'black',
-                    'font-weight': 'normal'
-                });
-                $('input[type="submit"]').prop('disabled', false);
-            }
-        }
+        $('#nomeFabricante').blur(function() {
+            var contador = $('#nomeFabricante').val().length;
+            verificaCaracteres(contador);
+        });
 
-        @foreach (var fabricante in ViewBag.Fabricantes)
-        {
-            console.log(@fabricante.Nome);
-        }
+        $('#nomeFabricante').focus(function() {
+            var contador = $('#nomeFabricante').val().length;
+            verificaCaracteres(contador);
+        });
+    });
 
+    function verificaCaracteres(quantidade) {
+        if (quantidade > 75) {
+            $('#alerta').text('Tamanho de nome inválido').css({
+                color: 'red',
+                'font-weight': 'bold'
+            });
+            $('input[type="submit"]').prop('disabled', true);
+        } else {
+            $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
+                color: 'black',
+                'font-weight': 'normal'
+            });
+            $('input[type="submit"]').prop('disabled', false);
+        }
+    }
+
+    
     </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

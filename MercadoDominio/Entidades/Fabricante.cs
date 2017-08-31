@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MercadoDominio.Entidades
@@ -12,6 +11,6 @@ namespace MercadoDominio.Entidades
         [DisplayName("Nome do fabricante: ")]
         public string Nome { get; set; }
 
-        public IEnumerable<Produto> Produtos { get; set; }
+        //public IEnumerable<Produto> Produtos { get; set; }
     }
 }
