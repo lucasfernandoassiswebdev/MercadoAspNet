@@ -4,33 +4,33 @@ using System.Collections.Generic;
 
 namespace MercadoAplicacao.LoginApp
 {
-    public class LoginAplicacao
+    public class LoginAplicacao : ILoginAplicacao
     {
-        private readonly IRepositorio<Login> repositorio;
+        private readonly ILoginRepositorio _appLogin;
 
-        public LoginAplicacao(IRepositorio<Login> repo)
+        public LoginAplicacao(ILoginRepositorio login)
         {
-            repositorio = repo;
+            _appLogin = login;
         }
 
         public void Salvar(Login login)
         {
-            repositorio.Salvar(login);
+            _appLogin.Salvar(login);
         } 
 
         public void Excluir(Login login)
         {
-            repositorio.Excluir(login);
+            _appLogin.Excluir(login);
         }
 
         public IEnumerable<Login> ListarTodos()
         {
-            return repositorio.ListarTodos();
+            return _appLogin.ListarTodos();
         }
 
         public Login ListarPorId(int id)
         {
-            return repositorio.ListarPorId(id);
+            return _appLogin.ListarPorId(id);
         }
     }
 }

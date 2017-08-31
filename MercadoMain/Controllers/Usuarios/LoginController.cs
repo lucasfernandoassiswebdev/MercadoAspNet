@@ -8,18 +8,18 @@ namespace MercadoMain.Controllers.Usuarios
 {
     public class LoginController : AuthController
     {
-        private LoginAplicacao appLogin;
+        private readonly ILoginAplicacao _appLogin;
         private UsuarioAplicacao appUsuario;
 
-        public  LoginController()
+        public  LoginController(ILoginAplicacao login)
         {
-            appLogin = LoginAplicacaoConstrutor.LoginAplicacaoADO();
+            _appLogin = login;
             appUsuario = UsuarioAplicacaoConstrutor.UsuarioAplicacaoADO();
         }
 
         public ActionResult Index()
         {
-            var listaDeLogins = appLogin.ListarTodos();
+            var listaDeLogins = _appLogin.ListarTodos();
             return View(listaDeLogins);
         }
 
@@ -35,7 +35,7 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if(ModelState.IsValid)
             {
-                appLogin.Salvar(login);
+                _appLogin.Salvar(login);
                 return RedirectToAction("Index"); 
             }
             return View(login);
@@ -43,11 +43,11 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Editar(int id)
         {
-            var login = appLogin.ListarPorId(id);
+            var login = _appLogin.ListarPorId(id);
             if (login == null)
                 return HttpNotFound();
 
-            @ViewBag.Login = appLogin.ListarPorId(id);
+            @ViewBag.Login = _appLogin.ListarPorId(id);
             return View();
         }
 
@@ -57,7 +57,7 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if(ModelState.IsValid)
             {
-                appLogin.Salvar(login);
+                _appLogin.Salvar(login);
                 return RedirectToAction("Index");
             }
             return View(login);
@@ -65,7 +65,7 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Excluir(int id)
         {
-            var login = appLogin.ListarPorId(id);
+            var login = _appLogin.ListarPorId(id);
             if(login == null)
                 return HttpNotFound();
 
@@ -76,8 +76,8 @@ namespace MercadoMain.Controllers.Usuarios
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)
         {
-            var login = appLogin.ListarPorId(id);
-            appLogin.Excluir(login);
+            var login = _appLogin.ListarPorId(id);
+            _appLogin.Excluir(login);
             return RedirectToAction("Index");
         }
     }

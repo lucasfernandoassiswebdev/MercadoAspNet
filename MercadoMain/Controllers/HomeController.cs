@@ -6,11 +6,11 @@ namespace MercadoMain.Controllers
 {
     public class HomeController : Controller
     {
-        private LoginAplicacao appLogin; 
+        private ILoginAplicacao _appLogin; 
 
-        public HomeController()
+        public HomeController(ILoginAplicacao login)
         {
-            appLogin = LoginAplicacaoConstrutor.LoginAplicacaoADO();
+            _appLogin = login;
         }
 
         public ActionResult Index()
@@ -30,7 +30,7 @@ namespace MercadoMain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var logins = appLogin.ListarTodos();
+                var logins = _appLogin.ListarTodos();
 
                 foreach (var log in logins)
                 {
