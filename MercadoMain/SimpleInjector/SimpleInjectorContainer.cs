@@ -1,5 +1,6 @@
 ﻿using MercadoAplicacao.DistribuidorApp;
 using MercadoAplicacao.EstoqueApp;
+using MercadoAplicacao.FabricanteApp;
 using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Repositorios;
 using SimpleInjector;
@@ -19,7 +20,10 @@ namespace MercadoMain.SimpleInjector
             //distribuidor
             container.Register<IDistribuidorRepositorio, DistribuidorRepositorioADO>();
             container.Register<IDistribuidorAplicacao, DistribuidorAplicacao>();
-            
+            //fabricante
+            container.Register<IFabricanteRepositorio, FabricanteRepositorioADO>();
+            container.Register<IFabricanteAplicacao, FabricanteAplicacao>();
+
             container.Verify();
             return container;
         }

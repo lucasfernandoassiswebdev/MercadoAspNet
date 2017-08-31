@@ -15,13 +15,13 @@ namespace MercadoMain.Controllers.Produtos
     public class ProdutoController : AuthController
     {
         private ProdutoAplicacao appProduto;
-        private FabricanteAplicacao appFabricante;
+        private readonly IFabricanteAplicacao _appFabricantes;
         private readonly IDistribuidorAplicacao _appDistribuidores;
 
-        public ProdutoController(IDistribuidorAplicacao distribuidor)
+        public ProdutoController(IDistribuidorAplicacao distribuidor, IFabricanteAplicacao fabricante)
         {
             appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
-            appFabricante = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
+            _appFabricantes = fabricante;
             _appDistribuidores = distribuidor;
         }
         
@@ -33,7 +33,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Fabricantes = appFabricante.ListarTodos();
+            ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
             return View();
         }
@@ -61,7 +61,7 @@ namespace MercadoMain.Controllers.Produtos
                 return RedirectToAction("Index");
             }
 
-            ViewBag.Fabricantes = appFabricante.ListarTodos();
+            ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
 
             return View(produto);
@@ -70,7 +70,7 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Editar(int id)
         {
             var produto = appProduto.ListarPorId(id);
-            ViewBag.Fabricantes = appFabricante.ListarTodos();
+            ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
 
             if (produto == null)
@@ -104,7 +104,7 @@ namespace MercadoMain.Controllers.Produtos
                 appProduto.Salvar(produto);
                 return RedirectToAction("Index");
             }
-            ViewBag.Fabricantes = appFabricante.ListarTodos();
+            ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
             return View(produto);
         }
@@ -115,7 +115,7 @@ namespace MercadoMain.Controllers.Produtos
             if (produto == null)
                 return HttpNotFound();
 
-            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
+            ViewBag.Fabricantes = _appFabricantes.ListarPorId(produto.IdFabricante);
             ViewBag.Distribuidores = _appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
         }
@@ -126,7 +126,7 @@ namespace MercadoMain.Controllers.Produtos
 
             if (produto == null)
                 return HttpNotFound();
-            ViewBag.Fabricantes = appFabricante.ListarPorId(produto.IdFabricante);
+            ViewBag.Fabricantes = _appFabricantes.ListarPorId(produto.IdFabricante);
             ViewBag.Distribuidores = _appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
         }

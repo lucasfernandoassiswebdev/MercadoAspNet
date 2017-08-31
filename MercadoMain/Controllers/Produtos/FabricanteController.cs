@@ -7,16 +7,16 @@ namespace MercadoMain.Controllers.Produtos
 {
     public class FabricanteController : AuthController
     {
-        private FabricanteAplicacao appFabricante;
+        private readonly  IFabricanteAplicacao _appFabricante;
 
-        public FabricanteController()
+        public FabricanteController(IFabricanteAplicacao fabricante)
         {
-            appFabricante = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
+            _appFabricante = fabricante;
         }
 
         public ActionResult Index()
         {
-            var listaDeFabricantes = appFabricante.ListarTodos();
+            var listaDeFabricantes = _appFabricante.ListarTodos();
             return View(listaDeFabricantes);
         }
 
@@ -31,8 +31,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                var appProduto = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
-                appProduto.Salvar(fabricante);
+                _appFabricante.Salvar(fabricante);
                 return RedirectToAction("Index");
             }
             return View(fabricante);
@@ -40,7 +39,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Editar(int id)
         {
-            var fabricante = appFabricante.ListarPorId(id);
+            var fabricante = _appFabricante.ListarPorId(id);
 
             if (fabricante == null)
                 return HttpNotFound();
@@ -54,8 +53,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                var appFabricante = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
-                appFabricante.Salvar(fabricante);
+                _appFabricante.Salvar(fabricante);
                 return RedirectToAction("Index");
             }
             return View(fabricante);
@@ -63,7 +61,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Detalhes(int id)
         {
-            var fabricante = appFabricante.ListarPorId(id);
+            var fabricante = _appFabricante.ListarPorId(id);
 
             if (fabricante == null)
                 return HttpNotFound();
@@ -73,7 +71,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Excluir(int id)
         {
-            var fabricante = appFabricante.ListarPorId(id);
+            var fabricante = _appFabricante.ListarPorId(id);
 
             if (fabricante == null)
                 return HttpNotFound();
@@ -85,8 +83,8 @@ namespace MercadoMain.Controllers.Produtos
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
-            var fabricante = appFabricante.ListarPorId(id);
-            appFabricante.Excluir(fabricante);
+            var fabricante = _appFabricante.ListarPorId(id);
+            _appFabricante.Excluir(fabricante);
             return RedirectToAction("Index");
         }
     }

@@ -4,33 +4,33 @@ using System.Collections.Generic;
 
 namespace MercadoAplicacao.FabricanteApp
 {
-    public class FabricanteAplicacao
+    public class FabricanteAplicacao : IFabricanteAplicacao
     {
-        private readonly IRepositorio<Fabricante> repositorio;
+        private readonly IFabricanteRepositorio _fabricante;
 
-        public FabricanteAplicacao(IRepositorio<Fabricante> repo)
+        public FabricanteAplicacao(IFabricanteRepositorio fabricante)
         {
-            repositorio = repo;
+            _fabricante = fabricante;
         }
 
         public void Salvar(Fabricante fabricante)
         {
-            repositorio.Salvar(fabricante);
+            _fabricante.Salvar(fabricante);
         }
 
         public void Excluir(Fabricante fabricante)
         {
-            repositorio.Excluir(fabricante);
+            _fabricante.Excluir(fabricante);
         }
 
         public IEnumerable<Fabricante> ListarTodos()
         {
-            return repositorio.ListarTodos();
+            return _fabricante.ListarTodos();
         }
 
         public Fabricante ListarPorId(int id)
         {
-            return repositorio.ListarPorId(id);
+            return _fabricante.ListarPorId(id);
         }
     }
 }

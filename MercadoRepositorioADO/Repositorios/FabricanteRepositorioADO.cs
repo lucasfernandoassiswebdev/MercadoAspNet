@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace MercadoRepositorioADO.Repositorios
 {
-    public class FabricanteRepositorioADO : IRepositorio<Fabricante>
+    public class FabricanteRepositorioADO : IFabricanteRepositorio
     {
-        private Contexto.Contexto contexto;
+        private Contexto.Contexto _contexto;
 
         private void Insert(Fabricante fabricante)
         {
-           using (contexto = new Contexto.Contexto())
+           using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("InsereFabricante");
+                var cmd = _contexto.ExecutaComando("InsereFabricante");
                 cmd.Parameters.AddWithValue("@Nome", fabricante.Nome);
                 cmd.ExecuteNonQuery();
             }
@@ -21,9 +21,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         private void Alterar(Fabricante fabricante)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("AlteraFabricante");
+                var cmd = _contexto.ExecutaComando("AlteraFabricante");
                 cmd.Parameters.AddWithValue("@Nome", fabricante.Nome);
                 cmd.Parameters.AddWithValue("@Id", fabricante.Id);
                 cmd.ExecuteNonQuery();
@@ -40,9 +40,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         public void Excluir(Fabricante fabricante)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ExcluiFabricante");
+                var cmd = _contexto.ExecutaComando("ExcluiFabricante");
                 cmd.Parameters.AddWithValue("@Id", fabricante.Id);
                 cmd.ExecuteNonQuery();
             }
@@ -50,9 +50,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         public IEnumerable<Fabricante> ListarTodos()
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListaFabricantes");
+                var cmd = _contexto.ExecutaComando("ListaFabricantes");
                 var fabricantes = new List<Fabricante>();
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
@@ -69,9 +69,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         public Fabricante ListarPorId(int id)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListaFabricantePorId");
+                var cmd = _contexto.ExecutaComando("ListaFabricantePorId");
                 cmd.Parameters.AddWithValue("@Id", id);
                 var fabricante = new Fabricante();
                 using (var reader = cmd.ExecuteReader())
