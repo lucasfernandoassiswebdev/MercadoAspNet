@@ -4,28 +4,31 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar</h2>
+<style>
+    p {
+        display: inline;
+    }
+</style>
+
+<h2 style="margin-bottom: 60px">Editar fabricante</h2>
 
 
 @using (Html.BeginForm())
 {
     @Html.AntiForgeryToken()
-    
-    <div class="form-horizontal">
-        <h4>Fabricante</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
-        @Html.HiddenFor(model => model.Id)
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-        <div class="form-group">
-            @Html.LabelFor(model => model.Nome, htmlAttributes: new { @class = "control-label col-md-2" })
-            <div class="col-md-10">
-                @Html.EditorFor(model => model.Nome, new { htmlAttributes = new { @class = "form-control" } })
-                @Html.ValidationMessageFor(model => model.Nome, "", new { @class = "text-danger" })
-            </div>
+    <div class="form-horizontal">
+        <hr style="margin-bottom: 20px"/>
+        @Html.HiddenFor(model => model.Id)
+        
+        <div class="form-group" style="margin-left:10px">
+            <label for="nomeFabricante">Novo nome de fabricante:</label>
+            <input type="text" id="nomeFabricante" name="Nome" />
+            <p id="alerta" style="margin-left: 10px"></p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-left: 4%">
             <div class="col-md-offset-2 col-md-10">
                 <input type="submit" value="Salvar" class="btn btn-default" />
             </div>
@@ -38,5 +41,40 @@
 </div>
 
 @section Scripts {
+    <script>
+        $(document).ready(function() {
+            $('#nomeFabricante').keyup(function() {
+                var contador = $('#nomeFabricante').val().length;
+                verificaCaracteres(contador);
+            });
+
+            $('#nomeFabricante').blur(function() {
+                var contador = $('#nomeFabricante').val().length;
+                verificaCaracteres(contador);
+            });
+
+            $('#nomeFabricante').focus(function() {
+                var contador = $('#nomeFabricante').val().length;
+                verificaCaracteres(contador);
+            });
+        });
+
+        function verificaCaracteres(quantidade) {
+            if (quantidade > 75) {
+                $('#alerta').text('Tamanho de nome inválido').css({
+                    color: 'red',
+                    'font-weight': 'bold'
+                });
+                $('input[type="submit"]').prop('disabled', true);
+            } else {
+                $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
+                    color: 'black',
+                    'font-weight': 'normal'
+                });
+                $('input[type="submit"]').prop('disabled', false);
+            }
+        }
+    </script>
+
     @Scripts.Render("~/bundles/jqueryval")
 }

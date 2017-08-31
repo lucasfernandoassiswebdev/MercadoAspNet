@@ -40,40 +40,38 @@
 
 @section Scripts {
     <script>
-    $(document).ready(function() {
-        $('#nomeFabricante').keyup(function() {
-            var contador = $('#nomeFabricante').val().length;
-            verificaCaracteres(contador);
-        });
-
-        $('#nomeFabricante').blur(function() {
-            var contador = $('#nomeFabricante').val().length;
-            verificaCaracteres(contador);
-        });
-
-        $('#nomeFabricante').focus(function() {
-            var contador = $('#nomeFabricante').val().length;
-            verificaCaracteres(contador);
-        });
-    });
-
-    function verificaCaracteres(quantidade) {
-        if (quantidade > 75) {
-            $('#alerta').text('Tamanho de nome inválido').css({
-                color: 'red',
-                'font-weight': 'bold'
+        $(document).ready(function() {
+            $('#nomeFabricante').keyup(function() {
+                var contador = $('#nomeFabricante').val().length;
+                verificaCaracteres(contador);
             });
-            $('input[type="submit"]').prop('disabled', true);
-        } else {
-            $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
-                color: 'black',
-                'font-weight': 'normal'
+
+            $('#nomeFabricante').blur(function() {
+                var contador = $('#nomeFabricante').val().length;
+                verificaCaracteres(contador);
             });
-            $('input[type="submit"]').prop('disabled', false);
+
+            $('#nomeFabricante').focus(function() {
+                var contador = $('#nomeFabricante').val().length;
+                verificaCaracteres(contador);
+            });
+        });
+
+        function verificaCaracteres(quantidade) {
+            if (quantidade > 75) {
+                $('#alerta').text('Tamanho de nome inválido').css({
+                    color: 'red',
+                    'font-weight': 'bold'
+                });
+                $('input[type="submit"]').prop('disabled', true);
+            } else {
+                $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
+                    color: 'black',
+                    'font-weight': 'normal'
+                });
+                $('input[type="submit"]').prop('disabled', false);
+            }
         }
-    }
-
-    
     </script>
     @Scripts.Render("~/bundles/jqueryval")
 }

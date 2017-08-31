@@ -71,6 +71,22 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
+                var fabricantes = _appFabricante.ListarTodos();
+                foreach (var fabricanteA in fabricantes)
+                {
+                    if (fabricanteA.Nome == fabricante.Nome)
+                    {
+                        ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome!");
+                        return View("Editar");
+                    }
+                }
+
+                if (fabricante.Nome.Length > 75)
+                {
+                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres!");
+                    return View("Editar");
+                }
+
                 _appFabricante.Salvar(fabricante);
                 return RedirectToAction("Index");
             }
