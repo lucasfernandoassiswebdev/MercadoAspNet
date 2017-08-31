@@ -7,16 +7,16 @@ namespace MercadoMain.Controllers.Produtos
 {
     public class DistribuidorController : AuthController
     {
-        private  DistribuidorAplicacao appDistribuidor;
+        private  readonly IDistribuidorAplicacao _appDistribuidor;
 
-        public DistribuidorController()
+        public DistribuidorController(IDistribuidorAplicacao distribuidor)
         {
-            appDistribuidor = DistribuidorAplicacaoConstrutor.DistribuidorAplicacaoADO();
+            _appDistribuidor = distribuidor;
         }
 
         public ActionResult Index()
         {
-            var listaDeDistribuidores = appDistribuidor.ListarTodos();
+            var listaDeDistribuidores = _appDistribuidor.ListarTodos();
             return View(listaDeDistribuidores);
         }
 
@@ -31,7 +31,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                appDistribuidor.Salvar(distribuidor);
+                _appDistribuidor.Salvar(distribuidor);
                 return RedirectToAction("Index");
             }
             return View(distribuidor);
@@ -39,7 +39,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Editar(int id)
         {
-            var distribuidor = appDistribuidor.ListarPorId(id);
+            var distribuidor = _appDistribuidor.ListarPorId(id);
 
             if (distribuidor == null)
                 return HttpNotFound();
@@ -53,7 +53,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                appDistribuidor.Salvar(distribuidor);
+                _appDistribuidor.Salvar(distribuidor);
                 return RedirectToAction("Index");
             }
             return View(distribuidor);
@@ -61,7 +61,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Detalhes(int id)
         {
-            var distribuidor = appDistribuidor.ListarPorId(id);
+            var distribuidor = _appDistribuidor.ListarPorId(id);
 
             if (distribuidor == null)
                 return HttpNotFound();
@@ -71,7 +71,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Excluir(int id)
         {
-            var distribuidor = appDistribuidor.ListarPorId(id);
+            var distribuidor = _appDistribuidor.ListarPorId(id);
 
             if (distribuidor == null)
                 return HttpNotFound();
@@ -83,8 +83,8 @@ namespace MercadoMain.Controllers.Produtos
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
-            var distribuidor = appDistribuidor.ListarPorId(id);
-            appDistribuidor.Excluir(distribuidor);
+            var distribuidor = _appDistribuidor.ListarPorId(id);
+            _appDistribuidor.Excluir(distribuidor);
             return RedirectToAction("Index");
         }
     }

@@ -1,4 +1,5 @@
-﻿using MercadoAplicacao.EstoqueApp;
+﻿using MercadoAplicacao.DistribuidorApp;
+using MercadoAplicacao.EstoqueApp;
 using MercadoDominio.Interfaces;
 using MercadoRepositorioADO.Repositorios;
 using SimpleInjector;
@@ -12,10 +13,13 @@ namespace MercadoMain.SimpleInjector
         {
             var container = new Container();
             container.RegisterMvcControllers(Assembly.GetExecutingAssembly());
-
+            //estoque
             container.Register<IEstoqueRepositorio, EstoqueRepositorioADO>();
             container.Register<IEstoqueAplicacao, EstoqueAplicacao>();
-
+            //distribuidor
+            container.Register<IDistribuidorRepositorio, DistribuidorRepositorioADO>();
+            container.Register<IDistribuidorAplicacao, DistribuidorAplicacao>();
+            
             container.Verify();
             return container;
         }

@@ -5,11 +5,11 @@ namespace MercadoDominio.Interfaces
 {
     public interface IEstoqueRepositorio
     {
-        void Salvar(Estoque entidade);
-        void Excluir(Estoque entidade);
+        void Salvar(Estoque estoque);
+        void Excluir(Estoque estoque);
         IEnumerable<Estoque> ListarTodos();
-        Estoque ListarPorId(int Id);
+        Estoque ListarPorId(int id);
         decimal? BuscaQuantidadeProduto(int idProduto);
-        int RetornaIdEstoque(int IdProduto);
+        int RetornaIdEstoque(int idProduto);
     }
 }

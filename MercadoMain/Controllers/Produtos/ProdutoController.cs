@@ -16,13 +16,13 @@ namespace MercadoMain.Controllers.Produtos
     {
         private ProdutoAplicacao appProduto;
         private FabricanteAplicacao appFabricante;
-        private readonly DistribuidorAplicacao _appDistribuidores;
+        private readonly IDistribuidorAplicacao _appDistribuidores;
 
-        public ProdutoController()
+        public ProdutoController(IDistribuidorAplicacao distribuidor)
         {
             appProduto = ProdutoAplicacaoConstrutor.ProdutoAplicacaoADO();
             appFabricante = FabricanteAplicacaoConstrutor.FabricanteAplicacaoADO();
-            _appDistribuidores = DistribuidorAplicacaoConstrutor.DistribuidorAplicacaoADO();
+            _appDistribuidores = distribuidor;
         }
         
         public ActionResult Index()

@@ -5,15 +5,15 @@ using System.Collections.Generic;
 
 namespace MercadoRepositorioADO.Repositorios
 {
-    public class DistribuidorRepositorioADO : IRepositorio<Distribuidor>
+    public class DistribuidorRepositorioADO : IDistribuidorRepositorio
     {
-        private Contexto.Contexto contexto;
+        private Contexto.Contexto _contexto;
 
         private void Insert(Distribuidor distribuidor)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("InsereDistribuidor");
+                var cmd = _contexto.ExecutaComando("InsereDistribuidor");
                 cmd.Parameters.AddWithValue("@Nome", distribuidor.Nome);
                 cmd.ExecuteNonQuery();
             }
@@ -21,9 +21,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         private void Alterar(Distribuidor distribuidor)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("AlteraDistribuidor");
+                var cmd = _contexto.ExecutaComando("AlteraDistribuidor");
                 cmd.Parameters.AddWithValue("@Nome", distribuidor.Nome);
                 cmd.Parameters.AddWithValue("@Id", distribuidor.Id);
                 cmd.ExecuteNonQuery();
@@ -40,9 +40,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         public void Excluir(Distribuidor distribuidor)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ExcluiDistribuidor");
+                var cmd = _contexto.ExecutaComando("ExcluiDistribuidor");
                 cmd.Parameters.AddWithValue("@Id", distribuidor.Id);
                 cmd.ExecuteNonQuery();
             }
@@ -50,9 +50,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         public IEnumerable<Distribuidor> ListarTodos()
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListaDistribuidores");
+                var cmd = _contexto.ExecutaComando("ListaDistribuidores");
                 var distribuidores = new List<Distribuidor>();
 
                 using (var reader = cmd.ExecuteReader())
@@ -70,9 +70,9 @@ namespace MercadoRepositorioADO.Repositorios
 
         public Distribuidor ListarPorId(int id)
         {
-            using (contexto = new Contexto.Contexto())
+            using (_contexto = new Contexto.Contexto())
             {
-                var cmd = contexto.ExecutaComando("ListaDistribuidorPorId");
+                var cmd = _contexto.ExecutaComando("ListaDistribuidorPorId");
                 cmd.Parameters.AddWithValue("@Id", id);
 
                 using (var reader = cmd.ExecuteReader())

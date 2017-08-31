@@ -42,6 +42,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Entidades\Login.cs" />
+    <Compile Include="Interfaces\IDistribuidorRepositorio.cs" />
     <Compile Include="Interfaces\IEstoqueRepositorio.cs" />
     <Compile Include="Interfaces\IRepositorio.cs" />
     <Compile Include="Entidades\Distribuidor.cs" />
