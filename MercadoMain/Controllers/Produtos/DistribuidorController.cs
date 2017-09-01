@@ -36,7 +36,7 @@ namespace MercadoMain.Controllers.Produtos
 
                 if (equal == 1)
                 {
-                    ModelState.AddModelError("Distribuidor", "Já existe um distribuidor com este mesmo nome!");
+                    ModelState.AddModelError("DISTRIBUIDOR", "Já existe um distribuidor com este mesmo nome!");
                     return View("Cadastrar");
                 }
 
@@ -62,24 +62,19 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                var distribuidores = _appDistribuidor.ListarTodos();
-                foreach (var distribuidorA in distribuidores)
+                var equal = _appDistribuidor.VerificaExistenciaSimilar(distribuidor);
+
+                if (equal == 1)
                 {
-                    if (distribuidorA.Nome == distribuidor.Nome)
-                    {
-                        ModelState.AddModelError("DISTRIBUIDOR", "O nome escolhido é o mesmo que o atual!");
-                        return View("Cadastrar");
-                    }
+                    ModelState.AddModelError("DISTRIBUIDOR", "Já existe um distribuidor com este mesmo nome ou você não fez nenhuma alteração!");
+                    var distribuidorA = _appDistribuidor.ListarPorId(distribuidor.Id);
+                    return View(distribuidorA);
                 }
 
-                if (distribuidor.Nome.Length > 75)
-                {
-                    ModelState.AddModelError("DISTRIBUIDOR", "Você está ultrapssando o número máximo de caracteres permitidos!");
-                    return View("Cadastrar");
-                }
                 _appDistribuidor.Salvar(distribuidor);
                 return RedirectToAction("Index");
             }
+
             return View(distribuidor);
         }
 
@@ -105,7 +100,7 @@ namespace MercadoMain.Controllers.Produtos
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
+        public ActionResult ExcluirConfirmado(int id)
         {
             var distribuidor = _appDistribuidor.ListarPorId(id);
             _appDistribuidor.Excluir(distribuidor);
