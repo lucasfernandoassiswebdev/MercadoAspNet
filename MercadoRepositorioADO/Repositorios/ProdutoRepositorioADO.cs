@@ -92,7 +92,6 @@ namespace MercadoRepositorioADO.Repositorios
                 var cmd = contexto.ExecutaComando("ListaProdutoPorId");
                 cmd.Parameters.AddWithValue("@Id", id);
 
-                var produto = new Produto();
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                         return new Produto
@@ -115,6 +114,19 @@ namespace MercadoRepositorioADO.Repositorios
                 
                  return null;
             }
+        }
+
+        public int VerificaExistenciaSimilar(Produto produto)
+        {
+            var cmd = contexto.ExecutaComando("VerificaProdutoIgual");
+            cmd.Parameters.AddWithValue("@nome",produto.Nome);
+            cmd.Parameters.AddWithValue("@idFabricante", produto.IdFabricante);
+
+            using (var reader = cmd.ExecuteReader())
+                if (reader.Read())
+                    return 1;
+
+            return 0;
         }
     }
 }

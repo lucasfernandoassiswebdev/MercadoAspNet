@@ -32,5 +32,10 @@ namespace MercadoAplicacao.ProdutoApp
         {
             return _appProduto.ListarPorId(id);
         }
+
+        public int VerificaExistenciaSimilar(Produto produto)
+        {
+            return _appProduto.VerificaExistenciaSimilar(produto);
+        }
     }
 }

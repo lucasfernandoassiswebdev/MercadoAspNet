@@ -66,39 +66,18 @@ namespace MercadoMain.Controllers.Produtos
                    
                     //copiando a imagem para a aplicação
                     produto.Imagem = uploadImagem.FileName;
-                    string[] strName = uploadImagem.FileName.Split('.');
                     string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
-                    string pathBase = $"/Imagens/{produto.Imagem}";
                     uploadImagem.SaveAs(pathSave);
                 }
 
-                //verificando se já existe outro produto com o mesmo nome e fabricante
-                var produtos = _appProduto.ListarTodos();
-                var fabricantes = _appFabricantes.ListarTodos();
+                var equal = _appProduto.VerificaExistenciaSimilar(produto);
 
-                foreach (var produtoA in produtos)
+                if (equal == 0)
                 {
-                    if (produtoA.Nome == produto.Nome)
-                    {
-                        foreach (var fabricante in fabricantes)
-                        {
-                            if (produto.IdFabricante == fabricante.Id)
-                            {
-                                ModelState.AddModelError("PRODUTO", "Já existe um produto com este nome deste mesmo fabricante!");
-                                ViewBag.Fabricantes = _appFabricantes.ListarTodos();
-                                ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-                                return View("Cadastrar");
-                            }
-                        }
-                    }
-                }
-
-                if (produto.Nome.Length > 50)
-                {
-                    ModelState.AddModelError("PRODUTO", "Você ultrapassou a quantidade máxima de caracteres permitida!");
+                    ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome deste mesmo fabricante!");
                     ViewBag.Fabricantes = _appFabricantes.ListarTodos();
                     ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-                    return View("Cadastrar");
+                    return View("Editar");
                 }
 
                 _appProduto.Salvar(produto);
@@ -150,27 +129,24 @@ namespace MercadoMain.Controllers.Produtos
                     }
 
                     produto.Imagem = uploadImagem.FileName;
-                    string[] strName = uploadImagem.FileName.Split('.');
-                    //string strExt = strName[strName.Count() - 1];
                     string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
-                    string pathBase = $"/Imagens/{produto.Imagem}";
                     uploadImagem.SaveAs(pathSave);
 
                 }
 
-                //verificando se já existe outro produto com o mesmo nome e fabricante
+
+                //listando os produtos e fabricantes
                 var produtos = _appProduto.ListarTodos();
                 var fabricantes = _appFabricantes.ListarTodos();
 
-                var nomeAtual = produto.Nome;
-                
+                //verificando se já existe outro produto com o mesmo nome e fabricante
                 foreach (var produtoA in produtos)
                 {
                     if (produtoA.Nome == produto.Nome)
                     {
                         foreach (var fabricante in fabricantes)
                         {
-                            if (produto.IdFabricante == fabricante.Id && produtoA.Nome != nomeAtual)
+                            if (produto.IdFabricante == fabricante.Id && produto.Id != produtoA.Id)
                             {
                                 ModelState.AddModelError("PRODUTO", "Já existe um produto com este nome deste mesmo fabricante!");
                                 ViewBag.Fabricantes = _appFabricantes.ListarTodos();

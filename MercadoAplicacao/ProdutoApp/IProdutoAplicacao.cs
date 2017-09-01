@@ -9,5 +9,6 @@ namespace MercadoAplicacao.ProdutoApp
         void Excluir(Produto produto);
         IEnumerable<Produto> ListarTodos();
         Produto ListarPorId(int id);
+        int VerificaExistenciaSimilar(Produto produto);
     }
 }
