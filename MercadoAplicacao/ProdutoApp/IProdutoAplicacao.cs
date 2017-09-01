@@ -10,5 +10,6 @@ namespace MercadoAplicacao.ProdutoApp
         IEnumerable<Produto> ListarTodos();
         Produto ListarPorId(int id);
         int VerificaExistenciaSimilar(Produto produto);
+        IEnumerable<Produto> ListarProdutosForaEstoque();
     }
 }

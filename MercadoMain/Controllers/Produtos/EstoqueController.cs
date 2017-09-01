@@ -26,7 +26,7 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Produtos = _appProdutos.ListarTodos();
+            ViewBag.Produtos = _appProdutos.ListarProdutosForaEstoque();
             return View();
         }
 
@@ -36,7 +36,6 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                
                 _appEstoque.Salvar(estoque);
                 return RedirectToAction("Index");
             }

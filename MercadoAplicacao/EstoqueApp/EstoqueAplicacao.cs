@@ -6,41 +6,41 @@ namespace MercadoAplicacao.EstoqueApp
 {
     public class EstoqueAplicacao : IEstoqueAplicacao
     {
-        private readonly IEstoqueRepositorio _repositorio;
+        private readonly IEstoqueRepositorio _appEstoque;
 
-        public EstoqueAplicacao(IEstoqueRepositorio repositorio)
+        public EstoqueAplicacao(IEstoqueRepositorio estoque)
         {
-            _repositorio = repositorio;
+            _appEstoque = estoque;
         }
 
         public void Salvar(Estoque estoque)
         {
-            _repositorio.Salvar(estoque);
+            _appEstoque.Salvar(estoque);
         }
 
         public void Excluir(Estoque estoque)
         {
-            _repositorio.Excluir(estoque);
+            _appEstoque.Excluir(estoque);
         }
 
         public IEnumerable<Estoque> ListarTodos()
         {
-            return _repositorio.ListarTodos();
+            return _appEstoque.ListarTodos();
         }
 
         public Estoque ListarPorId(int id)
         {
-            return _repositorio.ListarPorId(id);
+            return _appEstoque.ListarPorId(id);
         }
 
         public decimal? BuscaQuantidadeProduto(int idProduto)
         {
-            return _repositorio.BuscaQuantidadeProduto(idProduto);
+            return _appEstoque.BuscaQuantidadeProduto(idProduto);
         }
 
         public int RetornaIdEstoque(int idProduto)
         {
-            return _repositorio.RetornaIdEstoque(idProduto);
+            return _appEstoque.RetornaIdEstoque(idProduto);
         }
     }
 }

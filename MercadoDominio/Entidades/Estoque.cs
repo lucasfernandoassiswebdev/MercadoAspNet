@@ -13,6 +13,7 @@ namespace MercadoDominio.Entidades
 
         [Required(ErrorMessage = "Preencha a quantidade")]
         [DisplayName("Quantidade: ")]
+        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Valor digitado inválido, lembre-se de inserir apenas números e no máximo 2 casas decimais")]
         public decimal Quantidade { get; set; }
 
         public Produto Produto { get; set; }

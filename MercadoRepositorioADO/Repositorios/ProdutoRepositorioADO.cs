@@ -132,5 +132,24 @@ namespace MercadoRepositorioADO.Repositorios
                 return 0;
             }
         }
+
+        public IEnumerable<Produto> ListarProdutosForaEstoque()
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("listaProdutosForaEstoque");
+                var produtos = new List<Produto>();
+
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        produtos.Add(new Produto()
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome"),
+                        });
+
+                return produtos;
+            }
+        }
     }
 }

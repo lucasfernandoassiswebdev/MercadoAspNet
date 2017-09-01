@@ -37,5 +37,10 @@ namespace MercadoAplicacao.ProdutoApp
         {
             return _appProduto.VerificaExistenciaSimilar(produto);
         }
+
+        public IEnumerable<Produto> ListarProdutosForaEstoque()
+        {
+            return _appProduto.ListarProdutosForaEstoque();
+        }
     }
 }
