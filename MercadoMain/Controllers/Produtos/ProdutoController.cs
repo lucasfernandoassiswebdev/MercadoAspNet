@@ -111,10 +111,8 @@ namespace MercadoMain.Controllers.Produtos
             {
                 if (uploadImagem != null)
                 {
-                    //verificando se a imagem enviada é válida
                     //extensões permitidas
                     var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
-                    //pegando a extensão do arquivo que foi enviado
                     var checkextension = Path.GetExtension(uploadImagem.FileName).ToLower();
 
                     if (!allowedExtensions.Contains(checkextension))
@@ -122,13 +120,13 @@ namespace MercadoMain.Controllers.Produtos
                         ModelState.AddModelError("PRODUTO", "Selecione apenas IMAGENS que estejam nos formatos jpg, png, ou gif!");
                         ViewBag.Fabricantes = _appFabricantes.ListarTodos();
                         ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-                        return View("Editar");
+                        return View("Cadastrar");
                     }
 
+                    //copiando a imagem para a aplicação
                     produto.Imagem = uploadImagem.FileName;
                     string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
                     uploadImagem.SaveAs(pathSave);
-
                 }
 
                 var equal = _appProduto.VerificaExistenciaSimilar(produto);
