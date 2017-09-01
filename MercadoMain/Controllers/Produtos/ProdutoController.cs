@@ -63,15 +63,13 @@ namespace MercadoMain.Controllers.Produtos
                         ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
                         return View("Cadastrar");
                     }
-                    else
-                    {
-                        //copiando a imagem para a aplicação
-                        produto.Imagem = uploadImagem.FileName;
-                        string[] strName = uploadImagem.FileName.Split('.');
-                        string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
-                        string pathBase = $"/Imagens/{produto.Imagem}";
-                        uploadImagem.SaveAs(pathSave);
-                    }
+                   
+                    //copiando a imagem para a aplicação
+                    produto.Imagem = uploadImagem.FileName;
+                    string[] strName = uploadImagem.FileName.Split('.');
+                    string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
+                    string pathBase = $"/Imagens/{produto.Imagem}";
+                    uploadImagem.SaveAs(pathSave);
                 }
 
                 //verificando se já existe outro produto com o mesmo nome e fabricante
@@ -109,7 +107,6 @@ namespace MercadoMain.Controllers.Produtos
 
             ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-
             return View(produto);
         }
 
@@ -137,7 +134,21 @@ namespace MercadoMain.Controllers.Produtos
             if (ModelState.IsValid)
             {
                 if (uploadImagem != null)
-                { 
+                {
+                    //verificando se a imagem enviada é válida
+                    //extensões permitidas
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
+                    //pegando a extensão do arquivo que foi enviado
+                    var checkextension = Path.GetExtension(uploadImagem.FileName).ToLower();
+
+                    if (!allowedExtensions.Contains(checkextension))
+                    {
+                        ModelState.AddModelError("PRODUTO", "Selecione apenas IMAGENS que estejam nos formatos jpg, png, ou gif!");
+                        ViewBag.Fabricantes = _appFabricantes.ListarTodos();
+                        ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
+                        return View("Editar");
+                    }
+
                     produto.Imagem = uploadImagem.FileName;
                     string[] strName = uploadImagem.FileName.Split('.');
                     //string strExt = strName[strName.Count() - 1];
@@ -147,9 +158,41 @@ namespace MercadoMain.Controllers.Produtos
 
                 }
 
+                //verificando se já existe outro produto com o mesmo nome e fabricante
+                var produtos = _appProduto.ListarTodos();
+                var fabricantes = _appFabricantes.ListarTodos();
+
+                var nomeAtual = produto.Nome;
+                
+                foreach (var produtoA in produtos)
+                {
+                    if (produtoA.Nome == produto.Nome)
+                    {
+                        foreach (var fabricante in fabricantes)
+                        {
+                            if (produto.IdFabricante == fabricante.Id && produtoA.Nome != nomeAtual)
+                            {
+                                ModelState.AddModelError("PRODUTO", "Já existe um produto com este nome deste mesmo fabricante!");
+                                ViewBag.Fabricantes = _appFabricantes.ListarTodos();
+                                ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
+                                return View("Editar");
+                            }
+                        }
+                    }
+                }
+
+                if (produto.Nome.Length > 50)
+                {
+                    ModelState.AddModelError("PRODUTO", "Você ultrapassou a quantidade máxima de caracteres permitida!");
+                    ViewBag.Fabricantes = _appFabricantes.ListarTodos();
+                    ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
+                    return View("Editar");
+                }
+
                 _appProduto.Salvar(produto);
                 return RedirectToAction("Index");
             }
+
             ViewBag.Fabricantes = _appFabricantes.ListarTodos();
             ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
             return View(produto);
