@@ -9,5 +9,6 @@ namespace MercadoAplicacao.FabricanteApp
         void Excluir(Fabricante fabricante);
         IEnumerable<Fabricante> ListarTodos();
         Fabricante ListarPorId(int id);
+        int VerificaExistenciaSimilar(Fabricante fabricante);
     }
 }

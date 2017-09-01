@@ -6,31 +6,36 @@ namespace MercadoAplicacao.FabricanteApp
 {
     public class FabricanteAplicacao : IFabricanteAplicacao
     {
-        private readonly IFabricanteRepositorio _fabricante;
+        private readonly IFabricanteRepositorio _appFabricante;
 
         public FabricanteAplicacao(IFabricanteRepositorio fabricante)
         {
-            _fabricante = fabricante;
+            _appFabricante = fabricante;
         }
 
         public void Salvar(Fabricante fabricante)
         {
-            _fabricante.Salvar(fabricante);
+            _appFabricante.Salvar(fabricante);
         }
 
         public void Excluir(Fabricante fabricante)
         {
-            _fabricante.Excluir(fabricante);
+            _appFabricante.Excluir(fabricante);
         }
 
         public IEnumerable<Fabricante> ListarTodos()
         {
-            return _fabricante.ListarTodos();
+            return _appFabricante.ListarTodos();
         }
 
         public Fabricante ListarPorId(int id)
         {
-            return _fabricante.ListarPorId(id);
+            return _appFabricante.ListarPorId(id);
+        }
+
+        public int VerificaExistenciaSimilar(Fabricante fabricante)
+        {
+            return _appFabricante.VerificaExistenciaSimilar(fabricante);
         }
     }
 }

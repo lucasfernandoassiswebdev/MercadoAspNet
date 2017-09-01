@@ -9,5 +9,6 @@ namespace MercadoDominio.Interfaces
         void Excluir(Fabricante fabricanter);
         IEnumerable<Fabricante> ListarTodos();
         Fabricante ListarPorId(int id);
+        int VerificaExistenciaSimilar(Fabricante fabricante);
     }
 }

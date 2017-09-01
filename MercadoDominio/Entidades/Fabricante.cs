@@ -9,8 +9,7 @@ namespace MercadoDominio.Entidades
 
         [Required(ErrorMessage = "Preencha o campo do nome do fabricante")]
         [DisplayName("Nome do fabricante: ")]
+        [StringLength(50, ErrorMessage = "O nome do fabricante deve ter no mínimo 2 letras e no máximo 50", MinimumLength = 2)]
         public string Nome { get; set; }
-
-        //public IEnumerable<Produto> Produtos { get; set; }
     }
 }

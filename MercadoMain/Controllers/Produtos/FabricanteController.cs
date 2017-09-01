@@ -32,20 +32,11 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                var fabricantes = _appFabricante.ListarTodos();
+                var equal = _appFabricante.VerificaExistenciaSimilar(fabricante);
 
-                foreach (var fabricanteA in fabricantes)
+                if (equal == 1)
                 {
-                    if (fabricanteA.Nome == fabricante.Nome)
-                    {
-                        ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome!");
-                        return View("Cadastrar");
-                    }
-                }
-
-                if (fabricante.Nome.Length > 75)
-                {
-                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres permitidos!");
+                    ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome!");
                     return View("Cadastrar");
                 }
 
@@ -71,20 +62,13 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
-                var fabricantes = _appFabricante.ListarTodos();
-                foreach (var fabricanteA in fabricantes)
-                {
-                    if (fabricanteA.Nome == fabricante.Nome)
-                    {
-                        ModelState.AddModelError("FABRICANTE", "O nome escolhido é o mesmo que o atual!");
-                        return View("Editar");
-                    }
-                }
+                var equal = _appFabricante.VerificaExistenciaSimilar(fabricante);
 
-                if (fabricante.Nome.Length > 75)
+                if (equal == 1)
                 {
-                    ModelState.AddModelError("FABRICANTE", "Você está ultrapssando o número máximo de caracteres permitidos!");
-                    return View("Editar");
+                    ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome ou você não fez nenhuma alteração!");
+                    var fabricanteA = _appFabricante.ListarPorId(fabricante.Id);
+                    return View(fabricanteA);
                 }
 
                 _appFabricante.Salvar(fabricante);
@@ -115,7 +99,7 @@ namespace MercadoMain.Controllers.Produtos
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
+        public ActionResult ExcluirConfirmado(int id)
         {
             var fabricante = _appFabricante.ListarPorId(id);
             _appFabricante.Excluir(fabricante);
