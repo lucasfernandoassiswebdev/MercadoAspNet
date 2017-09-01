@@ -41,7 +41,6 @@ namespace MercadoMain.Controllers.Produtos
 
         [HttpPost]
         [ValidateAntiForgeryToken]
-        //esse parâmetro do tipo HttpPostedFileBase vem de inputs to tipo file
         public ActionResult Cadastrar(Produto produto, HttpPostedFileBase uploadImagem)
         {
             if (ModelState.IsValid)
@@ -132,35 +131,15 @@ namespace MercadoMain.Controllers.Produtos
 
                 }
 
+                var equal = _appProduto.VerificaExistenciaSimilar(produto);
 
-                //listando os produtos e fabricantes
-                var produtos = _appProduto.ListarTodos();
-                var fabricantes = _appFabricantes.ListarTodos();
-
-                //verificando se já existe outro produto com o mesmo nome e fabricante
-                foreach (var produtoA in produtos)
+                if (equal == 1)
                 {
-                    if (produtoA.Nome == produto.Nome)
-                    {
-                        foreach (var fabricante in fabricantes)
-                        {
-                            if (produto.IdFabricante == fabricante.Id && produto.Id != produtoA.Id)
-                            {
-                                ModelState.AddModelError("PRODUTO", "Já existe um produto com este nome deste mesmo fabricante!");
-                                ViewBag.Fabricantes = _appFabricantes.ListarTodos();
-                                ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-                                return View("Editar");
-                            }
-                        }
-                    }
-                }
-
-                if (produto.Nome.Length > 50)
-                {
-                    ModelState.AddModelError("PRODUTO", "Você ultrapassou a quantidade máxima de caracteres permitida!");
+                    ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome e fabricante ou você não fez nenhuma alteração!");
+                    var produtoA = _appProduto.ListarPorId(produto.Id);
                     ViewBag.Fabricantes = _appFabricantes.ListarTodos();
                     ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-                    return View("Editar");
+                    return View(produtoA);
                 }
 
                 _appProduto.Salvar(produto);

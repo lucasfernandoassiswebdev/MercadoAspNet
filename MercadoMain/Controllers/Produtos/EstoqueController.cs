@@ -88,7 +88,7 @@ namespace MercadoMain.Controllers.Produtos
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
+        public ActionResult ExcluirConfirmado(int id)
         {
             var estoque = _appEstoque.ListarPorId(id);
             _appEstoque.Excluir(estoque);
