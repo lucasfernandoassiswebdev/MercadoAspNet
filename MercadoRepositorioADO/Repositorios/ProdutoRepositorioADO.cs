@@ -120,15 +120,16 @@ namespace MercadoRepositorioADO.Repositorios
         {
             using (contexto = new Contexto.Contexto())
             {
+                int acm = 0;
                 var cmd = contexto.ExecutaComando("VerificaProdutoIgual");
                 cmd.Parameters.AddWithValue("@nome", produto.Nome);
                 cmd.Parameters.AddWithValue("@idFabricante", produto.IdFabricante);
 
                 using (var reader = cmd.ExecuteReader())
-                    if (reader.Read())
-                        return 1;
-
-                return 0;
+                    while (reader.Read())
+                        acm += 1;
+                    
+                return acm;
             }
         }
     }

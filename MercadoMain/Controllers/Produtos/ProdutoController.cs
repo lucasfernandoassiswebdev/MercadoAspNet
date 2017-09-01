@@ -69,7 +69,7 @@ namespace MercadoMain.Controllers.Produtos
 
                 var equal = _appProduto.VerificaExistenciaSimilar(produto);
 
-                if (equal == 1)
+                if (equal >= 1)
                 {
                     ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome deste mesmo fabricante!");
                     ViewBag.Fabricantes = _appFabricantes.ListarTodos();
@@ -133,7 +133,7 @@ namespace MercadoMain.Controllers.Produtos
 
                 var equal = _appProduto.VerificaExistenciaSimilar(produto);
 
-                if (equal == 1)
+                if (equal != 0 || equal > 1)
                 {
                     ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome e fabricante ou você não fez nenhuma alteração!");
                     var produtoA = _appProduto.ListarPorId(produto.Id);
