@@ -32,5 +32,10 @@ namespace MercadoAplicacao.DistribuidorApp
         {
             return _appDistribuidor.ListarPorId(id);
         }
+
+        public int VerificaExistenciaSimilar(Distribuidor distribuidor)
+        {
+            return _appDistribuidor.VerificaExistenciaSimilar(distribuidor);
+        }
     }
 }

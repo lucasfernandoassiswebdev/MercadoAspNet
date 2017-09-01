@@ -86,5 +86,20 @@ namespace MercadoRepositorioADO.Repositorios
                 return null;
             }
         }
+
+        public int VerificaExistenciaSimilar(Distribuidor distribuidor)
+        {
+            using (_contexto = new Contexto.Contexto())
+            {
+                var cmd = _contexto.ExecutaComando("VerificaDistribuidorIgual");
+                cmd.Parameters.AddWithValue("@nome", distribuidor.Nome);
+
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
+
+                return 0;
+            }
+        }
     }
 }
