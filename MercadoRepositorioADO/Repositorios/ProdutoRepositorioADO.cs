@@ -11,7 +11,7 @@ namespace MercadoRepositorioADO.Repositorios
 
         private void Insert(Produto produto)
         {
-           using (contexto = new Contexto.Contexto())
+            using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("InsereProduto");
                 cmd.Parameters.AddWithValue("@Nome", produto.Nome);
@@ -66,7 +66,7 @@ namespace MercadoRepositorioADO.Repositorios
 
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
-                        produtos.Add( new Produto()
+                        produtos.Add(new Produto()
                         {
                             Id = reader.ReadAsInt("Id"),
                             Nome = reader.ReadAsString("Nome"),
@@ -111,22 +111,25 @@ namespace MercadoRepositorioADO.Repositorios
                             },
                             Imagem = reader.ReadAsString("Imagem")
                         };
-                
-                 return null;
+
+                return null;
             }
         }
 
         public int VerificaExistenciaSimilar(Produto produto)
         {
-            var cmd = contexto.ExecutaComando("VerificaProdutoIgual");
-            cmd.Parameters.AddWithValue("@nome",produto.Nome);
-            cmd.Parameters.AddWithValue("@idFabricante", produto.IdFabricante);
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("VerificaProdutoIgual");
+                cmd.Parameters.AddWithValue("@nome", produto.Nome);
+                cmd.Parameters.AddWithValue("@idFabricante", produto.IdFabricante);
 
-            using (var reader = cmd.ExecuteReader())
-                if (reader.Read())
-                    return 1;
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
 
-            return 0;
+                return 0;
+            }
         }
     }
 }

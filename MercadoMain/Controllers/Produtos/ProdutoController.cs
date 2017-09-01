@@ -50,20 +50,18 @@ namespace MercadoMain.Controllers.Produtos
                     produto.Imagem = "padrao.jpg";
                 else
                 {
-                    //verificando se a imagem enviada é válida
                     //extensões permitidas
-                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif"};
-                    //pegando a extensão do arquivo que foi enviado
+                    var allowedExtensions = new[] { ".jpg", ".jpeg", ".png", ".gif" };
                     var checkextension = Path.GetExtension(uploadImagem.FileName).ToLower();
 
                     if (!allowedExtensions.Contains(checkextension))
                     {
-                        ModelState.AddModelError("PRODUTO","Selecione apenas IMAGENS que estejam nos formatos jpg, png, ou gif!");
+                        ModelState.AddModelError("PRODUTO", "Selecione apenas IMAGENS que estejam nos formatos jpg, png, ou gif!");
                         ViewBag.Fabricantes = _appFabricantes.ListarTodos();
                         ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
                         return View("Cadastrar");
                     }
-                   
+
                     //copiando a imagem para a aplicação
                     produto.Imagem = uploadImagem.FileName;
                     string pathSave = $"{Server.MapPath("~/Imagens/")}{produto.Imagem}";
@@ -72,12 +70,12 @@ namespace MercadoMain.Controllers.Produtos
 
                 var equal = _appProduto.VerificaExistenciaSimilar(produto);
 
-                if (equal == 0)
+                if (equal == 1)
                 {
                     ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome deste mesmo fabricante!");
                     ViewBag.Fabricantes = _appFabricantes.ListarTodos();
                     ViewBag.Distribuidores = _appDistribuidores.ListarTodos();
-                    return View("Editar");
+                    return View("Cadastrar");
                 }
 
                 _appProduto.Salvar(produto);
