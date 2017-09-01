@@ -16,6 +16,7 @@ namespace MercadoDominio.Entidades
         public int IdDistribuidor { get; set; }
 
         [Required(ErrorMessage = "Preencha o valor")]
+        [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Valor de preço inválido, lembre-se de preencher no máximo 2 casas decimais e apenas números.")]
         [DisplayName("Valor: ")]
         public decimal Valor { get; set; }
 
