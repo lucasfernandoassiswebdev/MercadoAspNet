@@ -104,5 +104,19 @@ namespace MercadoRepositorioADO.Repositorios
                 return null;
             }
         }
+
+        public int VerificaVenda(int idFuncionario)
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("VerificaVenda");
+                cmd.Parameters.AddWithValue("@IdFuncionario", idFuncionario);
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
+                           
+                return 0;
+            }
+        }
     }
 }

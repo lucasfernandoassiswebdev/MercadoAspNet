@@ -9,6 +9,6 @@ namespace MercadoDominio.Interfaces
         void Excluir(Venda venda);
         IEnumerable<Venda> ListarTodos();
         Venda ListarPorId(int id);
-        
+        int VerificaVenda(int idFuncionario);
     }
 }

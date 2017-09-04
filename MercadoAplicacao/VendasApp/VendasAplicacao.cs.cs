@@ -32,5 +32,10 @@ namespace MercadoAplicacao.VendasApp
         {
             return _appVendas.ListarPorId(id);
         }
+
+        public int VerificaVenda(int idFuncionario)
+        {
+            return _appVendas.VerificaVenda(idFuncionario);
+        }
     }
 }

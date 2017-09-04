@@ -1,5 +1,6 @@
 ﻿using MercadoAplicacao.LoginApp;
 using MercadoAplicacao.UsuarioApp;
+using MercadoAplicacao.VendasApp;
 using MercadoDominio.Entidades;
 using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
@@ -10,11 +11,13 @@ namespace MercadoMain.Controllers.Usuarios
     {
         private readonly IUsuarioAplicacao _appUsuario;
         private readonly ILoginAplicacao _appLogin;
+        private readonly IVendasAplicacao _appVenda;
 
-        public UsuarioController(IUsuarioAplicacao usuario, ILoginAplicacao login)
+        public UsuarioController(IUsuarioAplicacao usuario, ILoginAplicacao login, IVendasAplicacao venda)
         {
             _appUsuario = usuario;
             _appLogin = login;
+            _appVenda = venda;
         }
 
         public ActionResult Index()
@@ -106,6 +109,15 @@ namespace MercadoMain.Controllers.Usuarios
             if (equal == 1)
             {
                 ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir seu login!");
+                var usuario = _appUsuario.ListarPorId(id);
+                return View(usuario);
+            }
+
+            equal = _appVenda.VerificaVenda(id);
+
+            if (equal == 1)
+            {
+                ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir as vendas que ele realizou!");
                 var usuario = _appUsuario.ListarPorId(id);
                 return View(usuario);
             }
