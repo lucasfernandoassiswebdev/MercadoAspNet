@@ -37,5 +37,10 @@ namespace MercadoAplicacao.UsuarioApp
         {
             return _appUsuario.VerificaExistenciaSimilar(usuario);
         }
+
+        public IEnumerable<Usuario> ListarUsuariosSemLogin()
+        {
+            return _appUsuario.ListarUsuariosSemLogin();
+        }
     }
 }

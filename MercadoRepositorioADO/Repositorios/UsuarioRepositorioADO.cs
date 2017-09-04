@@ -104,5 +104,25 @@ namespace MercadoRepositorioADO.Repositorios
                 return 0;
             }
         }
+
+        public IEnumerable<Usuario> ListarUsuariosSemLogin()
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("ListaUsuariosSemLogin");
+                var listaUsuarios = new List<Usuario>();
+
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        listaUsuarios.Add(new Usuario()
+                        {
+                            Id = reader.ReadAsInt("Id"),
+                            Nome = reader.ReadAsString("Nome"),
+                            Nivel = reader.ReadAsString("Nivel")
+                        });
+
+                return listaUsuarios;
+            }
+        }
     }
 }

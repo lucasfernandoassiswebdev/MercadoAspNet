@@ -1,5 +1,4 @@
-﻿using MercadoDominio.Entidades;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
 namespace MercadoDominio.Entidades
@@ -9,6 +8,7 @@ namespace MercadoDominio.Entidades
         public  int Id { get; set; }
 
         [Required(ErrorMessage = "É obrigatório escolher um login")]
+        [StringLength(50, ErrorMessage = "O login deverá ter no mínimo 6 letras e no máximo 50", MinimumLength = 6)]
         [DisplayName("Login desejado: ")]
         public string LoginU { get; set; }
 
@@ -18,6 +18,7 @@ namespace MercadoDominio.Entidades
 
 
         [Required(ErrorMessage = "A senha é obrigatória")]
+        [StringLength(25, ErrorMessage = "A senha deve ter no mínimo 3 caracteres e no maximo 25", MinimumLength = 3)]
         [DisplayName("Senha: ")]
         public string Senha { get; set; }
 

@@ -25,7 +25,7 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Usuarios = _appUsuario.ListarTodos();
+            ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
             return View();
         }
 
