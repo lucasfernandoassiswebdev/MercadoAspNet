@@ -101,5 +101,20 @@ namespace MercadoRepositorioADO.Repositorios
                 return 0;
             }
         }
+
+        public int VerificaDistribuidor(int idDistribuidor)
+        {
+            using (_contexto = new Contexto.Contexto())
+            {
+                var cmd = _contexto.ExecutaComando("VerificaDistribuidor");
+                cmd.Parameters.AddWithValue("@IdDistribuidor", idDistribuidor);
+
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
+
+                return 0;
+            }
+        }
     }
 }

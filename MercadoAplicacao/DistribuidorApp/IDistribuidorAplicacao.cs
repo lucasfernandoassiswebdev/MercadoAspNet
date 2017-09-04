@@ -10,5 +10,6 @@ namespace MercadoAplicacao.DistribuidorApp
         IEnumerable<Distribuidor> ListarTodos();
         Distribuidor ListarPorId(int id);
         int VerificaExistenciaSimilar(Distribuidor distribuidor);
+        int VerificaDistribuidor(int idDistribuidor);
     }
 }

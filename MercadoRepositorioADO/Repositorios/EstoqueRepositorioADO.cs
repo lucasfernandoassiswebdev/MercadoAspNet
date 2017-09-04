@@ -119,12 +119,12 @@ namespace MercadoRepositorioADO.Repositorios
             }
         }
 
-        public int RetornaIdEstoque(int IdProduto)
+        public int RetornaIdEstoque(int idProduto)
         {
             using (_contexto = new Contexto.Contexto())
             {
                 var cmd = _contexto.ExecutaComando("RetornaIdEstoquePeloProduto");
-                cmd.Parameters.AddWithValue("@IdProduto", IdProduto);
+                cmd.Parameters.AddWithValue("@IdProduto", idProduto);
 
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
