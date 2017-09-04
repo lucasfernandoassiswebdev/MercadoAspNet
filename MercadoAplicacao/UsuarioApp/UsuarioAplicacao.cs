@@ -18,9 +18,9 @@ namespace MercadoAplicacao.UsuarioApp
             _appUsuario.Salvar(usuario);
         }
 
-        public void Excluir(Usuario usuario)
+        public void Excluir(int Id)
         {
-            _appUsuario.Excluir(usuario);
+            _appUsuario.Excluir(Id);
         }
 
         public IEnumerable<Usuario> ListarTodos()
@@ -31,6 +31,11 @@ namespace MercadoAplicacao.UsuarioApp
         public Usuario ListarPorId(int id)
         {
             return _appUsuario.ListarPorId(id);
+        }
+
+        public int VerificaExistenciaSimilar(Usuario usuario)
+        {
+            return _appUsuario.VerificaExistenciaSimilar(usuario);
         }
     }
 }

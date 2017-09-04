@@ -40,12 +40,12 @@ namespace MercadoRepositorioADO.Repositorios
                 Insert(usuario);
         }
 
-        public void Excluir(Usuario usuario)
+        public void Excluir(int Id)
         {
             using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("ExcluirUsuario");
-                cmd.Parameters.AddWithValue("@Id", usuario.Id);
+                cmd.Parameters.AddWithValue("@Id", Id);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -85,6 +85,22 @@ namespace MercadoRepositorioADO.Repositorios
                             Nivel = reader.ReadAsString("Nivel")
                         };
                 return null;
+            }
+        }
+
+        public int VerificaExistenciaSimilar(Usuario usuario)
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("VerificaUsuarioIgual");
+                cmd.Parameters.AddWithValue("@nome", usuario.Nome);
+                cmd.Parameters.AddWithValue("@nivel", usuario.Nivel);
+
+                using (var reader = cmd.ExecuteReader())
+                    while (reader.Read())
+                        return 1;
+
+                return 0;
             }
         }
     }
