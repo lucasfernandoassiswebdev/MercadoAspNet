@@ -9,5 +9,6 @@ namespace MercadoDominio.Interfaces
         void Excluir(Login login);
         IEnumerable<Login> ListarTodos();
         Login ListarPorId(int id);
+        int VerificaLogin(int id);
     }
 }

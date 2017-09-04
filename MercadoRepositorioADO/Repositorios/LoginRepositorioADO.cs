@@ -100,5 +100,20 @@ namespace MercadoRepositorioADO.Repositorios
                 return null;
             }
         }
+
+        public int VerificaLogin(int id)
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("VerificaLogin");
+                cmd.Parameters.AddWithValue("@IdFuncionario", id);
+                
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
+
+                return 0;
+            }
+        }
     }
 }

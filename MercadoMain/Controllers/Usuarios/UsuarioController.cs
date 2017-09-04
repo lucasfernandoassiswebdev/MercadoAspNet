@@ -1,4 +1,5 @@
-﻿using MercadoAplicacao.UsuarioApp;
+﻿using MercadoAplicacao.LoginApp;
+using MercadoAplicacao.UsuarioApp;
 using MercadoDominio.Entidades;
 using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
@@ -8,10 +9,12 @@ namespace MercadoMain.Controllers.Usuarios
     public class UsuarioController : AuthController
     {
         private readonly IUsuarioAplicacao _appUsuario;
+        private readonly ILoginAplicacao _appLogin;
 
-        public UsuarioController(IUsuarioAplicacao usuario)
+        public UsuarioController(IUsuarioAplicacao usuario, ILoginAplicacao login)
         {
             _appUsuario = usuario;
+            _appLogin = login;
         }
 
         public ActionResult Index()
@@ -90,15 +93,23 @@ namespace MercadoMain.Controllers.Usuarios
 
             if (usuario == null)
                 return HttpNotFound();
-
-            _appUsuario.Excluir(id);
+            
             return View(usuario);
         }
 
         [HttpPost, ActionName("Excluir")]
         [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
+        public ActionResult ExcluirConfirmado(int id)
         {
+            var equal = _appLogin.VerificaLogin(id);
+
+            if (equal == 1)
+            {
+                ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir seu login!");
+                var usuario = _appUsuario.ListarPorId(id);
+                return View(usuario);
+            }
+
             _appUsuario.Excluir(id);
             return RedirectToAction("Index");
         }

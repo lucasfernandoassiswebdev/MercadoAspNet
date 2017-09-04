@@ -32,5 +32,10 @@ namespace MercadoAplicacao.LoginApp
         {
             return _appLogin.ListarPorId(id);
         }
+
+        public int VerificaLogin(int id)
+        {
+            return _appLogin.VerificaLogin(id);
+        }
     }
 }
