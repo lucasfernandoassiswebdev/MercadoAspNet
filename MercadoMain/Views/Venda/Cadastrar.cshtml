@@ -2,16 +2,14 @@
 @model Venda
 @{ ViewBag.Title = "Cadastrar"; }
 
-<h2>Cadastrar</h2>
+<h2 style="margin-bottom: 50px">Cadastrar</h2>
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
     <div class="form-horizontal">
-        <h4>Venda</h4>
         <hr />
-        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-
         <label for="PRODUTO" style="margin-left:5.8%">Selecione um produto: </label>
         <select name="IdProduto" id="PRODUTO">
             @foreach(var produto in ViewBag.Produtos)
