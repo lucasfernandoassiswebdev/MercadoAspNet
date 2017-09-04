@@ -4,16 +4,16 @@
     ViewBag.Title = "Cadastrar";
 }
 
-<h2>Cadastrar novo item</h2>
+<h2 style="margin-bottom: 60px">Cadastrar novo item</h2>
 
 
 @using (Html.BeginForm()) 
 {
     @Html.AntiForgeryToken()
-    
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
     <div class="form-horizontal">
-        <h4>Estoque</h4>
-        <hr />
+       <hr />
         
         <label for="batata" style="margin-left:13%">Produto</label>
         <select name="IdProduto" id="batata">

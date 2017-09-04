@@ -36,6 +36,12 @@ namespace MercadoMain.Controllers.Produtos
         {
             if (ModelState.IsValid)
             {
+                if(estoque.IdProduto == 0) { 
+                    ModelState.AddModelError("ESTOQUE","Todos os produtos já foram cadastrados no estoque!");
+                    ViewBag.Produtos = _appProdutos.ListarProdutosForaEstoque();
+                    return View("Cadastrar");
+                }
+
                 _appEstoque.Salvar(estoque);
                 return RedirectToAction("Index");
             }
