@@ -37,5 +37,10 @@ namespace MercadoAplicacao.FabricanteApp
         {
             return _appFabricante.VerificaExistenciaSimilar(fabricante);
         }
+
+        public int VerificaFabricante(int id)
+        {
+            return _appFabricante.VerificaFabricante(id);
+        }
     }
 }

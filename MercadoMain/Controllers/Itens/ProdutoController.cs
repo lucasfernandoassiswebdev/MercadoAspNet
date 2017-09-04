@@ -175,7 +175,6 @@ namespace MercadoMain.Controllers.Produtos
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)
         {
-            //pro c# esse método se chama excluirconfirmado mas para o compilador ele se chama Excluir, igual o de cima
             var produto = _appProduto.ListarPorId(id);
             _appProduto.Excluir(produto);
             return RedirectToAction("Index");
@@ -272,7 +271,7 @@ namespace MercadoMain.Controllers.Produtos
                 Response.End();
             }
 
-            return View();
+            return RedirectToAction("Index");
         }
     }
 }

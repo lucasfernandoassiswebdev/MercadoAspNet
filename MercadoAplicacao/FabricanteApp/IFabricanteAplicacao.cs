@@ -10,5 +10,6 @@ namespace MercadoAplicacao.FabricanteApp
         IEnumerable<Fabricante> ListarTodos();
         Fabricante ListarPorId(int id);
         int VerificaExistenciaSimilar(Fabricante fabricante);
+        int VerificaFabricante(int id);
     }
 }

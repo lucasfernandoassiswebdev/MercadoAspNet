@@ -135,12 +135,12 @@
     <Compile Include="App_Start\FilterConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\Autenticacao\AuthController.cs" />
-    <Compile Include="Controllers\Produtos\DistribuidorController.cs" />
-    <Compile Include="Controllers\Produtos\EstoqueController.cs" />
-    <Compile Include="Controllers\Produtos\FabricanteController.cs" />
+    <Compile Include="Controllers\Itens\DistribuidorController.cs" />
+    <Compile Include="Controllers\Vendas\EstoqueController.cs" />
+    <Compile Include="Controllers\Itens\FabricanteController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\Usuarios\LoginController.cs" />
-    <Compile Include="Controllers\Produtos\ProdutoController.cs" />
+    <Compile Include="Controllers\Itens\ProdutoController.cs" />
     <Compile Include="Controllers\Usuarios\UsuarioController.cs" />
     <Compile Include="Controllers\Vendas\VendaController.cs" />
     <Compile Include="Global.asax.cs">

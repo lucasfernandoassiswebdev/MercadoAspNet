@@ -100,5 +100,20 @@ namespace MercadoRepositorioADO.Repositorios
                 return 0;
             }
         }
+
+        public int VerificaFabricante(int id)
+        {
+            using (_contexto = new Contexto.Contexto())
+            {
+                var cmd = _contexto.ExecutaComando("VerificaFabricante");
+                cmd.Parameters.AddWithValue("@IdFabricante", id);
+
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
+
+                return 0;
+            }
+        }
     }
 }

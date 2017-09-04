@@ -101,6 +101,14 @@ namespace MercadoMain.Controllers.Produtos
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)
         {
+            var equals = _appFabricante.VerificaFabricante(id);
+            if (equals == 1)
+            {
+                ModelState.AddModelError("FABRICANTE", "Este fabricante tem produtos relacionados e por isso não pode ser excluído!");
+                var fabricanteA = _appFabricante.ListarPorId(id);
+                return View(fabricanteA);
+            }
+
             var fabricante = _appFabricante.ListarPorId(id);
             _appFabricante.Excluir(fabricante);
             return RedirectToAction("Index");
