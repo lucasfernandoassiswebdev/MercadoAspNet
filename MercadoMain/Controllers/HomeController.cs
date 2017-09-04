@@ -21,7 +21,7 @@ namespace MercadoMain.Controllers
         public ActionResult Unauthorized()
         {
             ModelState.AddModelError("LOGIN", "Você não está logado!");
-            return View("Index");
+            return RedirectToAction("Index");
         }
 
         [HttpPost]
