@@ -20,6 +20,7 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Index()
         {
             var listaDoEstoque = _appEstoque.ListarTodos();
+
             ViewBag.Produtos = _appProdutos.ListarTodos();
             return View(listaDoEstoque);
         }
@@ -43,8 +44,10 @@ namespace MercadoMain.Controllers.Produtos
                 }
 
                 _appEstoque.Salvar(estoque);
+
                 return RedirectToAction("Index");
             }
+
             ViewBag.Produtos = _appProdutos.ListarTodos();
             return View(estoque);
         }
@@ -54,6 +57,7 @@ namespace MercadoMain.Controllers.Produtos
             var estoque = _appEstoque.ListarPorId(id);
             if (estoque == null)
                 return HttpNotFound();
+
             ViewBag.Produto = _appProdutos.ListarPorId(estoque.IdProduto);
             return View(estoque);
         }
@@ -65,18 +69,21 @@ namespace MercadoMain.Controllers.Produtos
             if (ModelState.IsValid)
             {
                 _appEstoque.Salvar(estoque);
+
                 return RedirectToAction("Index");
             }
+
             ViewBag.Produto = _appProdutos.ListarPorId(estoque.IdProduto);
+
             return View(estoque);
         }
 
         public ActionResult Detalhes(int id)
         {
             var estoque = _appEstoque.ListarPorId(id);
-
             if (estoque == null)
                 return HttpNotFound();
+
             ViewBag.Produto = _appProdutos.ListarPorId(id);
             return View(estoque);
         }
@@ -84,9 +91,9 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Excluir(int id)
         {
             var estoque = _appEstoque.ListarPorId(id);
-
             if (estoque == null)
                 return HttpNotFound();
+
             ViewBag.Produto = _appProdutos.ListarPorId(id);
             return View(estoque);
         }
@@ -97,6 +104,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             var estoque = _appEstoque.ListarPorId(id);
             _appEstoque.Excluir(estoque);
+
             ViewBag.Produto = _appProdutos.ListarPorId(id);
             return RedirectToAction("Index");
         }

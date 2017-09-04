@@ -6,7 +6,7 @@ namespace MercadoMain.Controllers
 {
     public class HomeController : Controller
     {
-        private ILoginAplicacao _appLogin; 
+        private readonly ILoginAplicacao _appLogin; 
 
         public HomeController(ILoginAplicacao login)
         {
@@ -39,8 +39,10 @@ namespace MercadoMain.Controllers
                         Session["Login"] = log;
                     }
                 }
+
                 return RedirectToAction("LogadoComSucesso");
             }
+
             return View(login);
         }
 

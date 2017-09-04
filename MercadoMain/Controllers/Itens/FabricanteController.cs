@@ -33,7 +33,6 @@ namespace MercadoMain.Controllers.Produtos
             if (ModelState.IsValid)
             {
                 var equal = _appFabricante.VerificaExistenciaSimilar(fabricante);
-
                 if (equal == 1)
                 {
                     ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome!");
@@ -43,13 +42,13 @@ namespace MercadoMain.Controllers.Produtos
                 _appFabricante.Salvar(fabricante);
                 return RedirectToAction("Index");
             }
+
             return View(fabricante);
         }
 
         public ActionResult Editar(int id)
         {
             var fabricante = _appFabricante.ListarPorId(id);
-
             if (fabricante == null)
                 return HttpNotFound();
 
@@ -63,7 +62,6 @@ namespace MercadoMain.Controllers.Produtos
             if (ModelState.IsValid)
             {
                 var equal = _appFabricante.VerificaExistenciaSimilar(fabricante);
-
                 if (equal == 1)
                 {
                     ModelState.AddModelError("FABRICANTE", "Já existe um fabricante com este mesmo nome ou você não fez nenhuma alteração!");
@@ -80,7 +78,6 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Detalhes(int id)
         {
             var fabricante = _appFabricante.ListarPorId(id);
-
             if (fabricante == null)
                 return HttpNotFound();
 
@@ -90,7 +87,6 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Excluir(int id)
         {
             var fabricante = _appFabricante.ListarPorId(id);
-
             if (fabricante == null)
                 return HttpNotFound();
 
@@ -111,6 +107,7 @@ namespace MercadoMain.Controllers.Produtos
 
             var fabricante = _appFabricante.ListarPorId(id);
             _appFabricante.Excluir(fabricante);
+
             return RedirectToAction("Index");
         }
     }

@@ -104,6 +104,7 @@ namespace MercadoMain.Controllers.Usuarios
         {
             var login = _appLogin.ListarPorId(id);
             _appLogin.Excluir(login);
+
             return RedirectToAction("Index");
         }
     }

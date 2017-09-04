@@ -63,6 +63,7 @@ namespace MercadoMain.Controllers.Vendas
 
                 return RedirectToAction("Index");
             }
+
             ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarTodos();
             return View(venda);
@@ -118,6 +119,7 @@ namespace MercadoMain.Controllers.Vendas
 
             if (venda == null)
                 return HttpNotFound();
+
             ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarPorId(venda.IdFuncionario);
             return View(venda);
@@ -140,6 +142,7 @@ namespace MercadoMain.Controllers.Vendas
         {
             var venda = _appVendas.ListarPorId(id);
             _appVendas.Excluir(venda);
+
             ViewBag.Funcionario = _appUsuarios.ListarPorId(venda.IdFuncionario);
             return RedirectToAction("Index");
         }

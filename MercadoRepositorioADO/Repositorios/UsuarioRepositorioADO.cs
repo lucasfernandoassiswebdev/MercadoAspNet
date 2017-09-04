@@ -98,7 +98,7 @@ namespace MercadoRepositorioADO.Repositorios
                 cmd.Parameters.AddWithValue("@Id", usuario.Id);
 
                 using (var reader = cmd.ExecuteReader())
-                    while (reader.Read())
+                    if (reader.Read())
                         return 1;
 
                 return 0;

@@ -7,12 +7,12 @@ namespace MercadoRepositorioADO.Contexto
 {
     public class Contexto : IDisposable
     {
-        private readonly SqlConnection minhaConexao;
+        private readonly SqlConnection _minhaConexao;
 
         public Contexto()
         {
-            minhaConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoMercado"].ConnectionString);
-            minhaConexao.Open();
+            _minhaConexao = new SqlConnection(ConfigurationManager.ConnectionStrings["BancoMercado"].ConnectionString);
+            _minhaConexao.Open();
         }
 
         public SqlCommand ExecutaComando(string procedureName)
@@ -21,14 +21,14 @@ namespace MercadoRepositorioADO.Contexto
             {
                 CommandText = procedureName,
                 CommandType = CommandType.StoredProcedure,
-                Connection = minhaConexao
+                Connection = _minhaConexao
             };
         }
 
         public void Dispose()
         {
-            if (minhaConexao.State == System.Data.ConnectionState.Open)
-                minhaConexao.Close();
+            if (_minhaConexao.State == System.Data.ConnectionState.Open)
+                _minhaConexao.Close();
         }
     }
 }

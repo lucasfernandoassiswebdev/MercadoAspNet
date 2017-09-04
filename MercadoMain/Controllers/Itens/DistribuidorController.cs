@@ -33,7 +33,6 @@ namespace MercadoMain.Controllers.Produtos
             {
 
                 var equal = _appDistribuidor.VerificaExistenciaSimilar(distribuidor);
-
                 if (equal == 1)
                 {
                     ModelState.AddModelError("DISTRIBUIDOR", "Já existe um distribuidor com este mesmo nome!");
@@ -43,13 +42,13 @@ namespace MercadoMain.Controllers.Produtos
                 _appDistribuidor.Salvar(distribuidor);
                 return RedirectToAction("Index");
             }
+
             return View(distribuidor);
         }
 
         public ActionResult Editar(int id)
         {
             var distribuidor = _appDistribuidor.ListarPorId(id);
-
             if (distribuidor == null)
                 return HttpNotFound();
 
@@ -81,7 +80,6 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Detalhes(int id)
         {
             var distribuidor = _appDistribuidor.ListarPorId(id);
-
             if (distribuidor == null)
                 return HttpNotFound();
 
@@ -91,7 +89,6 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Excluir(int id)
         {
             var distribuidor = _appDistribuidor.ListarPorId(id);
-
             if (distribuidor == null)
                 return HttpNotFound();
 

@@ -68,7 +68,6 @@ namespace MercadoMain.Controllers.Produtos
                 }
 
                 var equal = _appProduto.VerificaExistenciaSimilar(produto);
-
                 if (equal == 1)
                 {
                     ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome deste mesmo fabricante!");
@@ -130,7 +129,6 @@ namespace MercadoMain.Controllers.Produtos
                 }
 
                 var equal = _appProduto.VerificaExistenciaSimilar(produto);
-
                 if (equal == 1)
                 {
                     ModelState.AddModelError("PRODUTO", "Já existe um produto com este mesmo nome e fabricante ou você não fez nenhuma alteração!");
@@ -163,9 +161,9 @@ namespace MercadoMain.Controllers.Produtos
         public ActionResult Excluir(int id)
         {
             var produto = _appProduto.ListarPorId(id);
-
             if (produto == null)
                 return HttpNotFound();
+
             ViewBag.Fabricantes = _appFabricantes.ListarPorId(produto.IdFabricante);
             ViewBag.Distribuidores = _appDistribuidores.ListarPorId(produto.IdDistribuidor);
             return View(produto);
@@ -177,6 +175,7 @@ namespace MercadoMain.Controllers.Produtos
         {
             var produto = _appProduto.ListarPorId(id);
             _appProduto.Excluir(produto);
+
             return RedirectToAction("Index");
         }
 
@@ -202,6 +201,7 @@ namespace MercadoMain.Controllers.Produtos
             workSheet.Cells[1, 2].Value = "Fabricante";
             workSheet.Cells[1, 3].Value = "Distribuidor";
             workSheet.Cells[1, 4].Value = "Valor";
+
             for (int i = 1; i < 5; i++)
             {
                 workSheet.Cells[1, i].Style.Fill.PatternType = OfficeOpenXml.Style.ExcelFillStyle.Solid;
@@ -212,6 +212,7 @@ namespace MercadoMain.Controllers.Produtos
                 workSheet.Cells[1, i].Style.Border.Top.Style = ExcelBorderStyle.Thin;
                 workSheet.Cells[1, i].Style.Border.Bottom.Style = ExcelBorderStyle.Thin;
             }
+
             //listando produtos a serem preenchidos na tabela
             var produtos = _appProduto.ListarTodos();
             //linha de início

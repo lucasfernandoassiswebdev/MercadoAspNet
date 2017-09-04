@@ -57,13 +57,12 @@ namespace MercadoRepositorioADO.Repositorios
 
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
-                    {
                         distribuidores.Add( new Distribuidor()
                         {
                             Id = reader.ReadAsInt("Id"),
                             Nome = reader.ReadAsString("Nome")
                         });
-                    };
+                    
                 return distribuidores;
             }
         }

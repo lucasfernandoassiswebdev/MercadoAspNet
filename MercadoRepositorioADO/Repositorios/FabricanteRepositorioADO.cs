@@ -56,13 +56,12 @@ namespace MercadoRepositorioADO.Repositorios
                 var fabricantes = new List<Fabricante>();
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())
-                    {
                         fabricantes.Add(new Fabricante()
                         {
                             Id = reader.ReadAsInt("Id"),
                             Nome = reader.ReadAsString("Nome")
                         });
-                    }
+                    
                 return fabricantes;
             }
         }
@@ -73,7 +72,6 @@ namespace MercadoRepositorioADO.Repositorios
             {
                 var cmd = _contexto.ExecutaComando("ListaFabricantePorId");
                 cmd.Parameters.AddWithValue("@Id", id);
-                var fabricante = new Fabricante();
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                         return new Fabricante()

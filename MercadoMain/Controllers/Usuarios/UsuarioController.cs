@@ -38,7 +38,6 @@ namespace MercadoMain.Controllers.Usuarios
             if (ModelState.IsValid)
             {
                 var equals = _appUsuario.VerificaExistenciaSimilar(usuario);
-
                 if (equals == 1)
                 {
                     ModelState.AddModelError("USUARIO", "Já existe usuário com este mesmo nome e nível!");
@@ -48,13 +47,13 @@ namespace MercadoMain.Controllers.Usuarios
                 _appUsuario.Salvar(usuario);
                 return RedirectToAction("Index");
             }
+
             return View(usuario);
         }
 
         public ActionResult Editar(int id)
         {
             var usuario = _appUsuario.ListarPorId(id);
-
             if (usuario == null)
                 return HttpNotFound();
 
@@ -83,7 +82,6 @@ namespace MercadoMain.Controllers.Usuarios
         public ActionResult Detalhes(int id)
         {
             var usuario = _appUsuario.ListarPorId(id);
-
             if (usuario == null)
                 return HttpNotFound();
 
@@ -93,7 +91,6 @@ namespace MercadoMain.Controllers.Usuarios
         public ActionResult Excluir(int id)
         {
             var usuario = _appUsuario.ListarPorId(id);
-
             if (usuario == null)
                 return HttpNotFound();
             
@@ -105,7 +102,6 @@ namespace MercadoMain.Controllers.Usuarios
         public ActionResult ExcluirConfirmado(int id)
         {
             var equal = _appLogin.VerificaLogin(id);
-
             if (equal == 1)
             {
                 ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir seu login!");
@@ -114,7 +110,6 @@ namespace MercadoMain.Controllers.Usuarios
             }
 
             equal = _appVenda.VerificaVenda(id);
-
             if (equal == 1)
             {
                 ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir as vendas que ele realizou!");
@@ -123,6 +118,7 @@ namespace MercadoMain.Controllers.Usuarios
             }
 
             _appUsuario.Excluir(id);
+
             return RedirectToAction("Index");
         }
     }

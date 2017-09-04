@@ -40,7 +40,6 @@ namespace MercadoRepositorioADO.Repositorios
 
         public void Salvar(Produto produto)
         {
-            //se passar o id ele vai alterar, se não passar ele vai inserir um novo aluno
             if (produto.Id > 0)
                 Alterar(produto);
             else
