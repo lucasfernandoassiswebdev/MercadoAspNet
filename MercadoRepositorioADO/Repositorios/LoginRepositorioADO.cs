@@ -122,6 +122,7 @@ namespace MercadoRepositorioADO.Repositorios
             {
                 var cmd = contexto.ExecutaComando("VerificaExistenciaSimilar");
                 cmd.Parameters.AddWithValue("@login", login.LoginU);
+                cmd.Parameters.AddWithValue("@Id", login.Usuario);
 
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())

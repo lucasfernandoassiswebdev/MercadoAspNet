@@ -35,7 +35,7 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if(ModelState.IsValid)
             {
-                if (login.LoginU == string.Empty)
+                if (login.Usuario == 0)
                 {
                     ModelState.AddModelError("LOGIN", "Todos os funcionários já tem um login!");
                     ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
@@ -64,7 +64,7 @@ namespace MercadoMain.Controllers.Usuarios
             if (login == null)
                 return HttpNotFound();
 
-            @ViewBag.Login = _appLogin.ListarPorId(id);
+            ViewBag.Login = _appLogin.ListarPorId(id);
             return View();
         }
 
@@ -74,6 +74,15 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if(ModelState.IsValid)
             {
+                var equal = _appLogin.VerificaExistenciaSimilar(login);
+                if (equal == 1)
+                {
+                    ModelState.AddModelError("LOGIN", "Este login já existe!");
+                    ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
+                    ViewBag.Login = _appLogin.ListarPorId(login.Id);
+                    return View("Editar");
+                }
+
                 _appLogin.Salvar(login);
                 return RedirectToAction("Index");
             }

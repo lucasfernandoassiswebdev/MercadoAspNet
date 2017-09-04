@@ -4,7 +4,7 @@
     ViewBag.Title = "Editar";
 }
 
-<h2>Editar informações de login</h2>
+<h2 style="margin-bottom: 10px">Editar informações de login</h2>
 
 
 @using (Html.BeginForm())
@@ -12,12 +12,11 @@
     @Html.AntiForgeryToken()
     
     <div class="form-horizontal">
-        <h4>Login</h4>
-        <hr />
-        @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+        <hr style="margin-top: 20px;margin-bottom: 60px"/>
+        @Html.ValidationSummary(false, "", new { @class = "text-danger" })
         @Html.HiddenFor(model => model.Id)
         
-        <div style="margin-left: 9.4%;margin-bottom:0.5%">
+        <div style="margin-left: 9.4%; margin-bottom: 0.5%;margin-top: 30px">
             <label for="loginUsuario">Login desejado</label>
             <input type="text" id="loginUsuario" name="LoginU" value="@ViewBag.Login.LoginU"/>
         </div>
