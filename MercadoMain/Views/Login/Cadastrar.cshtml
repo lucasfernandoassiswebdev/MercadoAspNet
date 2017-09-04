@@ -10,7 +10,7 @@
     }
 </style>
 
-<h2>Cadastrar novo login</h2>
+<h2 style="margin-bottom: 60px">Cadastrar novo login</h2>
 
 
 @using (Html.BeginForm()) 
@@ -19,7 +19,7 @@
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
     <div class="form-horizontal">
-        <hr style="margin-top: 100px;margin-bottom: 40px"/>
+        <hr style="margin-top: 30px;margin-bottom: 40px"/>
         
         <div class="form-group" style="margin-left:8.0%">
             <label for="nomeUsuario">Login desejado:</label>
@@ -58,18 +58,18 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         $(document).ready(function () {
-            $('#LoginU').keyup(function () {
-                var contador = $('#LoginU').val().length;
+            $('#nomeUsuario').keyup(function () {
+                var contador = $('#nomeUsuario').val().length;
                 verificaCaracteres(contador);
             });
 
-            $('#LoginU').blur(function () {
-                var contador = $('#LoginU').val().length;
+            $('#nomeUsuario').blur(function () {
+                var contador = $('#nomeUsuario').val().length;
                 verificaCaracteres(contador);
             });
 
-            $('#LoginU').focus(function () {
-                var contador = $('#LoginU').val().length;
+            $('#nomeUsuario').focus(function () {
+                var contador = $('#nomeUsuario').val().length;
                 verificaCaracteres(contador);
             });
         });

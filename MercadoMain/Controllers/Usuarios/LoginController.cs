@@ -35,9 +35,26 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if(ModelState.IsValid)
             {
+                if (login.LoginU == string.Empty)
+                {
+                    ModelState.AddModelError("LOGIN", "Todos os funcionários já tem um login!");
+                    ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
+                    return View("Cadastrar");
+                }
+
+                var equal = _appLogin.VerificaExistenciaSimilar(login);
+                if (equal == 1)
+                {
+                    ModelState.AddModelError("LOGIN", "Este funcionário já tem um login ou já existe um login igual a este!");
+                    ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
+                    return View("Cadastrar");
+                }
+
                 _appLogin.Salvar(login);
                 return RedirectToAction("Index"); 
             }
+
+            ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
             return View(login);
         }
 

@@ -10,5 +10,6 @@ namespace MercadoDominio.Interfaces
         IEnumerable<Login> ListarTodos();
         Login ListarPorId(int id);
         int VerificaLogin(int id);
+        int VerificaExistenciaSimilar(Login login);
     }
 }

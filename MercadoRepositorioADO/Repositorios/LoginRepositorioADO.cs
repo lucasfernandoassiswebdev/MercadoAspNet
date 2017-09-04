@@ -115,5 +115,20 @@ namespace MercadoRepositorioADO.Repositorios
                 return 0;
             }
         }
+
+        public int VerificaExistenciaSimilar(Login login)
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("VerificaExistenciaSimilar");
+                cmd.Parameters.AddWithValue("@login", login.LoginU);
+
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return 1;
+
+                return 0;
+            }
+        }
     }
 }

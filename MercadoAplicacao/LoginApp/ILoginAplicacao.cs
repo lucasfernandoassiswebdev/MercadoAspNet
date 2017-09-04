@@ -10,5 +10,6 @@ namespace MercadoAplicacao.LoginApp
         IEnumerable<Login> ListarTodos();
         Login ListarPorId(int id);
         int VerificaLogin(int id);
+        int VerificaExistenciaSimilar(Login login);
     }
 }

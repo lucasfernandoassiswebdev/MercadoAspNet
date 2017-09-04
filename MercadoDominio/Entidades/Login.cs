@@ -8,7 +8,7 @@ namespace MercadoDominio.Entidades
         public  int Id { get; set; }
 
         [Required(ErrorMessage = "É obrigatório escolher um login")]
-        [StringLength(50, ErrorMessage = "O login deverá ter no mínimo 6 letras e no máximo 50", MinimumLength = 6)]
+        [StringLength(50, ErrorMessage = "O login deverá ter no mínimo 5 letras e no máximo 50", MinimumLength = 5)]
         [DisplayName("Login desejado: ")]
         public string LoginU { get; set; }
 

@@ -37,5 +37,10 @@ namespace MercadoAplicacao.LoginApp
         {
             return _appLogin.VerificaLogin(id);
         }
+
+        public int VerificaExistenciaSimilar(Login login)
+        {
+            return _appLogin.VerificaExistenciaSimilar(login);
+        }
     }
 }
