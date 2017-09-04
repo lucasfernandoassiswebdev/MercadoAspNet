@@ -95,6 +95,7 @@ namespace MercadoRepositorioADO.Repositorios
                 var cmd = contexto.ExecutaComando("VerificaUsuarioIgual");
                 cmd.Parameters.AddWithValue("@nome", usuario.Nome);
                 cmd.Parameters.AddWithValue("@nivel", usuario.Nivel);
+                cmd.Parameters.AddWithValue("@Id", usuario.Id);
 
                 using (var reader = cmd.ExecuteReader())
                     while (reader.Read())

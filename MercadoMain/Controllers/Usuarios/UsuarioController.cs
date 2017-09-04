@@ -61,6 +61,13 @@ namespace MercadoMain.Controllers.Usuarios
         {
             if (ModelState.IsValid)
             {
+                var equals = _appUsuario.VerificaExistenciaSimilar(usuario);
+                if (equals == 1)
+                {
+                    ModelState.AddModelError("USUARIO", "Já existe usuário com este mesmo nome e nível!");
+                    return View("Editar");
+                }
+
                 _appUsuario.Salvar(usuario);
                 return RedirectToAction("Index");
             }
@@ -92,7 +99,6 @@ namespace MercadoMain.Controllers.Usuarios
         [ValidateAntiForgeryToken]
         public ActionResult ExcluirConfirmado(int id)//pro c# esse método se chama excluirconfirmado mas pro ASP se chama Excluir, igual o de cima
         {
-            var usuario = _appUsuario.ListarPorId(id);
             _appUsuario.Excluir(id);
             return RedirectToAction("Index");
         }
