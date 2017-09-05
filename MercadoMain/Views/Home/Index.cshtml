@@ -13,7 +13,7 @@
     }
 </style>
 
-@using (Html.BeginForm())
+@using (Html.BeginForm("Index", "Home"))
 { 
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })

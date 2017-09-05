@@ -45,7 +45,8 @@ namespace MercadoMain.Controllers
                     return RedirectToAction("Index");
                 }
 
-                return RedirectToAction("Unauthorized");
+                ModelState.AddModelError("LOGIN", "Você não está logado ou suas informações de login estão incorretas!");
+                return View("Index");
             }
 
             return View(login);
