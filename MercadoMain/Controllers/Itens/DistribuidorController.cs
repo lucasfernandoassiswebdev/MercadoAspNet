@@ -77,31 +77,19 @@ namespace MercadoMain.Controllers.Produtos
             return View(distribuidor);
         }
 
-       
-
         public ActionResult Excluir(int id)
-        {
-            var distribuidor = _appDistribuidor.ListarPorId(id);
-            if (distribuidor == null)
-                return HttpNotFound();
-
-            return View(distribuidor);
-        }
-
-        [HttpPost, ActionName("Excluir")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)
         {
             var equals = _appDistribuidor.VerificaDistribuidor(id);
             if (equals == 1)
             {
                 ModelState.AddModelError("DISTRIBUIDOR", "Este distribuidor não pode ser excluído porque já está relacionado a algum produto!");
-                var distribuidorA = _appDistribuidor.ListarPorId(id);
-                return View(distribuidorA);
+                var listaDeDistribuidores = _appDistribuidor.ListarTodos();
+                return View("Index", listaDeDistribuidores);
             }
 
             var distribuidor = _appDistribuidor.ListarPorId(id);
             _appDistribuidor.Excluir(distribuidor);
+
             return RedirectToAction("Index");
         }
     }

@@ -6,10 +6,11 @@
 
 <h2>Lista de distribuidores</h2>
 
-<p>
+<p style="margin-top: 40px">
     @Html.ActionLink("Criar novo", "Cadastrar")
+    @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 </p>
-<table class="table">
+<table class="table" style="margin-top: 40px">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.Nome)

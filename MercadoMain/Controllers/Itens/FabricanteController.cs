@@ -75,26 +75,14 @@ namespace MercadoMain.Controllers.Produtos
             return View(fabricante);
         }
 
-      
         public ActionResult Excluir(int id)
-        {
-            var fabricante = _appFabricante.ListarPorId(id);
-            if (fabricante == null)
-                return HttpNotFound();
-
-            return View(fabricante);
-        }
-
-        [HttpPost, ActionName("Excluir")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)
         {
             var equals = _appFabricante.VerificaFabricante(id);
             if (equals == 1)
             {
                 ModelState.AddModelError("FABRICANTE", "Este fabricante tem produtos relacionados e por isso não pode ser excluído!");
-                var fabricanteA = _appFabricante.ListarPorId(id);
-                return View(fabricanteA);
+                var listaDeFabricantes = _appFabricante.ListarTodos();
+                return View("Index",listaDeFabricantes);
             }
 
             var fabricante = _appFabricante.ListarPorId(id);

@@ -184,11 +184,9 @@
     <Content Include="Views\Fabricante\Index.cshtml" />
     <Content Include="Views\Fabricante\Cadastrar.cshtml" />
     <Content Include="Views\Fabricante\Editar.cshtml" />
-    <Content Include="Views\Fabricante\Excluir.cshtml" />
     <Content Include="Views\Distribuidor\Index.cshtml" />
     <Content Include="Views\Distribuidor\Cadastrar.cshtml" />
     <Content Include="Views\Distribuidor\Editar.cshtml" />
-    <Content Include="Views\Distribuidor\Excluir.cshtml" />
     <Content Include="Views\Produto\Index.cshtml" />
     <Content Include="Views\Produto\Cadastrar.cshtml" />
     <Content Include="Views\Produto\Editar.cshtml" />
