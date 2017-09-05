@@ -62,11 +62,15 @@ namespace MercadoMain.Controllers.Vendas
                 };
                 _appEstoque.Salvar(estoque);
 
-                return RedirectToAction("Index");
+                ViewBag.Produtos = _appProdutos.ListarTodos();
+                ViewBag.Funcionario = _appUsuarios.ListarTodos();
+                ViewBag.Estoque = _appEstoque.ListarTodos();
+                return RedirectToAction("Cadastrar");
             }
 
             ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarTodos();
+            ViewBag.Estoque = _appEstoque.ListarTodos();
             return View(venda);
         }
 
