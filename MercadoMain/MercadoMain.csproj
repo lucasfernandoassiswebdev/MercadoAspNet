@@ -184,12 +184,10 @@
     <Content Include="Views\Fabricante\Index.cshtml" />
     <Content Include="Views\Fabricante\Cadastrar.cshtml" />
     <Content Include="Views\Fabricante\Editar.cshtml" />
-    <Content Include="Views\Fabricante\Detalhes.cshtml" />
     <Content Include="Views\Fabricante\Excluir.cshtml" />
     <Content Include="Views\Distribuidor\Index.cshtml" />
     <Content Include="Views\Distribuidor\Cadastrar.cshtml" />
     <Content Include="Views\Distribuidor\Editar.cshtml" />
-    <Content Include="Views\Distribuidor\Detalhes.cshtml" />
     <Content Include="Views\Distribuidor\Excluir.cshtml" />
     <Content Include="Views\Produto\Index.cshtml" />
     <Content Include="Views\Produto\Cadastrar.cshtml" />
@@ -199,12 +197,10 @@
     <Content Include="Views\Estoque\Index.cshtml" />
     <Content Include="Views\Estoque\Cadastrar.cshtml" />
     <Content Include="Views\Estoque\Editar.cshtml" />
-    <Content Include="Views\Estoque\Detalhes.cshtml" />
     <Content Include="Views\Estoque\Excluir.cshtml" />
     <Content Include="Views\Usuario\Index.cshtml" />
     <Content Include="Views\Usuario\Cadastrar.cshtml" />
     <Content Include="Views\Usuario\Editar.cshtml" />
-    <Content Include="Views\Usuario\Detalhes.cshtml" />
     <Content Include="Views\Usuario\Excluir.cshtml" />
     <Content Include="Views\Venda\Detalhes.cshtml" />
     <Content Include="Views\Venda\Excluir.cshtml" />

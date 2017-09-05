@@ -77,14 +77,7 @@ namespace MercadoMain.Controllers.Produtos
             return View(distribuidor);
         }
 
-        public ActionResult Detalhes(int id)
-        {
-            var distribuidor = _appDistribuidor.ListarPorId(id);
-            if (distribuidor == null)
-                return HttpNotFound();
-
-            return View(distribuidor);
-        }
+       
 
         public ActionResult Excluir(int id)
         {

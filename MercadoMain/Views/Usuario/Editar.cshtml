@@ -24,17 +24,18 @@
         <hr style="margin-bottom: 60px" />
         <div class="form-group" style="margin-left:8.2%">
             <label for="nomeUsuario">Nome do usuário:</label>
-            <input type="text" id="nomeUsuario" name="Nome" @*placeholder="@Model.Nome"*@/>
+            <input type="text" id="nomeUsuario" name="Nome" value="@Model.Nome"/>
             <p id="alerta" style="margin-left: 10px"></p>
         </div>
 
         <label for="batata" style="margin-left:14.5%">Nível</label>
         <select id="batata" name="Nivel">
-            <option value="A">A</option>
-            <option value="B">B</option>
-            <option value="C">C</option>
-            <option value="D">D</option>
-            <option value="E">E</option>
+            <option value="Gerente">Gerente</option>
+            <option value="Vendedor">Vendedor</option>
+            <option value="Açougueiro">Açougueiro</option>
+            <option value="Auxiliar limpeza">Auxiliar limpeza</option>
+            <option value="Caixa">Caixa</option>
+            <option value="TI">TI</option>
         </select><br /><br />
 
         <div class="form-group">

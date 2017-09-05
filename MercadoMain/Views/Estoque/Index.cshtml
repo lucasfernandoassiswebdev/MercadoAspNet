@@ -4,12 +4,15 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Lista do estoque</h2>
+<h2 style="margin-bottom: 60px">Lista do estoque</h2>
 
-<p>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+
+<p style="margin-bottom: 0px">
     @Html.ActionLink("Cadastrar novo item", "Cadastrar")
 </p>
-<table class="table">
+
+<table class="table" style="margin-top: 20px">
     <tr>
         <th>
             @Html.DisplayNameFor(model => model.IdProduto)
@@ -30,7 +33,6 @@
         </td>
         <td>
             @Html.ActionLink("Editar", "Editar", new { id = item.IdProduto }) |
-            @Html.ActionLink("Detalhes", "Detalhes", new { id = item.IdProduto }) |
             @Html.ActionLink("Deletar", "Excluir", new { id = item.IdProduto })
         </td>
     </tr>

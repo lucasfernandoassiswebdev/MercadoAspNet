@@ -2,6 +2,7 @@
 using MercadoAplicacao.ProdutoApp;
 using MercadoDominio.Entidades;
 using MercadoMain.Controllers.Autenticacao;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MercadoMain.Controllers.Produtos
@@ -27,8 +28,17 @@ namespace MercadoMain.Controllers.Produtos
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Produtos = _appProdutos.ListarProdutosForaEstoque();
-            return View();
+            var produtos = _appProdutos.ListarProdutosForaEstoque();
+
+            if (produtos != null && produtos.Any())
+            {
+                ViewBag.Produtos = produtos;
+                return View();
+            }
+
+            var listaDoEstoque = _appEstoque.ListarTodos();
+            ModelState.AddModelError("ESTOQUE","Não há novos produtos a serem cadastrados no estoque!");
+            return View("Index",listaDoEstoque);
         }
 
         [HttpPost]
@@ -75,16 +85,6 @@ namespace MercadoMain.Controllers.Produtos
 
             ViewBag.Produto = _appProdutos.ListarPorId(estoque.IdProduto);
 
-            return View(estoque);
-        }
-
-        public ActionResult Detalhes(int id)
-        {
-            var estoque = _appEstoque.ListarPorId(id);
-            if (estoque == null)
-                return HttpNotFound();
-
-            ViewBag.Produto = _appProdutos.ListarPorId(id);
             return View(estoque);
         }
 
