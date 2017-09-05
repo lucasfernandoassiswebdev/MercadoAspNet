@@ -14,6 +14,7 @@ namespace MercadoDominio.Entidades
         [Required(ErrorMessage = "Digite a quantidade")]
         [DisplayName("Quantidade: ")]
         [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Quantidade inválida, digite apenas 2 casas depois da vírgula")]
+        [Range(1, 9999, ErrorMessage = "Valor informado inválido")]
         public decimal Quantidade { get; set; }
 
         [Required(ErrorMessage = "Selecione o funcionário")]

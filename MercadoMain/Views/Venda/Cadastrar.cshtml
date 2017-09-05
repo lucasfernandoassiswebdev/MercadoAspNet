@@ -8,18 +8,21 @@
 {
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
+    
     <div class="form-horizontal">
         <hr />
         <label for="PRODUTO" style="margin-left:5.8%">Selecione um produto: </label>
         <select name="IdProduto" id="PRODUTO">
-            @foreach(var produto in ViewBag.Produtos)
+            @foreach(var produto in (IEnumerable<Produto>)ViewBag.Produtos)
             {
-                <option value="@produto.Id">@produto.Nome</option>
+                var estoque = ((IEnumerable<Estoque>)ViewBag.Estoque).FirstOrDefault(x => x.IdProduto == produto.Id);
+                <option value="@produto.Id" data-estoque="@(estoque != null ? estoque.Quantidade : 0)">@produto.Nome</option>
             }
         </select>
-
-       <div class="form-group" style="margin-left: -60px">
-            @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
+        <span id="qtdEstoque" style="margin-left: 10px"></span>
+       
+        <div class="form-group" style="margin-left: -60px">
+            @Html.LabelFor(model => model.Quantidade, new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control" } })
                 @Html.ValidationMessageFor(model => model.Quantidade, "", new { @class = "text-danger" })
@@ -52,7 +55,14 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         var d = new Date();
+        $("#DataAtual").val(d.toDateString());
 
-        document.getElementById("DataAtual").value = d.toDateString();
+        $("#PRODUTO").change(function() {
+            var qtdEstoque = +$(this).find("option:selected").attr("data-estoque");
+            if (!qtdEstoque)
+                return;
+
+            $("#qtdEstoque").html("Quantidade em estoque: " + qtdEstoque);
+        }).trigger("change");
     </script>
 }

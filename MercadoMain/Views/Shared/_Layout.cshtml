@@ -35,6 +35,8 @@
             background-color: #111;
         }
     </style>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/bootstrap")
 </head>
 <body>
 
@@ -59,8 +61,6 @@ else
 }
 
 @RenderBody()
-@Scripts.Render("~/bundles/jquery")
-@Scripts.Render("~/bundles/bootstrap")
 @RenderSection("scripts", required: false)
 </body>
 </html>

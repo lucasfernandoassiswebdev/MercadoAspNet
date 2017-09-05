@@ -33,6 +33,7 @@ namespace MercadoMain.Controllers.Vendas
         {
             ViewBag.Produtos = _appProdutos.ListarTodos();
             ViewBag.Funcionario = _appUsuarios.ListarTodos();
+            ViewBag.Estoque = _appEstoque.ListarTodos();
             return View();
         }
 
