@@ -37,7 +37,7 @@ namespace MercadoMain.Controllers.Produtos
             }
 
             var listaDoEstoque = _appEstoque.ListarTodos();
-            ModelState.AddModelError("ESTOQUE","Não há novos produtos a serem cadastrados no estoque!");
+            ModelState.AddModelError("LOGIN","Todos os usuários cadastrados já tem um login");
             return View("Index",listaDoEstoque);
         }
 

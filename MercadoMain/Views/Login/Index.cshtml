@@ -4,9 +4,9 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
-
-<p>
+<h2 style="margin-bottom: 60px">Index</h2>
+@Html.ValidationSummary(false, "", new { @class = "text-danger" })
+<p style="margin-top: 10px">
     @Html.ActionLink("Criar novo login", "Cadastrar")
 </p>
 <table class="table">
@@ -16,9 +16,6 @@
         </th>
         <th>
             @Html.DisplayNameFor(model => model.Usuario)
-        </th>
-        <th style="margin-left:-300px">
-            @Html.DisplayNameFor(model => model.Senha)
         </th>
         <th></th>
     </tr>
@@ -30,9 +27,6 @@
         </td>
         <td>
             @item.Funcionario.Nome
-        </td>
-        <td>
-            @item.Senha
         </td>
         <td>
             @Html.ActionLink("Editar", "Editar", new {  id= item.Usuario }) |

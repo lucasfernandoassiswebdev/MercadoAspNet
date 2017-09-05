@@ -1,6 +1,4 @@
-﻿using MercadoAplicacao.LoginApp;
-using MercadoAplicacao.UsuarioApp;
-using MercadoAplicacao.VendasApp;
+﻿using MercadoAplicacao.UsuarioApp;
 using MercadoDominio.Entidades;
 using MercadoMain.Controllers.Autenticacao;
 using System.Web.Mvc;
@@ -10,14 +8,10 @@ namespace MercadoMain.Controllers.Usuarios
     public class UsuarioController : AuthController
     {
         private readonly IUsuarioAplicacao _appUsuario;
-        private readonly ILoginAplicacao _appLogin;
-        private readonly IVendasAplicacao _appVenda;
-
-        public UsuarioController(IUsuarioAplicacao usuario, ILoginAplicacao login, IVendasAplicacao venda)
+      
+        public UsuarioController(IUsuarioAplicacao usuario)
         {
             _appUsuario = usuario;
-            _appLogin = login;
-            _appVenda = venda;
         }
 
         public ActionResult Index()
@@ -80,17 +74,6 @@ namespace MercadoMain.Controllers.Usuarios
         }
 
         public ActionResult Excluir(int id)
-        {
-            var usuario = _appUsuario.ListarPorId(id);
-            if (usuario == null)
-                return HttpNotFound();
-            
-            return View(usuario);
-        }
-
-        [HttpPost, ActionName("Excluir")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)
         {
             _appUsuario.Excluir(id);
             return RedirectToAction("Index");

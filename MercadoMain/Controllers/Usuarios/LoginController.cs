@@ -2,6 +2,7 @@
 using MercadoAplicacao.UsuarioApp;
 using MercadoDominio.Entidades;
 using MercadoMain.Controllers.Autenticacao;
+using System.Linq;
 using System.Web.Mvc;
 
 namespace MercadoMain.Controllers.Usuarios
@@ -25,8 +26,17 @@ namespace MercadoMain.Controllers.Usuarios
 
         public ActionResult Cadastrar()
         {
-            ViewBag.Usuarios = _appUsuario.ListarUsuariosSemLogin();
-            return View();
+            var usuarios = _appUsuario.ListarUsuariosSemLogin();
+
+            if (usuarios != null && usuarios.Any())
+            {
+                ViewBag.Usuarios = usuarios;
+                return View();
+            }
+
+            ModelState.AddModelError("ESTOQUE", "Não há novos produtos a serem cadastrados no estoque!");
+            var listaDeLogins = _appLogin.ListarTodos();
+            return View("Index", listaDeLogins);
         }
 
         [HttpPost]
@@ -90,17 +100,6 @@ namespace MercadoMain.Controllers.Usuarios
         }
 
         public ActionResult Excluir(int id)
-        {
-            var login = _appLogin.ListarPorId(id);
-            if(login == null)
-                return HttpNotFound();
-
-            return View(login);
-        }
-
-        [HttpPost, ActionName("Excluir")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)
         {
             var login = _appLogin.ListarPorId(id);
             _appLogin.Excluir(login);
