@@ -57,14 +57,14 @@
         });
 
         function verificaCaracteres(quantidade) {
-            if (quantidade > 75) {
+            if (quantidade > 50) {
                 $('#alerta').text('Tamanho de nome inválido').css({
                     color: 'red',
                     'font-weight': 'bold'
                 });
                 $('input[type="submit"]').prop('disabled',true);
             } else {
-                $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
+                $('#alerta').text('Caracteres restantes: ' + (50 - quantidade)).css({
                     color: 'black',
                     'font-weight': 'normal'
                 });

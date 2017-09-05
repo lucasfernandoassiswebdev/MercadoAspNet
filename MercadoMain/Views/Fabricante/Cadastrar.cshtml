@@ -26,7 +26,7 @@
             <p id="alerta" style="margin-left: 10px"></p>
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-left: -50px">
             <div class="col-md-offset-2 col-md-10">
                 <input  type="submit" value="Cadastrar" class="btn btn-default" />
             </div>
@@ -58,14 +58,14 @@
         });
 
         function verificaCaracteres(quantidade) {
-            if (quantidade > 75) {
+            if (quantidade > 50) {
                 $('#alerta').text('Tamanho de nome inválido').css({
                     color: 'red',
                     'font-weight': 'bold'
                 });
                 $('input[type="submit"]').prop('disabled', true);
             } else {
-                $('#alerta').text('Caracteres restantes: ' + (75 - quantidade)).css({
+                $('#alerta').text('Caracteres restantes: ' + (50 - quantidade)).css({
                     color: 'black',
                     'font-weight': 'normal'
                 });

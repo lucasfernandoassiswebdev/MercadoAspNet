@@ -18,9 +18,10 @@
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
 
-    <div style="margin-top: 2%">
+    <div style="margin-top: 3%">
     <h2 style="margin-left: 40%">Página inicial</h2><br/>
-    <h3 style="margin-left: 43.5%">Login</h3><br/>
+        <h3 style="margin-left: 43.5%">Login</h3><br/>
+
     @if(Session["Login"] == null)
      {
          <div style="margin-left: 40%">
@@ -35,7 +36,7 @@
     }
     else
     {
-        <div style="margin-left: 45%">@Html.ActionLink("Deslogar", "Logoff")</div>
+        <div style="margin-left: 43.7%">@Html.ActionLink("Deslogar", "Logoff")</div>
     }
     </div>
 }
