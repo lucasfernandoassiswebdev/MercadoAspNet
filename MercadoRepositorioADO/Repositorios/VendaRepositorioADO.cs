@@ -17,6 +17,7 @@ namespace MercadoRepositorioADO.Repositorios
                 cmd.Parameters.AddWithValue("@IdProduto", venda.IdProduto);
                 cmd.Parameters.AddWithValue("@Quantidade", venda.Quantidade);
                 cmd.Parameters.AddWithValue("@IdFuncionario", venda.IdFuncionario);
+                cmd.Parameters.AddWithValue("@Data", venda.Data);
                 cmd.ExecuteNonQuery();
             }
         }
@@ -66,6 +67,7 @@ namespace MercadoRepositorioADO.Repositorios
                             IdVenda = reader.ReadAsInt("IdVenda"),
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             IdFuncionario = reader.ReadAsInt("Funcionario"),
+                            Data = reader.ReadAsString("Data"),
                             Produto = new Produto
                             {
                                 Nome = reader.ReadAsString("Produto")

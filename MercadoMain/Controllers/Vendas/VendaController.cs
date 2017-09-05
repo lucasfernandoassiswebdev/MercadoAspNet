@@ -52,13 +52,13 @@ namespace MercadoMain.Controllers.Vendas
             if (ModelState.IsValid)
             {
                 _appVendas.Salvar(venda);
+
                 var estoque = new Estoque
                 {
                     Id = IdEstoque,
                     IdProduto = venda.IdProduto,
                     Quantidade = (decimal)novoEstoque
                 };
-
                 _appEstoque.Salvar(estoque);
 
                 return RedirectToAction("Index");

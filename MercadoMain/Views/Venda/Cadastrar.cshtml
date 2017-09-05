@@ -18,7 +18,7 @@
             }
         </select>
 
-       <div class="form-group">
+       <div class="form-group" style="margin-left: -60px">
             @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Quantidade, new { htmlAttributes = new { @class = "form-control" } })
@@ -26,7 +26,7 @@
             </div>
         </div>
 
-        <label for="funcionarios" style="margin-left:4%">Selecione um funcionário: </label>
+        <label for="funcionarios" style="margin-left:4.3%">Selecione um funcionário: </label>
         <select name="IdFuncionario" id="funcionarios">
             @foreach (var funcionario in ViewBag.Funcionario)
             {
@@ -36,9 +36,11 @@
 
         <div class="form-group">
             <div class="col-md-offset-2 col-md-10">
-                <input type="submit" value="Registrar venda" class="btn btn-default" @*@(Model.Quantidade <= ViewBag.Estoque ? "readonly" : string.Empty)*@/>
+                <input type="submit" value="Registrar venda" class="btn btn-default"/>
             </div>
         </div>
+        
+        <input type="hidden" name="Data" id="DataAtual"/>
     </div>
 }
 
@@ -48,4 +50,9 @@
 
 @section Scripts {
     @Scripts.Render("~/bundles/jqueryval")
+    <script>
+        var d = new Date();
+
+        document.getElementById("DataAtual").value = d.toDateString();
+    </script>
 }

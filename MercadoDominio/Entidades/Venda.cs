@@ -20,6 +20,8 @@ namespace MercadoDominio.Entidades
         [DisplayName("Funcionário: ")]
         public int IdFuncionario { get; set; }
 
+        public  string Data { get; set; }
+
         public Produto Produto { get; set; }
         public Usuario Funcionario { get; set; } 
     }

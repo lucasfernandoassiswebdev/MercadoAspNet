@@ -20,6 +20,9 @@
         <th>
             @Html.DisplayNameFor(model => model.IdFuncionario)
         </th>
+        <th>
+            @Html.DisplayNameFor(model => model.Data)
+        </th>
         <th></th>
     </tr>
 
@@ -35,7 +38,10 @@
            @item.Quantidade
         </td>
         <td>
-           @item.Funcionario.Nome
+            @item.Funcionario.Nome
+        </td>
+        <td>
+            @item.Data
         </td>
         <td>
             @Html.ActionLink("Editar", "Editar", new { id = item.IdVenda }) |
