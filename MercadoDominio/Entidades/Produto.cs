@@ -17,6 +17,7 @@ namespace MercadoDominio.Entidades
 
         [Required(ErrorMessage = "Preencha o valor")]
         [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Valor de preço inválido, lembre-se de preencher no máximo 2 casas decimais e apenas números.")]
+        [Range(1, 10000, ErrorMessage = "Valor informado inválido")]
         [DisplayName("Valor: ")]
         public decimal Valor { get; set; }
 

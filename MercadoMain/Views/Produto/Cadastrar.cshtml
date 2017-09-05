@@ -21,13 +21,13 @@
 
     <div class="form-horizontal">
         <hr />
-        <div class="form-group" style="margin-left:8.2%">
+        <div class="form-group" style="margin-left:2.2%">
             <label for="nomeProduto">Nome do Produto</label>
             <input type="text" id="nomeProduto" name="Nome" />
             <p id="alerta" style="margin-left: 10px"></p>
         </div>
 
-        <div style="margin-left:11%">
+        <div style="margin-left:4.3%">
             <label for="batata">Fabricante</label>
             <select name="IdFabricante" id="batata" style="margin-left: 10px">
                 @foreach (var fabricante in (IEnumerable<Fabricante>)ViewBag.Fabricantes)
@@ -45,7 +45,7 @@
             </select><br /><br />
         </div>
 
-        <div class="form-group">
+        <div class="form-group" style="margin-left: -10%">
             @Html.LabelFor(model => model.Valor, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">
                 @Html.EditorFor(model => model.Valor, new { htmlAttributes = new { @class = "form-control" } })
@@ -54,7 +54,7 @@
         </div>
         
         <!--pegando a imagem do produto com o datepicker do bootstrap-->
-        <div class="form-group" style="margin-left: 15%">
+        <div class="form-group" style="margin-left: 9%">
             <label for="imagem">Selecione a imagem do produto</label>
             <span class="input-group-btn" id="imagem" style="width:auto">
                 <span class="btn btn-primary btn-file" style="width: auto" >
@@ -66,7 +66,7 @@
         <button onclick="limpa()" style="margin-left: 15%" value="any" type="button">Limpar imagem</button>
         <br/><br />
         
-        <div style="margin-left: 10%">
+        <div style="margin-left: 5%">
             Foto atual:
             <img style="max-width: 300px; max-height: 300px"  src="../../Imagens/padrao.jpg" id="fotoAtual" />
         </div>
