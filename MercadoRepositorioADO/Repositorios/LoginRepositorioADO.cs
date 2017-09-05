@@ -101,13 +101,14 @@ namespace MercadoRepositorioADO.Repositorios
             }
         }
 
-        public int VerificaLogin(int id)
+        public int VerificaLogin(Login login)
         {
             using (contexto = new Contexto.Contexto())
             {
                 var cmd = contexto.ExecutaComando("VerificaLogin");
-                cmd.Parameters.AddWithValue("@IdFuncionario", id);
-                
+                cmd.Parameters.AddWithValue("@login", login.LoginU);
+                cmd.Parameters.AddWithValue("@senha", login.Senha);
+
                 using (var reader = cmd.ExecuteReader())
                     if (reader.Read())
                         return 1;

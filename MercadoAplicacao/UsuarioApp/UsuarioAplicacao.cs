@@ -42,5 +42,10 @@ namespace MercadoAplicacao.UsuarioApp
         {
             return _appUsuario.ListarUsuariosSemLogin();
         }
+
+        public string VerificaNivelUsuario(int id)
+        {
+            return _appUsuario.VerificaNivelUsuario(id);
+        }
     }
 }

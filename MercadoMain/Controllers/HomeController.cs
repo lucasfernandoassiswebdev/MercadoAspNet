@@ -1,4 +1,5 @@
 ﻿using MercadoAplicacao.LoginApp;
+using MercadoAplicacao.UsuarioApp;
 using MercadoDominio.Entidades;
 using System.Web.Mvc;
 
@@ -6,11 +7,13 @@ namespace MercadoMain.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILoginAplicacao _appLogin; 
+        private readonly ILoginAplicacao _appLogin;
+        private readonly IUsuarioAplicacao _appUsuario;
 
-        public HomeController(ILoginAplicacao login)
+        public HomeController(ILoginAplicacao login, IUsuarioAplicacao usuario)
         {
             _appLogin = login;
+            _appUsuario = usuario;
         }
 
         public ActionResult Index()
@@ -20,8 +23,8 @@ namespace MercadoMain.Controllers
 
         public ActionResult Unauthorized()
         {
-            ModelState.AddModelError("LOGIN", "Você não está logado!");
-            return RedirectToAction("Index");
+            ModelState.AddModelError("LOGIN", "Você não está logado ou suas informações de login estão incorretas!");
+            return View("Index");
         }
 
         [HttpPost]
@@ -30,34 +33,22 @@ namespace MercadoMain.Controllers
         {
             if (ModelState.IsValid)
             {
-                var logins = _appLogin.ListarTodos();
+                //verificando se o login e senha batem
+                var autorizacao = _appLogin.VerificaLogin(login);
 
-                foreach (var log in logins)
+                if (autorizacao != 0)
                 {
-                    if (log.LoginU == login.LoginU && log.Senha == login.Senha)
-                    {
-                        Session["Login"] = log;
-                    }
+                    //se baterem é verificado o nível do usuário e atribuído a session
+                    var nivel = _appUsuario.VerificaNivelUsuario(autorizacao);
+                    
+                    Session["Login"] = nivel;
+                    return RedirectToAction("Index");
                 }
 
-                return RedirectToAction("LogadoComSucesso");
+                return RedirectToAction("Unauthorized");
             }
 
             return View(login);
-        }
-
-        public ActionResult LogadoComSucesso()
-        {
-            if (Session["Login"] == null)
-            {
-                ViewBag.Resultado = "login ou senha incorretos";
-            }
-            else
-            {
-                ViewBag.Resultado = ((Login)Session["Login"]).Funcionario.Nome + " logado com sucesso";
-            }
-
-            return View();
         }
 
         public ActionResult Logoff()

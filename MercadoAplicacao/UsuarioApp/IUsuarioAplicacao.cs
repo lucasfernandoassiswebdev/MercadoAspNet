@@ -11,5 +11,6 @@ namespace MercadoAplicacao.UsuarioApp
         Usuario ListarPorId(int id);
         int VerificaExistenciaSimilar(Usuario usuario);
         IEnumerable<Usuario> ListarUsuariosSemLogin();
+        string VerificaNivelUsuario(int id);
     }
 }

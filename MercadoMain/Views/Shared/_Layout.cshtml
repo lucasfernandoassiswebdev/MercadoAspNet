@@ -13,7 +13,7 @@
             list-style-type: none;
             margin: 0;
             padding: 0;
-            margin-top: -3.65%;
+            margin-top: -2.90%;
             overflow: hidden;
             background-color: #333;
             color: red;
@@ -38,7 +38,7 @@
 </head>
 <body>
 
-@if (Session["Login"] != null && ((Login)Session["Login"]).Funcionario.Nivel == "A")
+@if (Session["Login"] != null && Session["Login"].ToString() == "Gerente")
 {
     <ul>
         <li>@Html.ActionLink("Inicio", "../Home")</li>
@@ -55,7 +55,7 @@
 }
 else
 {
-    <ul><font style="margin-left: 32%">Você não tem nível suficiente para acessar os menus, faça login</font></ul>
+    @*<ul><font style="margin-left: 32%">Você não tem nível suficiente para acessar os menus, faça login</font></ul>*@
 }
 
 @RenderBody()

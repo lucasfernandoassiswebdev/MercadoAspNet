@@ -17,19 +17,20 @@
 { 
     @Html.AntiForgeryToken()
     @Html.ValidationSummary(false, "", new { @class = "text-danger" })
-    <div style="margin-top: 5%">
+
+    <div style="margin-top: 2%">
     <h2 style="margin-left: 40%">Página inicial</h2><br/>
-    <h3 style="margin-left: 45%">Login</h3><br/>
+    <h3 style="margin-left: 43.5%">Login</h3><br/>
     @if(Session["Login"] == null)
      {
-         <div style="margin-left: 37%">
-             <label for="login">Login:</label>
+         <div style="margin-left: 40%">
+             <label for="login" style="margin-left: 70px">Login</label><br/>
              <input type="text" placeholder="Digite aqui o seu login" name="LoginU" id="login" class="centro"/><br/><br/>
 
-             <label for="senha">Senha:</label>
+             <label for="senha" style="margin-left: 70px">Senha</label><br />
              <input type="password" placeholder="Digite aqui a sua senha" name="Senha" id="senha" class="centro"/><br/><br/>
 
-             <input type="submit" placeholder="Logar" style="margin-left: 13%" value="Logar"/>
+             <input type="submit" placeholder="Logar" style="margin-left: 7%" value="Logar"/>
          </div>
     }
     else

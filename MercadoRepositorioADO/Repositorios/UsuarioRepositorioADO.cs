@@ -124,5 +124,20 @@ namespace MercadoRepositorioADO.Repositorios
                 return listaUsuarios;
             }
         }
+
+        public string VerificaNivelUsuario(int id)
+        {
+            using (contexto = new Contexto.Contexto())
+            {
+                var cmd = contexto.ExecutaComando("VerificaNivel");
+                cmd.Parameters.AddWithValue("@Id", id);
+
+                using (var reader = cmd.ExecuteReader())
+                    if (reader.Read())
+                        return reader.ReadAsString("Nivel");
+
+                return string.Empty;
+            }
+        }
     }
 }

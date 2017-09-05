@@ -97,29 +97,29 @@ namespace MercadoMain.Controllers.Usuarios
             return View(usuario);
         }
 
-        [HttpPost, ActionName("Excluir")]
-        [ValidateAntiForgeryToken]
-        public ActionResult ExcluirConfirmado(int id)
-        {
-            var equal = _appLogin.VerificaLogin(id);
-            if (equal == 1)
-            {
-                ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir seu login!");
-                var usuario = _appUsuario.ListarPorId(id);
-                return View(usuario);
-            }
+        //[HttpPost, ActionName("Excluir")]
+        //[ValidateAntiForgeryToken]
+        //public ActionResult ExcluirConfirmado(int id)
+        //{
+        //    var equal = _appLogin.VerificaLogin(id);
+        //    if (equal == 1)
+        //    {
+        //        ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir seu login!");
+        //        var usuario = _appUsuario.ListarPorId(id);
+        //        return View(usuario);
+        //    }
 
-            equal = _appVenda.VerificaVenda(id);
-            if (equal == 1)
-            {
-                ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir as vendas que ele realizou!");
-                var usuario = _appUsuario.ListarPorId(id);
-                return View(usuario);
-            }
+        //    equal = _appVenda.VerificaVenda(id);
+        //    if (equal == 1)
+        //    {
+        //        ModelState.AddModelError("USUARIO", "Você não pode excluir este usuário antes de excluir as vendas que ele realizou!");
+        //        var usuario = _appUsuario.ListarPorId(id);
+        //        return View(usuario);
+        //    }
 
-            _appUsuario.Excluir(id);
+        //    _appUsuario.Excluir(id);
 
-            return RedirectToAction("Index");
-        }
+        //    return RedirectToAction("Index");
+        //}
     }
 }
