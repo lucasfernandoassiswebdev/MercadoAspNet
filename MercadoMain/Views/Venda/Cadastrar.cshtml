@@ -55,7 +55,7 @@
     @Scripts.Render("~/bundles/jqueryval")
     <script>
         var d = new Date();
-        $("#DataAtual").val(d.toDateString());
+        $("#DataAtual").val(d);
 
         $("#PRODUTO").change(function() {
             var qtdEstoque = +$(this).find("option:selected").attr("data-estoque");

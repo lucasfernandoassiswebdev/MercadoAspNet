@@ -97,6 +97,7 @@ namespace MercadoRepositorioADO.Repositorios
                             IdProduto = reader.ReadAsInt("IdProduto"),
                             Quantidade = reader.ReadAsDecimal("Quantidade"),
                             IdFuncionario = reader.ReadAsInt("Funcionario"),
+                            Data = reader.ReadAsString("Data"),
                             Produto = new Produto
                             {
                                 Nome = reader.ReadAsString("Nome")
