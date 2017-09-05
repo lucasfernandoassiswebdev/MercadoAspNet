@@ -75,15 +75,7 @@ namespace MercadoMain.Controllers.Produtos
             return View(fabricante);
         }
 
-        public ActionResult Detalhes(int id)
-        {
-            var fabricante = _appFabricante.ListarPorId(id);
-            if (fabricante == null)
-                return HttpNotFound();
-
-            return View(fabricante);
-        }
-
+      
         public ActionResult Excluir(int id)
         {
             var fabricante = _appFabricante.ListarPorId(id);

@@ -15,14 +15,14 @@
     <div class="form-horizontal">
        <hr />
         
-        <label for="batata" style="margin-left:13%">Produto</label>
+        <label for="batata" style="margin-left: 13.5%">Produto</label>
         <select name="IdProduto" id="batata">
             @foreach (var produto in (IEnumerable<Produto>)ViewBag.Produtos)
             {
                 <option value="@produto.Id">@produto.Nome</option>
             }
         </select>
-
+        <br/><br />
         <div class="form-group">
             @Html.LabelFor(model => model.Quantidade, htmlAttributes: new { @class = "control-label col-md-2" })
             <div class="col-md-10">

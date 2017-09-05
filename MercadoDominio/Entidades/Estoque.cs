@@ -13,7 +13,8 @@ namespace MercadoDominio.Entidades
 
         [Required(ErrorMessage = "Preencha a quantidade")]
         [DisplayName("Quantidade: ")]
-        [RegularExpression(@"\d+(\.\d{1,2})?", ErrorMessage = "Valor digitado inválido, lembre-se de inserir apenas números e no máximo 2 casas decimais")]
+        [RegularExpression(@"^\d+.?\d{0,2}$", ErrorMessage = "Valor inválido, digite apenas números e lembrese de colocar no máximo 2 casas após a vírgula.")]
+        [Range(1, 10000, ErrorMessage = "Valor informado inválido")]
         public decimal Quantidade { get; set; }
 
         public Produto Produto { get; set; }
